@@ -58,13 +58,13 @@ const AutoSlider = ({ images, interval = 3000, autoPlay = true }) => {
       ))}
       <Button
         onClick={goToPrevious}
-        bg="absolute left-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full"
+        className="absolute left-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full "
       >
         ❮
       </Button>
       <Button
         onClick={goToNext}
-        bg="absolute right-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full"
+        className="absolute right-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full "
       >
         ❯
       </Button>

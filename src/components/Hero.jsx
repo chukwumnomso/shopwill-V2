@@ -20,7 +20,7 @@ const femaleImages = Object.values(femaleImageModules).map(
 
 export default function Hero() {
   return (
-    <div className="flex flex-col gap-1 overflow-hidden">
+    <div className="flex flex-col gap-1 overflow-hidden ">
       <MaleSlider />
       <FemaleSlider />
     </div>
@@ -30,7 +30,7 @@ export default function Hero() {
 // components of the Hero component
 const MaleSlider = () => {
   return (
-    <div className="relative h-[calc(100vh-6rem)] flex items-center justify-center hover:scale-101 transition-transform duration-300">
+    <div className="relative h-[calc(100vh-6rem)] w-full flex items-center  justify-center hover:scale-101 transition-transform duration-300">
       <AutoSlider images={maleImages} interval={5000} />
       <OverLay>
         <MaleHeroText />
@@ -44,9 +44,8 @@ const FemaleSlider = () => {
     <div className="relative h-[calc(100vh-6rem)] flex items-center justify-center  hover:scale-101 transition-transform duration-300">
       <AutoSlider images={femaleImages} interval={5500} />
       <OverLay>
-        <FemaleHeroText />`
+        <FemaleHeroText />
       </OverLay>
-      `
     </div>
   );
 };

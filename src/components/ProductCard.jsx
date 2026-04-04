@@ -35,6 +35,8 @@ const ProductImages = () => {
           className="flex flex-col h-80  mb-8 overflow-hidden cursor-pointer"
           onMouseEnter={() => handleCardHover(card.id)}
           onMouseLeave={handleCardLeave}
+          onTouchStart={() => handleCardHover(card.id)}
+          onTouchEnd={handleCardLeave}
         >
           <div className="w-full h-[80%] bg-gray-200 relative overflow-hidden object-cover object-center flex items-center justify-center">
             <img

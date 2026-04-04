@@ -32,7 +32,7 @@ const ProductImages = () => {
       {front.map((card) => (
         <div
           key={card.id}
-          className="flex flex-col h-80  mb-8 overflow-hidden cursor-pointer"
+          className="flex flex-col h-75  mb-8 overflow-hidden cursor-pointer"
           onMouseEnter={() => handleCardHover(card.id)}
           onMouseLeave={handleCardLeave}
           onTouchStart={() => handleCardHover(card.id)}

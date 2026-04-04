@@ -36,7 +36,7 @@ const ProductImages = () => {
           onMouseEnter={() => handleCardHover(card.id)}
           onMouseLeave={handleCardLeave}
           onTouchStart={() => handleCardHover(card.id)}
-          onTouchEnd={handleCardLeave}
+          // onTouchEnd={handleCardLeave}
         >
           <div className="w-full h-[80%] bg-gray-200 relative overflow-hidden object-cover object-center flex items-center justify-center">
             <img

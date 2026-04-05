@@ -28,11 +28,11 @@ const ProductImages = () => {
   };
 
   return (
-    <div className=" grid grid-cols-2 gap-3  px-3 pt-8">
+    <div className=" grid grid-cols-2 gap-3  px-3 pt-8 md:grid-cols-3">
       {front.map((card) => (
         <div
           key={card.id}
-          className="flex flex-col h-75  mb-8 overflow-hidden cursor-pointer"
+          className="flex flex-col h-65  mb-8 overflow-hidden cursor-pointer sm:h-90 md:h-75 lg:h-100 xl:bg-red-500"
           onMouseEnter={() => handleCardHover(card.id)}
           onMouseLeave={handleCardLeave}
           onTouchStart={() => handleCardHover(card.id)}
@@ -80,7 +80,15 @@ const ProductImages = () => {
             <h2 className="hover:text-gray-700 transition-colors duration-300">
               {card.product_name}
             </h2>
-            <p className="mt-1">₦{card.product_price}</p>
+            <p className="my-1">₦{card.product_price}</p>
+            <p className="text-gray-500 line-through">
+              {card.discounts
+                ? `${card.discounts}% OFF ${(
+                    (card.discounts / 100) * card.product_price +
+                    card.product_price
+                  ).toLocaleString()}`
+                : null}
+            </p>
           </div>
         </div>
       ))}

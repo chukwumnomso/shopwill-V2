@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import supabase from "./supabaseClient";
-import useSupabase from "./supabaseHook";
+import useSupabaseFetch from "./supabaseFetch";
 import Button from "./Button";
 import Icon from "./Icon";
 
@@ -9,36 +9,57 @@ export default function ProductCard() {
 }
 
 const ProductImages = () => {
-  const [front, setFront] = useState([]);
+  const [images, setImages] = useState([]);
   const [prodCardHover, setProdCardHover] = useState(null);
-  const [likedCards, setLikedCards] = useState({}); // ✅ stores like status per card
+  const [likedCards, setLikedCards] = useState(() => {
+    try {
+      const saved = localStorage.getItem("favourites");
 
-  useSupabase("productsV2", "*", setFront);
+      if (saved && saved !== "undefined") {
+        return JSON.parse(saved);
+      }
+    } catch (e) {
+      console.error("Failed to parse favorites", e);
+    }
+    return {};
+  });
+
+  useEffect(() => {
+    localStorage.setItem("favourites", JSON.stringify(likedCards));
+  }, [likedCards]);
+
+  const toggleLike = (cardid) => {
+    setLikedCards((prev) => {
+      const newLiked = { ...prev };
+      if (newLiked[cardid]) {
+        delete newLiked[cardid];
+      } else {
+        newLiked[cardid] = true;
+        console.log("added");
+      }
+      return newLiked;
+    });
+  };
+
+  useSupabaseFetch("product", "*", setImages);
 
   const handleCardHover = (id) => {
     setProdCardHover(id);
   };
   const handleCardLeave = () => setProdCardHover(null);
 
-  const toggleLike = (cardId) => {
-    setLikedCards((prev) => ({
-      ...prev,
-      [cardId]: !prev[cardId], // flip only this card's like status
-    }));
-  };
-
   return (
     <div className=" grid grid-cols-2 gap-3  px-3 pt-8 md:grid-cols-3">
-      {front.map((card) => (
+      {images.map((card) => (
         <div
           key={card.id}
-          className="flex flex-col h-65  mb-8 overflow-hidden cursor-pointer sm:h-90 md:h-75 lg:h-100 xl:bg-red-500"
+          className="flex flex-col h-65  mb-8 overflow-hidden cursor-pointer sm:h-90 md:h-75 lg:h-100 "
           onMouseEnter={() => handleCardHover(card.id)}
           onMouseLeave={handleCardLeave}
           onTouchStart={() => handleCardHover(card.id)}
           // onTouchEnd={handleCardLeave}
         >
-          <div className="w-full h-[80%] bg-gray-200 relative overflow-hidden object-cover object-center flex items-center justify-center">
+          <div className="w-full h-[80%] bg-gray-200 relative overflow-hidden object-cover object-center flex items-center justify-center ">
             <img
               src={card.imageUrl_1}
               alt={card.publicUrl}
@@ -57,12 +78,14 @@ const ProductImages = () => {
                   transform:
                     prodCardHover === card.id ? "" : "translateY(50px)",
                 }}
-                onClick={() => toggleLike(card.id)}
+                onClick={() => {
+                  toggleLike(card.id);
+                }}
               >
                 <Icon
                   name="fav"
                   className="size-5"
-                  fill={likedCards[card.id] ? "teal" : "white"}
+                  fill={likedCards[card.id] ? "#B0E0E6" : "white"}
                 />
               </Button>
               <Button
@@ -76,11 +99,11 @@ const ProductImages = () => {
               </Button>
             </div>
           </div>
-          <div className=" h-[20%] font-[jost] text-[0.8rem] mt-3 px-1 uppercase ">
+          <div className=" h-[20%] font-[jost] text-[0.8rem] mt-1 px-1 uppercase">
             <h2 className="hover:text-gray-700 transition-colors duration-300">
               {card.product_name}
             </h2>
-            <p className="my-1">₦{card.product_price}</p>
+            <p>₦{card.product_price}</p>
             <p className="text-gray-500 line-through">
               {card.discounts
                 ? `${card.discounts}% OFF ${(

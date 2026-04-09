@@ -2,14 +2,14 @@ import Button from "./Button";
 import Icon from "./Icon";
 import { useProduct } from "../context/ProductCardContext";
 import { useWishList } from "../context/WishedListContext";
-import { useModal } from "../context/ModalContext";
+import { usePopUp } from "../context/PopUpContext";
 import { addToCart } from "./supabaseCartActions";
 import { useAuth } from "../context/AuthContex";
 
 const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
   const { handleCardHover, handleCardLeave, prodCardHover } = useProduct();
   const { wishList, ToggleLike } = useWishList();
-  const { modal, setCarted, setModal } = useModal();
+  const { popUp, setCarted, setPopUp } = usePopUp();
   const { user } = useAuth();
 
   return (
@@ -37,7 +37,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
             onClick={() => {
               ToggleLike(product.id, newWishlistItem);
             }}
-            disabled={modal}
+            disabled={popUp}
           >
             <Icon
               name="fav"
@@ -54,13 +54,13 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
             onClick={() => {
               addToCart(newCartItem);
               setCarted(true);
-              setModal(true);
+              setPopUp(true);
               setTimeout(() => {
                 setCarted(false);
-                setModal(false);
+                setPopUp(false);
               }, 3000);
             }}
-            disable={modal}
+            disable={popUp}
           >
             <Icon name="cart" className="size-5" />
           </Button>

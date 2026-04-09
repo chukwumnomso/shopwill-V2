@@ -3,27 +3,19 @@ import supabaseInsert from "../components/supabaseInsert";
 import supabaseDelete from "../components/supabaseDelete";
 import useWishlist from "../Hooks/wishListHook";
 import { useAuth } from "./AuthContex";
-import { useModal } from "./ModalContext";
+import { usePopUp } from "./PopUpContext";
 
 const wishListContext = createContext();
 
 const WishListProvider = ({ children }) => {
   const { user } = useAuth();
-  const { setModal, setNotUser } = useModal(false);
+  const { setPopUp, setNotUser } = usePopUp(false);
 
-  const { wishList, setWishList } = useWishlist(() => {
-    try {
-      const saved = localStorage.getItem("wishlist");
+  const { wishList, setWishList } = useWishlist({});
 
-      if (saved && saved !== "undefined") {
-        return JSON.parse(saved);
-      }
-    } catch (e) {
-      console.error("Failed to parse wishlist", e);
-    }
-    return {};
-  });
-
+  useEffect(() => {
+    setWishList(JSON.parse(localStorage.getItem("wishlist") || {}));
+  }, [setWishList]);
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishList));
   }, [wishList]);
@@ -41,20 +33,20 @@ const WishListProvider = ({ children }) => {
           return newLiked;
         });
 
-        if (!wishList[product_id]) {
-          supabaseInsert("wishlist", items);
-        } else {
+        if (wishList[product_id]) {
           supabaseDelete("wishlist", product_id);
+        } else {
+          supabaseInsert("wishlist", items);
         }
       } else if (!user) {
-        setModal(true);
+        setPopUp(true);
         setNotUser(true);
       }
     } catch (err) {
       console.error(err);
     } finally {
       setTimeout(() => {
-        setModal(false);
+        setPopUp(false);
         setNotUser(false);
       }, 3000);
     }

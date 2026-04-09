@@ -3,13 +3,15 @@ import Header from "../components/Header";
 import Hero from "../components/Hero";
 // import ProductCard from "../components/ProductCard";
 import ProdGrid from "../components/ProdGrid";
-import Modal from "../components/Modal";
-import { useModal } from "../context/ModalContext";
+import PopUp from "../components/PopUp";
+import { usePopUp } from "../context/PopUpContext";
+import { useAuth } from "../context/AuthContex";
 const HomePage = () => {
-  const { carted, notUser } = useModal();
+  const { carted, notUser } = usePopUp();
+
   return (
     <div className="relative h-screen w-full">
-      <Modal>
+      <PopUp>
         {carted && <p>Item added to cart</p>}
         {notUser && (
           <p>
@@ -17,7 +19,7 @@ const HomePage = () => {
             list!
           </p>
         )}
-      </Modal>
+      </PopUp>
       <Header />
       <Hero />
       <ProdGrid />

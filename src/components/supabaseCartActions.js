@@ -1,9 +1,9 @@
+import { useState } from "react";
 import supabase from "./supabaseClient";
 
 async function addToCart(newItem) {
   try {
-    const { product_id, quantity, user_id, product_name, product_price } =
-      newItem;
+    const { product_id, quantity } = newItem;
 
     // Get current user
     const {
@@ -12,9 +12,23 @@ async function addToCart(newItem) {
     } = await supabase.auth.getUser();
 
     if (userError || !user) {
-      throw new Error("You must be logged in");
-    }
+      const rawCart = JSON.parse(localStorage.getItem("cart"));
+      let cart = Array.isArray(rawCart) ? rawCart : rawCart ? [rawCart] : [];
 
+      const existingItemIndex = cart.findIndex(
+        (item) => item.product_id === newItem.product_id,
+      );
+
+      if (existingItemIndex > -1) {
+        cart[existingItemIndex].quantity += newItem.quantity || 1;
+      } else {
+        cart.push(newItem);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      return;
+    }
     // Check if item already in cart
     const { data: existingItem, error: fetchError } = await supabase
       .from("cart_items")

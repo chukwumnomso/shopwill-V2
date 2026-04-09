@@ -9,12 +9,12 @@ import SignInPage from "./pages/SignInPage";
 import { ProductProvider } from "./context/ProductCardContext";
 import { WishListProvider } from "./context/WishedListContext";
 import { AuthProvider } from "./context/AuthContex";
-import { ModalProvider } from "./context/ModalContext";
+import { PopUpProvider } from "./context/PopUpContext";
 // import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <ModalProvider>
+    <PopUpProvider>
       <AuthProvider>
         <ProductProvider>
           <WishListProvider>
@@ -32,7 +32,7 @@ function App() {
           </WishListProvider>
         </ProductProvider>
       </AuthProvider>
-    </ModalProvider>
+    </PopUpProvider>
   );
 }
 

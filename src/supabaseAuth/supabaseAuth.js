@@ -45,8 +45,6 @@ async function getCurrentUser() {
   } = await supabase.auth.getUser();
 
   if (user) {
-    console.log("User is logged in:", user.email);
-
     return user;
   } else {
     return null;
@@ -59,7 +57,6 @@ function authchange() {
 
     if (event === "SIGNED_IN") {
       console.log("User just logged in", session.user);
-      // Redirect to dashboard, update UI, etc.
     }
 
     if (event === "SIGNED_OUT") {

@@ -7,7 +7,6 @@ const UseSupabaseFetch = (table, row, setter) => {
       try {
         const { data } = await supabase.from(table).select(row);
         setter(data);
-        console.log(data);
       } catch (error) {
         console.error(error);
       }

@@ -1,22 +1,38 @@
 import "./style.css";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import ProductCard from "./components/ProductCard";
-import Uploads from "./components/Uploads";
-import Category from "./components/Category";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+// import Uploads from "./components/Uploads";
+
+import HomePage from "./pages/HomePage";
+import SignUpPage from "./pages/signUpPage";
+import SignInPage from "./pages/SignInPage";
+import { ProductProvider } from "./context/ProductCardContext";
+import { WishListProvider } from "./context/WishedListContext";
+import { AuthProvider } from "./context/AuthContex";
+import { ModalProvider } from "./context/ModalContext";
+// import { CartProvider } from "./context/CartContext";
 
 function App() {
   return (
-    <div>
-      <Header />
-      <Hero />
+    <ModalProvider>
+      <AuthProvider>
+        <ProductProvider>
+          <WishListProvider>
+            {/* <ProdGrid /> */}
 
-      <Category title="new arrivals">
-        <ProductCard />
-      </Category>
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/signUp" element={<SignUpPage />} />
+                <Route path="/signIn" element={<SignInPage />} />
 
-      {/* <Uploads /> */}
-    </div>
+                {/* <Uploads /> */}
+              </Routes>
+            </BrowserRouter>
+          </WishListProvider>
+        </ProductProvider>
+      </AuthProvider>
+    </ModalProvider>
   );
 }
 

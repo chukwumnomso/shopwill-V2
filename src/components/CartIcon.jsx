@@ -1,13 +1,13 @@
 import React from "react";
 import Icon from "./Icon";
-export default function CartIcon() {
+export default function CartIcon({ children, name, className }) {
   return (
     <div>
-      <div className=" relative">
+      <div className={className}>
         <div className="absolute right-0 -top-2 rounded-full bg-black text-white size-4 flex justify-center items-center text-[0.5rem]">
-          0
+          {children}
         </div>
-        <Icon name="cart" />
+        <Icon name={name} />
       </div>
     </div>
   );

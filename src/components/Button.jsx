@@ -6,6 +6,7 @@ const Button = ({
   onMouseEnter,
   onMouseLeave,
   id,
+  disabled,
 }) => {
   return (
     <div>
@@ -16,6 +17,7 @@ const Button = ({
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         id={id}
+        disabled={disabled}
       >
         {children}
       </button>

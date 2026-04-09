@@ -2,26 +2,37 @@ import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
 import CartIcon from "./CartIcon";
 import Button from "./Button";
+import { signOut } from "../supabaseAuth/supabaseAuth";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="bg-black h-6  text-white text-[0.6rem] flex items-center justify-center font-[montserrat] uppercase font-semibold sticky -top-7 left-0 z-50 w-full">
+      <div className="bg-black h-6  text-white text-[0.6rem] flex items-center justify-center font-[montserrat] uppercase font-semibold sticky -top-7 left-0 z-40 w-full">
         <p> make purchase@shopwill</p>
       </div>
-      <div className="flex justify-between px-4 h-20 items-center sticky top-0 left-0 z-50 w-full bg-white">
+      <div className="flex justify-between px-4 h-20 items-center sticky top-0 left-0 z-40 w-full bg-white">
         <div className="flex gap-6 justify-between items-center">
-          <Button>
+          <Button className="cursor-pointer">
             <Icon name="menu" />
           </Button>
           <ShopLogo />
         </div>
-        <div className="flex gap-6 items-center ">
-          <Button>
-            <Icon name="user" />
+        <div className="flex gap-4 items-center ">
+          <Button className="cursor-pointer" onClick={() => signOut(navigate)}>
+            <Icon name="search" className="size-6 text-gray-400" />
           </Button>
-          <Button>
-            <CartIcon />
+          <Button className="cursor-pointer">
+            <CartIcon name="fav" className="relative">
+              0
+            </CartIcon>
+          </Button>
+          <Button className="cursor-pointer">
+            <CartIcon name="cart" className={"relative"}>
+              0
+            </CartIcon>
           </Button>
         </div>
       </div>

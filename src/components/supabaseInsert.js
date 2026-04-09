@@ -1,15 +1,20 @@
-import React, { useEffect } from "react";
 import supabase from "./supabaseClient";
 
-const SupabaseInsert = () => {
-  useEffect(() => {
-    const insert = async function () {
-try{
-    const {data,error} = await supabase.from("productsV2").
-}
+const supabaseInsert = async (tableName, items) => {
+  try {
+    const { data, error } = await supabase
+      .from(tableName)
+      .insert(items)
+      .select();
 
-    };
-  });
+    if (data) {
+      return;
+    } else {
+      console.log(error);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export default supabaseInsert;

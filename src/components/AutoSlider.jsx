@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 
 import Button from "./Button";
+import Icon from "./Icon";
 
 const AutoSlider = ({ images, interval = 3000, autoPlay = true }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -58,15 +59,16 @@ const AutoSlider = ({ images, interval = 3000, autoPlay = true }) => {
       ))}
       <Button
         onClick={goToPrevious}
-        className="absolute left-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full "
+        className="absolute right-1/2 bottom-0 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full mr-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300"
       >
-        ❮
+        <Icon name="arrowLeft" />
       </Button>
+
       <Button
         onClick={goToNext}
-        className="absolute right-[0.625rem] top-1/2 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full "
+        className="absolute left-1/2 bottom-0 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full ml-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300"
       >
-        ❯
+        <Icon name="arrowRight" />
       </Button>
     </div>
   );

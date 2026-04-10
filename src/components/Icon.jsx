@@ -1,9 +1,26 @@
+import { ArrowRight } from "lucide-react";
+
 const icons = {
   menu: (
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
       d="M3.75 9h16.5m-16.5 6.75h16.5"
+    />
+  ),
+
+  arrowLeft: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
+    />
+  ),
+  arrowRight: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
     />
   ),
 
@@ -29,13 +46,6 @@ const icons = {
       strokeLinejoin="round"
       strokeWidth={2}
       d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-    />
-  ),
-  arrowLeft: (
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15"
     />
   ),
 

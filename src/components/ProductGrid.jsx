@@ -1,14 +1,18 @@
-import ProdCard from "./ProdcCard";
+import { useEffect } from "react";
+
+import ProdCard from "./ProductCard";
+import useSupabaseFetch from "./useSupabaseFetch";
 
 import { useProduct } from "../context/ProductCardContext";
 import { useAuth } from "../context/AuthContex";
-const ProdGrid = () => {
+const ProdGrid = ({ tableName }) => {
   const { user } = useAuth();
-  const { products } = useProduct();
+
+  const products = useSupabaseFetch(tableName);
 
   return (
-    <div className="grid grid-cols-2 gap-3 px-3">
-      {products.map((product) => {
+    <div className="grid grid-cols-2 gap-3 px-3 md:grid-cols-3">
+      {products?.map((product) => {
         const newWishlistItem = {
           product_id: product.id,
           product_name: product.product_name,

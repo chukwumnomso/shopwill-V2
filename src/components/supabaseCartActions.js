@@ -1,4 +1,3 @@
-import { useState } from "react";
 import supabase from "./supabaseClient";
 
 async function addToCart(newItem) {

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import UseSupabaseFetch from "../components/supabaseFetch";
+import SupabaseFetch from "../components/useSupabaseFetch";
 
 const ProductContext = createContext();
 
@@ -10,9 +10,10 @@ export const ProductProvider = ({ children }) => {
   const handleCardHover = (id) => {
     setProdCardHover(id);
   };
+
   const handleCardLeave = () => setProdCardHover(null);
 
-  UseSupabaseFetch("men_new_arrivals", "*", setProducts);
+  // SupabaseFetch("women_new_arrival", "*", setProducts);
 
   return (
     <ProductContext.Provider

@@ -1,16 +1,17 @@
 import Header from "../components/Header";
-// import Category from "../components/Category";
 import Hero from "../components/Hero";
-// import ProductCard from "../components/ProductCard";
-import ProdGrid from "../components/ProdGrid";
+
+import ProdGrid from "../components/ProductGrid";
 import PopUp from "../components/PopUp";
 import { usePopUp } from "../context/PopUpContext";
-import { useAuth } from "../context/AuthContex";
+// import { useAuth } from "../context/AuthContex";
+import Heading from "../components/Heading";
+
 const HomePage = () => {
   const { carted, notUser } = usePopUp();
 
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative w-full">
       <PopUp>
         {carted && <p>Item added to cart</p>}
         {notUser && (
@@ -22,7 +23,14 @@ const HomePage = () => {
       </PopUp>
       <Header />
       <Hero />
-      <ProdGrid />
+      <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
+        men new arrival
+      </Heading>
+      <ProdGrid tableName="men_new_arrivals" />
+      <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
+        women new arrival
+      </Heading>
+      <ProdGrid tableName="women_new_arrivals" />
     </div>
   );
 };

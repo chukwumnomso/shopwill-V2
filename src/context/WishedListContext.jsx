@@ -11,10 +11,10 @@ const WishListProvider = ({ children }) => {
   const { user } = useAuth();
   const { setPopUp, setNotUser } = usePopUp(false);
 
-  const { wishList, setWishList } = useWishlist({});
+  const { wishList, setWishList } = useWishlist();
 
   useEffect(() => {
-    setWishList(JSON.parse(localStorage.getItem("wishlist") || {}));
+    setWishList(JSON.parse(localStorage.getItem("wishlist") || []));
   }, [setWishList]);
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishList));
@@ -60,6 +60,9 @@ const WishListProvider = ({ children }) => {
 };
 const useWishList = () => {
   const context = useContext(wishListContext);
+  if (!context) {
+    throw new Error("useWishList must be used within a WishListProvider");
+  }
   return context;
 };
 

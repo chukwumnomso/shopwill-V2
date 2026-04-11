@@ -3,7 +3,7 @@ import { useState } from "react";
 import { signUp } from "../supabaseAuth/supabaseAuth";
 import Button from "../components/Button";
 
-const SignUp = () => {
+const SignUpPage = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
@@ -54,4 +54,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignUpPage;

@@ -59,14 +59,14 @@ const AutoSlider = ({ images, interval = 3000, autoPlay = true }) => {
       ))}
       <Button
         onClick={goToPrevious}
-        className="absolute right-1/2 bottom-0 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full mr-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300"
+        className="absolute z-10 right-1/2 bottom-0 -translate-y-1/2   bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full mr-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300"
       >
         <Icon name="arrowLeft" />
       </Button>
 
       <Button
         onClick={goToNext}
-        className="absolute left-1/2 bottom-0 -translate-y-1/2 z-20 bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full ml-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300"
+        className="absolute z-10 not-[]:left-1/2 bottom-0 -translate-y-1/2  bg-[rgba(0,0,0,0.5)] text-white border-none p-2.5 cursor-pointer rounded-full ml-3 hover:bg-[rgba(0,0,0,0.9)] transition-colors duration-300 "
       >
         <Icon name="arrowRight" />
       </Button>

@@ -11,7 +11,8 @@ const useWishlist = () => {
     } catch (e) {
       console.error("Failed to parse wishlist", e);
     }
-    return {};
+
+    return [];
   });
 
   useEffect(() => {

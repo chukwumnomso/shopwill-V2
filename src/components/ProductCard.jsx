@@ -10,6 +10,7 @@ import SupabaseFetch from "./useSupabaseFetch";
 const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
   const { handleCardHover, handleCardLeave, prodCardHover } = useProduct();
   const { wishList, ToggleLike } = useWishList();
+
   const { popUp, setCarted, setPopUp } = usePopUp();
   const { user } = useAuth();
 
@@ -43,7 +44,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
             <Icon
               name="fav"
               className="size-5"
-              fill={wishList[product.id] && user ? "#B0E0E6" : "white"}
+              fill={wishList?.[product.id] && user ? "#B0E0E6" : "white"}
             />
           </Button>
           <Button

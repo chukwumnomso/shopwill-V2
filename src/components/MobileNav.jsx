@@ -5,18 +5,22 @@ import Icon from "./Icon";
 import MobileNavAccordion from "./MobileNavAccordion";
 import { useNavBar } from "../context/NavBarContext";
 
+const today = new Date();
+const year = today.getFullYear();
+
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState(null);
   const { isMenuOpen, setIsMenuOpen } = useNavBar();
 
   return (
     <div
-      className="w-[60%] h-full bg-white fixed top-0 left-0 z-50 transition-transform duration-700 ease-in-out shadow-lg"
+      className="w-[60%] h-full bg-white fixed top-0 left-0 z-50 transition-transform duration-700 ease-in-out shadow-lg -translate-x-full"
       style={{
-        transform: isMenuOpen ? "translateX(-100%)" : null,
+        transform: isMenuOpen ? "translateX(100%)" : null,
       }}
     >
-      <div className="h-20 border-b flex items-center justify-between px-4 mb-15 ">
+      <div className="h-20  flex items-center justify-between px-4 mb-15 ">
+        <h1 className="font-semibold">MENU</h1>
         <ShopLogo />
         <Button
           onClick={() => setIsMenuOpen((prev) => !prev)}
@@ -28,7 +32,6 @@ const MobileNav = () => {
           />
         </Button>
       </div>
-
       <MobileNavAccordion
         setIsMenuOpen={setIsMenuOpen}
         index={1}
@@ -37,7 +40,6 @@ const MobileNav = () => {
         title="best seller"
         item={{ footwear: "Footwear" }}
       />
-
       <MobileNavAccordion
         isOpen={isOpen}
         setIsOpen={setIsOpen}
@@ -48,7 +50,6 @@ const MobileNav = () => {
         title="men"
         item={{ footwear: "Footwear" }}
       />
-
       <MobileNavAccordion
         index={3}
         isOpen={isOpen}
@@ -59,7 +60,6 @@ const MobileNav = () => {
         title="women"
         item={{ footwear: "Footwear" }}
       />
-
       <MobileNavAccordion
         index={4}
         isOpen={isOpen}
@@ -70,10 +70,12 @@ const MobileNav = () => {
         shoes="Shoes"
         item={{ footwear: "Footwear" }}
       />
-
       <Button className="w-full h-10 bg-black text-white font-bold font-[jost] mt-10 hover:text-gray-400 transition-colors duration-300 cursor-pointer absolute bottom-5 left-0">
         LOGIN
       </Button>
+      <div className="absolute bottom-0 left-0 font-[jost] text-sm flex items-center justify-center w-full  ">
+        copyright &copy; {year} ShopWill. All rights reserved.
+      </div>
     </div>
   );
 };

@@ -1,12 +1,38 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 const NavBarContext = createContext();
 
 export const NavBarProvider = ({ children }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [navOpen, setNavOpen] = useState(false);
+  const [navSlide, setNavSlide] = useState("");
+  const [activeNav, setActiveNav] = useState(true);
+
+  const toggleNavSlide = (select) => {
+    setNavSlide(select);
+    setActiveNav(false);
+  };
+  useEffect(() => {
+    if (navOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [navOpen]);
 
   return (
-    <NavBarContext.Provider value={{ isMenuOpen, setIsMenuOpen }}>
+    <NavBarContext.Provider
+      value={{
+        navOpen,
+        setNavOpen,
+        navSlide,
+        toggleNavSlide,
+        activeNav,
+        setActiveNav,
+      }}
+    >
       {children}
     </NavBarContext.Provider>
   );

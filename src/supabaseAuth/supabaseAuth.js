@@ -30,12 +30,12 @@ async function signIn(email, password) {
   });
 
   if (error) {
-    console.error("Login failed:", error.message);
+    console.error("Login failed:", error.message, data);
     return { success: false, error };
   }
 
   // Supabase automatically stores the session in localStorage
-  console.log("Logged in!", data.user);
+
   return { success: true, user: data.user, session: data.session };
 }
 
@@ -72,10 +72,8 @@ async function signOut(navigate) {
   if (error) {
     console.error("Logout failed:", error);
   } else {
-    console.log("Logged out successfully");
     // Supabase automatically removes the session from localStorage
     navigate("/signIn");
-    console.log("signedout");
   }
 }
 

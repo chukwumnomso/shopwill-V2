@@ -1,6 +1,6 @@
 import supabase from "./supabaseClient";
 
-async function addToCart(newItem) {
+async function AddToCart(newItem) {
   try {
     const { product_id, quantity } = newItem;
 
@@ -25,7 +25,6 @@ async function addToCart(newItem) {
       }
 
       localStorage.setItem("cart", JSON.stringify(cart));
-
       return;
     }
     // Check if item already in cart
@@ -59,4 +58,4 @@ async function addToCart(newItem) {
   }
 }
 
-export { addToCart };
+export { AddToCart };

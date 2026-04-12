@@ -3,7 +3,7 @@ import Icon from "./Icon";
 import { useProduct } from "../context/ProductCardContext";
 import { useWishList } from "../context/WishedListContext";
 import { usePopUp } from "../context/PopUpContext";
-import { addToCart } from "./supabaseCartActions";
+import { AddToCart } from "./supabaseCartActions";
 import { useAuth } from "../context/AuthContex";
 import SupabaseFetch from "./useSupabaseFetch";
 
@@ -11,7 +11,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
   const { handleCardHover, handleCardLeave, prodCardHover } = useProduct();
   const { wishList, ToggleLike } = useWishList();
 
-  const { popUp, setCarted, setPopUp } = usePopUp();
+  const { setPopUpMessage, setPopUpVisible, popUpVisible } = usePopUp();
   const { user } = useAuth();
 
   return (
@@ -39,7 +39,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
             onClick={() => {
               ToggleLike(product.id, newWishlistItem);
             }}
-            disabled={popUp}
+            disabled={popUpVisible}
           >
             <Icon
               name="fav"
@@ -54,15 +54,15 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
                 prodCardHover === product.id ? "" : "translateY(1000px)",
             }}
             onClick={() => {
-              addToCart(newCartItem);
-              setCarted(true);
-              setPopUp(true);
+              AddToCart(newCartItem);
+              setPopUpMessage("addedToCart");
+              setPopUpVisible(true);
+
               setTimeout(() => {
-                setCarted(false);
-                setPopUp(false);
+                setPopUpVisible(false);
               }, 3000);
             }}
-            disable={popUp}
+            disable={popUpVisible}
           >
             <Icon name="cart" className="size-5" />
           </Button>

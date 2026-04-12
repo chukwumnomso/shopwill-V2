@@ -13,9 +13,11 @@ const SignInPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { error: signInError } = await signIn(email, password);
-    if (signInError) return;
-    const user = await getCurrentUser();
-    user ? navigate("/") : navigate("/signUp");
+    if (signInError) {
+      navigate("/signup");
+      return;
+    }
+    navigate("/");
   };
 
   return (

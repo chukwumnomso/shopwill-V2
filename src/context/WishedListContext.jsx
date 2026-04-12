@@ -9,7 +9,7 @@ const wishListContext = createContext();
 
 const WishListProvider = ({ children }) => {
   const { user } = useAuth();
-  const { setPopUp, setNotUser } = usePopUp(false);
+  const { setPopUpVisible, setPopUpMessage } = usePopUp();
 
   const { wishList, setWishList } = useWishlist();
 
@@ -35,19 +35,22 @@ const WishListProvider = ({ children }) => {
 
         if (wishList[product_id]) {
           supabaseDelete("wishlist", product_id);
+          setPopUpMessage("removedFromWishlist");
+          setPopUpVisible(true);
         } else {
           supabaseInsert("wishlist", items);
+          setPopUpMessage("addedToWishlist");
+          setPopUpVisible(true);
         }
       } else if (!user) {
-        setPopUp(true);
-        setNotUser(true);
+        setPopUpMessage("loginRequired");
+        setPopUpVisible(true);
       }
     } catch (err) {
       console.error(err);
     } finally {
       setTimeout(() => {
-        setPopUp(false);
-        setNotUser(false);
+        setPopUpVisible(false);
       }, 3000);
     }
   };

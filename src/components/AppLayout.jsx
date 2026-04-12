@@ -13,7 +13,6 @@ const AppLayout = () => {
 
   return (
     <div className="relative">
-      (
       <PopUp>
         <Icon name="check" className="mr-4 size-8 text-green-500" />
         {popUpMessage === "addedToCart"
@@ -31,7 +30,7 @@ const AppLayout = () => {
           onClick={() => {}}
         />
       </PopUp>
-      )
+
       <Header />
       {/* <SideCart /> */}
       <MobileNav />

@@ -2,6 +2,12 @@
 
 @import "tailwindcss";
 
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
 .btn-hover {
   @apply hover:bg-white transition-all hover:scale-105 duration-500 hover:text-black;
 }

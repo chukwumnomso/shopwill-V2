@@ -1,14 +1,33 @@
-import { useEffect } from "react";
-
+import { useEffect, useState } from "react";
+import supabase from "./supabaseClient";
 import ProdCard from "./ProductCard";
-import useSupabaseFetch from "./useSupabaseFetch";
-
-import { useProduct } from "../context/ProductCardContext";
 import { useAuth } from "../context/AuthContext";
-const ProdGrid = ({ tableName }) => {
+import Loading from "./SmallLoadingSpinner";
+import FullPageSpinner from "./FullPageSpinner";
+
+const ProdGridSimple = ({ tableName, limit = 12 }) => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
-  const products = useSupabaseFetch(tableName);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await supabase
+        .from(tableName)
+        .select("*")
+        .limit(limit)
+        .order("created_at", { ascending: false });
+
+      setProducts(data);
+      setLoading(false);
+    };
+
+    fetchProducts();
+  }, [tableName, limit]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="grid grid-cols-2 gap-3 px-3 md:grid-cols-3">
@@ -22,6 +41,7 @@ const ProdGrid = ({ tableName }) => {
           discounts: product.discounts,
           user_id: user?.id,
         };
+
         const newCartItem = {
           product_id: product.id,
           quantity: 1,
@@ -43,4 +63,4 @@ const ProdGrid = ({ tableName }) => {
   );
 };
 
-export default ProdGrid;
+export default ProdGridSimple;

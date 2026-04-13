@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import supabase from "../components/supabaseClient";
 
 async function signUp(email, password, firstName, lastName) {
@@ -66,14 +65,13 @@ function authchange() {
   });
 }
 
-async function signOut(navigate) {
+async function signOut() {
   const { error } = await supabase.auth.signOut();
 
   if (error) {
     console.error("Logout failed:", error);
   } else {
     // Supabase automatically removes the session from localStorage
-    navigate("/signIn");
   }
 }
 

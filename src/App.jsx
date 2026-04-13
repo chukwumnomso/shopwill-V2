@@ -6,7 +6,7 @@ import SignUpPage from "./pages/SignUpPage";
 import SignInPage from "./pages/SignInPage";
 import { ProductProvider } from "./context/ProductCardContext";
 import { WishListProvider } from "./context/WishedListContext";
-import { AuthProvider } from "./context/AuthContex";
+import { AuthProvider } from "./context/AuthContext";
 import { PopUpProvider } from "./context/PopUpContext";
 import AppLayout from "./components/AppLayout";
 import MobileNav from "./components/MobileNav";

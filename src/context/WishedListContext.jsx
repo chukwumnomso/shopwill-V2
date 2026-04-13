@@ -2,7 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 import supabaseInsert from "../components/supabaseInsert";
 import supabaseDelete from "../components/supabaseDelete";
 import useWishlist from "../Hooks/wishListHook";
-import { useAuth } from "./AuthContex";
+import { useAuth } from "./AuthContext";
 import { usePopUp } from "./PopUpContext";
 
 const wishListContext = createContext();

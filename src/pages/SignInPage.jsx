@@ -39,7 +39,7 @@ const SignInPage = () => {
         />
 
         <Button className="bg-black text-white w-full h-10 uppercase hover:text-blue-300 cursor-pointer transition-color duration-300">
-          sign up
+          login
         </Button>
       </form>
     </div>

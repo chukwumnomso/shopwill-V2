@@ -1,8 +1,10 @@
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import ProdGrid from "../components/ProductGrid";
 import PopUp from "../components/PopUp";
 import Heading from "../components/Heading";
+import HomePageCategory from "../components/HomePageCategory";
+import ProdGridSimple from "../components/ProductGridSimple";
+import ServicesSlider from "../components/ServicesSlider";
 
 const HomePage = () => {
   return (
@@ -11,11 +13,13 @@ const HomePage = () => {
       <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
         men new arrival
       </Heading>
-      <ProdGrid tableName="men_new_arrivals" />
+      {/* <ProdGridPaginated tableName="women_store" /> */}
+      <ProdGridSimple tableName="men_store" />
+      <HomePageCategory />
       <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
         women new arrival
       </Heading>
-      <ProdGrid tableName="women_new_arrivals" />
+      <ProdGridSimple tableName="women_store" />
     </div>
   );
 };

@@ -3,6 +3,11 @@ import MobileNavSlide from "./MobileNavSlide";
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
 import { useNavBar } from "../context/NavBarContext";
+import Button from "./Button";
+import { useAuth } from "../context/AuthContext";
+import { signOut } from "../supabaseAuth/supabaseAuth";
+import { signIn } from "../supabaseAuth/supabaseAuth";
+import { useNavigate } from "react-router-dom";
 
 const MobileNav = () => {
   const {
@@ -13,10 +18,25 @@ const MobileNav = () => {
     navOpen,
     setNavOpen,
   } = useNavBar();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleActiveNav = () => {
     toggleNavSlide("");
     setActiveNav((prev) => !prev);
+  };
+
+  const handleLogout = () => {
+    signOut(navigate);
+    setNavOpen(false);
+    toggleNavSlide("");
+    setActiveNav(true);
+  };
+  const handleLogin = () => {
+    navigate("/signin");
+    setNavOpen(false);
+    toggleNavSlide("");
+    setActiveNav(true);
   };
 
   return (
@@ -31,7 +51,13 @@ const MobileNav = () => {
         <div className="mb-20 flex items-center justify-between uppercase ">
           menu
           <ShopLogo />
-          <button onClick={() => setNavOpen(false)}>
+          <button
+            onClick={() => {
+              setNavOpen(false);
+              toggleNavSlide("");
+              setActiveNav(true);
+            }}
+          >
             <Icon
               name="cancel"
               className="size-10  cursor-pointer hover:rotate-90 transition-transform duration-300"
@@ -145,6 +171,15 @@ const MobileNav = () => {
           Accessories="Accessories"
           onClick={handleActiveNav}
         />
+
+        <Button
+          className="w-[90%] h-10 bg-black text-white absolute bottom-7 font-[jost]  text-xl right-0 left-0 mx-auto uppercase hover:text-blue-300 transition-color duration-300 cursor-pointer"
+          onClick={() => {
+            user ? handleLogout() : handleLogin();
+          }}
+        >
+          {user ? "logout" : "login"}
+        </Button>
       </div>
     </>
   );

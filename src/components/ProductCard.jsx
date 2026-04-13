@@ -4,7 +4,7 @@ import { useProduct } from "../context/ProductCardContext";
 import { useWishList } from "../context/WishedListContext";
 import { usePopUp } from "../context/PopUpContext";
 import { AddToCart } from "./supabaseCartActions";
-import { useAuth } from "../context/AuthContex";
+import { useAuth } from "../context/AuthContext";
 import SupabaseFetch from "./useSupabaseFetch";
 
 const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
@@ -25,6 +25,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
         <img
           src={product.imageUrl_1}
           alt=""
+          loading="lazy"
           className="absolute top-0 left-0 transition-opacity duration-500 cursor-pointer h-full w-full"
           style={{ opacity: prodCardHover === product.id ? 0 : 1 }}
         />

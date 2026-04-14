@@ -11,13 +11,13 @@ const HomePage = () => {
     <div>
       <Hero />
       <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
-        men new arriva
+        men new arrivals
       </Heading>
       {/* <ProdGridPaginated tableName="women_store" /> */}
       <ProdGridSimple tableName="men_store" />
       <HomePageCategory />
       <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
-        women new arrival
+        women new arrivals
       </Heading>
       <ProdGridSimple tableName="women_store" />
     </div>

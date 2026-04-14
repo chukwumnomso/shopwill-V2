@@ -96,8 +96,8 @@ const MobileNav = () => {
             >
               <Link
                 className="hover:underline"
-                to="/menproduct"
-                onClick={() => {
+                to="/menproducts"
+                onClick={(e) => {
                   e.stopPropagation();
                   handleCloseNav();
                 }}
@@ -114,7 +114,7 @@ const MobileNav = () => {
               }}
             >
               <Link
-                to="/womenproduct"
+                to="/womenproducts"
                 className="hover:underline"
                 onClick={(e) => {
                   e.stopPropagation();

@@ -26,14 +26,14 @@ const SignInPage = () => {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          type="text"
+          type="email"
           placeholder="email"
           className="border w-full h-10 mb-2 "
         />
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          type="text"
+          type="password"
           placeholder="password"
           className="border w-full h-10 mb-2  "
         />

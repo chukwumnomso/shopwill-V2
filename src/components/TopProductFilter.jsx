@@ -1,6 +1,6 @@
 import Icon from "./Icon";
 
-const TopProductFilter = ({ onClick, modalOpen }) => {
+const TopProductFilter = ({ onClick, isOpen }) => {
   return (
     <div>
       <div className="flex justify-between h-15 font-[jost] uppercase cursor-pointer mb-15 border-b">
@@ -18,7 +18,7 @@ const TopProductFilter = ({ onClick, modalOpen }) => {
           <div
             className=" transition:transform duration-500"
             style={{
-              transform: modalOpen ? "rotate(180deg)" : "rotate(0deg)",
+              transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
             }}
           >
             <Icon name="arrowDown" className="size-6 " />

@@ -15,7 +15,7 @@ const MenProductPage = () => {
 
   return (
     <div className=" overflow-x-hidden ">
-      <TopProductFilter modalOpen={modalOpen} onClick={handleClick} />
+      <TopProductFilter isOpen={isOpen} onClick={handleClick} />
       <SortBy isOpen={isOpen} />
       <ProdGridPaginated tableName="men_store" />
     </div>

@@ -11,7 +11,7 @@ const HomePage = () => {
     <div>
       <Hero />
       <Heading className="text-2xl flex items-center justify-center font-[jost] uppercase my-10">
-        men new arrival
+        men new arriva
       </Heading>
       {/* <ProdGridPaginated tableName="women_store" /> */}
       <ProdGridSimple tableName="men_store" />

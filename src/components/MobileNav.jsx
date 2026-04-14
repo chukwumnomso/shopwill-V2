@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import MobileNavSlide from "./MobileNavSlide";
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
@@ -6,8 +5,8 @@ import { useNavBar } from "../context/NavBarContext";
 import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "../supabaseAuth/supabaseAuth";
-import { signIn } from "../supabaseAuth/supabaseAuth";
-import { useNavigate } from "react-router-dom";
+
+import { useNavigate, Link } from "react-router-dom";
 
 const MobileNav = () => {
   const {
@@ -25,18 +24,20 @@ const MobileNav = () => {
     toggleNavSlide("");
     setActiveNav((prev) => !prev);
   };
+  const handleCloseNav = () => {
+    setNavOpen(false);
+    toggleNavSlide("");
+    setActiveNav(true);
+    console.log(activeNav);
+  };
 
   const handleLogout = () => {
     signOut(navigate);
-    setNavOpen(false);
-    toggleNavSlide("");
-    setActiveNav(true);
+    handleCloseNav();
   };
   const handleLogin = () => {
     navigate("/signin");
-    setNavOpen(false);
-    toggleNavSlide("");
-    setActiveNav(true);
+    handleCloseNav();
   };
 
   return (
@@ -49,13 +50,17 @@ const MobileNav = () => {
         }}
       >
         <div className="mb-20 flex items-center justify-between uppercase ">
-          menu
+          <p
+            onClick={() => {
+              handleCloseNav();
+            }}
+          >
+            <Link to="/">home</Link>
+          </p>
           <ShopLogo />
           <button
             onClick={() => {
-              setNavOpen(false);
-              toggleNavSlide("");
-              setActiveNav(true);
+              handleCloseNav();
             }}
           >
             <Icon
@@ -89,7 +94,17 @@ const MobileNav = () => {
                 toggleNavSlide("men");
               }}
             >
-              <span>men</span>
+              <Link
+                className="hover:underline"
+                to="/menproducts"
+                onClick={() => {
+                  e.stopPropagation();
+                  handleCloseNav();
+                }}
+              >
+                men
+              </Link>
+
               <Icon name="chevronRight" className="size-5 " />
             </li>
             <li
@@ -98,7 +113,16 @@ const MobileNav = () => {
                 toggleNavSlide("women");
               }}
             >
-              women
+              <Link
+                to="/womenproducts"
+                className="hover:underline"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCloseNav();
+                }}
+              >
+                women
+              </Link>
               <Icon name="chevronRight" className="size-5 " />
             </li>
             <li

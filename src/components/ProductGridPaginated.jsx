@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Loading from "./SmallLoadingSpinner";
 
-const ProdGridPaginated = ({ tableName, itemsPerPage = 5 }) => {
+const ProdGridPaginated = ({ tableName, itemsPerPage = 12 }) => {
   const { user } = useAuth();
 
   const {

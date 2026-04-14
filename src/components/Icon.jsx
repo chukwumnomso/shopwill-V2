@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowDown, ArrowRight } from "lucide-react";
 
 const icons = {
   menu: (
@@ -29,6 +29,14 @@ const icons = {
       strokeLinecap="round"
       strokeLinejoin="round"
       d="m4.5 15.75 7.5-7.5 7.5 7.5"
+    />
+  ),
+
+  arrowDown: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="m19.5 8.25-7.5 7.5-7.5-7.5"
     />
   ),
 
@@ -134,7 +142,7 @@ const icons = {
 
 const Icon = ({
   name,
-  className = "size-8 text-gray-400",
+  className = "size-8 text-black",
   fill = "none",
   onClick,
 }) => {

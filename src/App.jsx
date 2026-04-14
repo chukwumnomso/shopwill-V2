@@ -1,4 +1,5 @@
 import "./style.css";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
@@ -11,6 +12,9 @@ import { PopUpProvider } from "./context/PopUpContext";
 import AppLayout from "./components/AppLayout";
 import MobileNav from "./components/MobileNav";
 import { NavBarProvider } from "./context/NavBarContext";
+import MenProductPage from "./pages/MenProductPage";
+import WomenProductPage from "./pages/womenProductPage";
+import { ModalProvider } from "./context/ModalContext";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +24,8 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/signin", element: <SignInPage /> },
+      { path: "/menproducts", element: <MenProductPage /> },
+      { path: "/womenproducts", element: <WomenProductPage /> },
     ],
   },
 ]);
@@ -28,16 +34,28 @@ function App() {
   return (
     <PopUpProvider>
       <AuthProvider>
-        <NavBarProvider>
-          <ProductProvider>
-            <WishListProvider>
-              <RouterProvider router={router} />
-            </WishListProvider>
-          </ProductProvider>
-        </NavBarProvider>
+        <ModalProvider>
+          <NavBarProvider>
+            <ProductProvider>
+              <WishListProvider>
+                <RouterProvider router={router} />
+              </WishListProvider>
+            </ProductProvider>
+          </NavBarProvider>
+        </ModalProvider>
       </AuthProvider>
     </PopUpProvider>
   );
 }
 
 export default App;
+
+// // In your App.jsx
+// function App() {
+//   return (
+//     <>
+
+//       {/* rest of your app */}
+//     </>
+//   );
+// }

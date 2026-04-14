@@ -29,7 +29,7 @@ export default function Header() {
         </div>
         <div className="flex gap-4 items-center ">
           <Button className="cursor-pointer" onClick={() => signOut(navigate)}>
-            <Icon name="search" className="size-6 text-gray-400" />
+            <Icon name="search" className="size-6 text-black" />
           </Button>
           <Button className="cursor-pointer">
             <CartIcon name="fav" className="relative">

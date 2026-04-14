@@ -1,11 +1,18 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const ModalContext = createContext();
 
 const ModalProvider = ({ children }) => {
-  const [modalOpen, setModalOpen] = useState();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  useEffect(() => {
+    console.log(modalOpen);
+    console.log(isOpen);
+  }, [modalOpen, isOpen]);
   return (
-    <ModalContext.Provider value={{ modalOpen, setModalOpen }}>
+    <ModalContext.Provider
+      value={{ modalOpen, setModalOpen, setIsOpen, isOpen }}
+    >
       {children}
     </ModalContext.Provider>
   );

@@ -1,3 +1,5 @@
+import { useNavigate, Link } from "react-router-dom";
+
 import MobileNavSlide from "./MobileNavSlide";
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
@@ -5,8 +7,7 @@ import { useNavBar } from "../context/NavBarContext";
 import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "../supabaseAuth/supabaseAuth";
-
-import { useNavigate, Link } from "react-router-dom";
+import { useModal } from "../context/ModalContext";
 
 const MobileNav = () => {
   const {
@@ -19,6 +20,7 @@ const MobileNav = () => {
   } = useNavBar();
   const { user } = useAuth();
   const navigate = useNavigate();
+  const { setModalOpen } = useModal();
 
   const handleActiveNav = () => {
     toggleNavSlide("");
@@ -28,7 +30,7 @@ const MobileNav = () => {
     setNavOpen(false);
     toggleNavSlide("");
     setActiveNav(true);
-    console.log(activeNav);
+    setModalOpen(false);
   };
 
   const handleLogout = () => {
@@ -61,6 +63,7 @@ const MobileNav = () => {
           <button
             onClick={() => {
               handleCloseNav();
+              setModalOpen(false);
             }}
           >
             <Icon

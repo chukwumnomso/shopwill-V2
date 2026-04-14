@@ -7,6 +7,12 @@ export const NavBarProvider = ({ children }) => {
   const [navSlide, setNavSlide] = useState("");
   const [activeNav, setActiveNav] = useState(true);
 
+  const closeNavBar = () => {
+    setNavOpen(false);
+    toggleNavSlide("");
+    setActiveNav(true);
+  };
+
   const toggleNavSlide = (select) => {
     setNavSlide(select);
     setActiveNav(false);
@@ -31,6 +37,7 @@ export const NavBarProvider = ({ children }) => {
         toggleNavSlide,
         activeNav,
         setActiveNav,
+        closeNavBar,
       }}
     >
       {children}

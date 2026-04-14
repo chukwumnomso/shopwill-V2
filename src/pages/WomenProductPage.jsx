@@ -2,12 +2,11 @@ import { useState } from "react";
 
 import ProdGridPaginated from "../components/ProductGridPaginated";
 import TopProductFilter from "../components/TopProductFilter";
-import SideSortFilter from "../components/SideSortFilter";
+import SortBy from "../components/SortBy";
 import { useModal } from "../context/ModalContext";
 
 const WomenProductPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const { setModalOpen, modalOpen } = useModal();
+  const { setModalOpen, modalOpen, isOpen, setIsOpen } = useModal();
 
   const handleClick = () => {
     setIsOpen(true);
@@ -16,8 +15,8 @@ const WomenProductPage = () => {
   return (
     <div className="relative overflow-x-hidden">
       <TopProductFilter onClick={handleClick} modalOpen={modalOpen} />
+      <SortBy isOpen={isOpen} />
       <ProdGridPaginated tableName="women_store" />
-      <SideSortFilter isOpen={isOpen} />
     </div>
   );
 };

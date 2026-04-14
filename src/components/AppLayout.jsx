@@ -13,12 +13,14 @@ import Footer from "./Footer";
 import BackToTop from "./BackToTop";
 import Modal from "./Modal";
 import { useModal } from "../context/ModalContext";
+import { useNavBar } from "../context/NavBarContext";
 
 const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
   const { pathname } = useLocation();
   const mainRef = useRef(null);
-  const { modalOpen, setModalOpen } = useModal();
+  const { modalOpen, setModalOpen, setIsOpen } = useModal();
+  const { closeNavBar } = useNavBar();
 
   useEffect(() => {
     if (mainRef.current) {
@@ -51,7 +53,15 @@ const AppLayout = () => {
             }}
           />
         </PopUp>
-        {modalOpen && <Modal onClick={() => setModalOpen(false)} />}
+        {modalOpen && (
+          <Modal
+            onClick={() => {
+              setModalOpen(false);
+              setIsOpen(false);
+              closeNavBar();
+            }}
+          />
+        )}
         <Header />
         <MobileNav />
         <Outlet />

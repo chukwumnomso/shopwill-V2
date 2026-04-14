@@ -5,11 +5,12 @@ import Button from "./Button";
 import { signOut } from "../supabaseAuth/supabaseAuth";
 import { useNavigate } from "react-router-dom";
 import { useNavBar } from "../context/NavBarContext";
+import { useModal } from "../context/ModalContext";
 
 export default function Header() {
   const navigate = useNavigate();
   const { setNavOpen } = useNavBar();
-
+  const { setModalOpen } = useModal();
   return (
     <>
       <div className="bg-black h-6  text-white text-[0.6rem] flex items-center justify-center font-[montserrat] uppercase font-semibold sticky -top-7 left-0 z-30 w-full">
@@ -21,6 +22,7 @@ export default function Header() {
             className="cursor-pointer"
             onClick={() => {
               setNavOpen((prev) => !prev);
+              setModalOpen(true);
             }}
           >
             <Icon name="menu" />

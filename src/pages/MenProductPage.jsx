@@ -6,6 +6,7 @@ import SideSortFilter from "../components/SideSortFilter";
 import { useModal } from "../context/ModalContext";
 
 const MenProductPage = () => {
+  console.log("men page");
   const [isOpen, setIsOpen] = useState(false);
   const { setModalOpen, modalOpen } = useModal();
 

@@ -22,4 +22,4 @@ const WomenProductPage = () => {
   );
 };
 
-export default WomenProductPage;
+export default WomenProduct;

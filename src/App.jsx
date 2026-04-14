@@ -13,7 +13,7 @@ import AppLayout from "./components/AppLayout";
 import MobileNav from "./components/MobileNav";
 import { NavBarProvider } from "./context/NavBarContext";
 import MenProductPage from "./pages/MenProductPage";
-import WomenProductPage from "./pages/womenProductPage";
+import WomenProductPage from "./pages/WomenProductPage";
 import { ModalProvider } from "./context/ModalContext";
 
 const router = createBrowserRouter([

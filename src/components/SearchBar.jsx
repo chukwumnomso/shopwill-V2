@@ -27,9 +27,9 @@ const SearchBar = () => {
       className=" px-4 overflow-y-scroll  w-full  z-50 font-[jost] absolute transition-transform duration-300 bg-white"
       style={{
         transform: searchOpen ? "translateY(0)" : "translateY(-100%)",
-        height: searchOpen ? "30rem" : 0,
+        height: searchValue !== "" ? "30rem" : 0,
         display: searchOpen ? "block" : "hidden",
-        padding: searchOpen ? "1rem" : 0,
+        padding: searchOpen ? "2rem" : 0,
       }}
     >
       <div className="flex justify-between w-full items-center ">

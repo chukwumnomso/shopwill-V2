@@ -4,7 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Loading from "./SmallLoadingSpinner";
 
-const ProdGridPaginated = ({ tableName, itemsPerPage = 12 }) => {
+const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
   const { user } = useAuth();
 
   const {
@@ -15,10 +15,18 @@ const ProdGridPaginated = ({ tableName, itemsPerPage = 12 }) => {
     nextPage,
     prevPage,
     goToPage,
-  } = usePaginatedFetch(tableName, itemsPerPage);
+  } = usePaginatedFetch(tableName, gender, itemsPerPage);
 
   if (loading) {
     return <Loading />;
+  }
+
+  if (products.length < 1) {
+    return (
+      <div className="flex items-center justify-center uppercase font-[jost ] text-gray-500">
+        <p>No products found</p>
+      </div>
+    );
   }
 
   return (

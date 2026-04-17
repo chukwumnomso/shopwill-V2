@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import Loading from "./SmallLoadingSpinner";
 import FullPageSpinner from "./FullPageSpinner";
 
-const ProdGridSimple = ({ tableName, limit = 12 }) => {
+const ProdGridSimple = ({ tableName, limit = 12, gender }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
@@ -15,6 +15,7 @@ const ProdGridSimple = ({ tableName, limit = 12 }) => {
       const { data } = await supabase
         .from(tableName)
         .select("*")
+        .eq("gender", gender)
         .limit(limit)
         .order("created_at", { ascending: false });
 
@@ -23,7 +24,7 @@ const ProdGridSimple = ({ tableName, limit = 12 }) => {
     };
 
     fetchProducts();
-  }, [tableName, limit]);
+  }, [tableName, limit, gender]);
 
   if (loading) {
     return <Loading />;

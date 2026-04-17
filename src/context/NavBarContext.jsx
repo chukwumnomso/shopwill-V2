@@ -1,8 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useModal } from "./ModalContext";
+import { useCategory } from "./CategoryContext";
 
 const NavBarContext = createContext();
 
 export const NavBarProvider = ({ children }) => {
+  const { setModalOpen } = useModal();
+  const { category, setCategory, setProductType } = useCategory();
+
   const [navOpen, setNavOpen] = useState(false);
   const [navSlide, setNavSlide] = useState("");
   const [activeNav, setActiveNav] = useState(true);
@@ -17,6 +22,16 @@ export const NavBarProvider = ({ children }) => {
     setNavSlide(select);
     setActiveNav(false);
   };
+
+  const handleCategory = (category) => {
+    setCategory(category);
+    setNavOpen(false);
+    toggleNavSlide("");
+    setActiveNav(true);
+    setModalOpen(false);
+    setProductType("all");
+  };
+
   useEffect(() => {
     if (navOpen) {
       document.body.style.overflow = "hidden";
@@ -38,6 +53,9 @@ export const NavBarProvider = ({ children }) => {
         activeNav,
         setActiveNav,
         closeNavBar,
+        handleCategory,
+        category,
+        setCategory,
       }}
     >
       {children}

@@ -5,13 +5,18 @@ const ModalContext = createContext();
 const ModalProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  useEffect(() => {
-    console.log(modalOpen);
-    console.log(isOpen);
-  }, [modalOpen, isOpen]);
+  const [closedFilter, setClosedFilter] = useState(true);
+
   return (
     <ModalContext.Provider
-      value={{ modalOpen, setModalOpen, setIsOpen, isOpen }}
+      value={{
+        modalOpen,
+        setModalOpen,
+        setIsOpen,
+        isOpen,
+        closedFilter,
+        setClosedFilter,
+      }}
     >
       {children}
     </ModalContext.Provider>

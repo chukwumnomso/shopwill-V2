@@ -1,6 +1,7 @@
 import { useNavigate, Link } from "react-router-dom";
 
-import MobileNavSlide from "./MobileNavSlide";
+import { MenMobileNavSlide } from "./MobileNavSlide";
+import { WomenMobileNavSlide } from "./MobileNavSlide";
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
 import { useNavBar } from "../context/NavBarContext";
@@ -17,6 +18,7 @@ const MobileNav = () => {
     activeNav,
     navOpen,
     setNavOpen,
+    handleCategory,
   } = useNavBar();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -140,7 +142,7 @@ const MobileNav = () => {
           </ul>
         </div>
 
-        <MobileNavSlide
+        <MenMobileNavSlide
           style={{
             transform:
               navSlide === "best seller" ? "translateX(0)" : "translateX(100%)",
@@ -155,7 +157,7 @@ const MobileNav = () => {
           Accessories="Accessories"
         />
 
-        <MobileNavSlide
+        <MenMobileNavSlide
           style={{
             transform:
               navSlide === "men" ? "translateX(0)" : "translateX(100%)",
@@ -167,24 +169,26 @@ const MobileNav = () => {
           Shorts="Shorts"
           Hoodies="Hoodies"
           Accessories="Accessories"
-          onClick={handleActiveNav}
+          handleActiveNav={handleActiveNav}
+          handleCategory={handleCategory}
         />
 
-        <MobileNavSlide
+        <WomenMobileNavSlide
           style={{
             transform:
               navSlide === "women" ? "translateX(0)" : "translateX(100%)",
             transition: "transform 0.3s ease-in-out",
           }}
-          head="Women"
-          Tshirts="T-shirts"
-          Pants="Pants"
-          Shorts="Shorts"
-          Hoodies="Hoodies"
-          Accessories="Accessories"
-          onClick={handleActiveNav}
+          Head="Women"
+          Top="top"
+          Leggings="leggings"
+          Skirt="skirt"
+          Hoodie="Hoodie"
+          Bag="bag"
+          handleActiveNav={handleActiveNav}
+          handleCategory={handleCategory}
         />
-        <MobileNavSlide
+        <WomenMobileNavSlide
           style={{
             transform:
               navSlide === "kids" ? "translateX(0)" : "translateX(100%)",
@@ -196,7 +200,7 @@ const MobileNav = () => {
           Shorts="Shorts"
           Hoodies="Hoodies"
           Accessories="Accessories"
-          onClick={handleActiveNav}
+          handleActiveNav={handleActiveNav}
         />
 
         <Button

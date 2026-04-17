@@ -5,7 +5,7 @@ import { useWishList } from "../context/WishedListContext";
 import { usePopUp } from "../context/PopUpContext";
 import { AddToCart } from "./supabaseCartActions";
 import { useAuth } from "../context/AuthContext";
-import SupabaseFetch from "./useSupabaseFetch";
+import { Link } from "react-router-dom";
 
 const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
   const { handleCardHover, handleCardLeave, prodCardHover } = useProduct();
@@ -70,10 +70,12 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
         </div>
       </div>
       <div className="h-20 font-[jost] text-[0.8rem]  px-1 uppercase ">
-        <h2 className="hover:text-gray-700 transition-colors duration-300 cursor-pointer ">
-          {product.product_name}
-        </h2>
-        <p>₦{product.product_price}</p>
+        <Link to={`/product/${product.id}`}>
+          <h2 className="hover:text-gray-700 transition-colors duration-300 cursor-pointer ">
+            {product.product_name}
+          </h2>
+        </Link>
+        <p>₦{product.product_price.toLocaleString()}</p>
         <p className="text-gray-500 line-through">
           {product.discounts
             ? `${product.discounts}% OFF ${(

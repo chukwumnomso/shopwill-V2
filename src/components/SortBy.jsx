@@ -1,8 +1,16 @@
 import { useModal } from "../context/ModalContext";
 import Icon from "./Icon";
+import { useSort } from "../context/SortContext";
 
 const SortBy = () => {
   const { modalOpen, setModalOpen, isOpen, setIsOpen } = useModal();
+  const { sortProducts, sortConfig } = useSort();
+
+  const handleSort = (field, ascending) => {
+    sortProducts(field, ascending);
+    setModalOpen(false);
+    setIsOpen(false);
+  };
 
   return (
     <div
@@ -27,13 +35,97 @@ const SortBy = () => {
             />
           </button>
         </div>
-        <ul className="flex flex-col gap-4 cursor-pointer list-disc">
-          <li className="hover:text-black">Alphabetically, A - Z</li>
-          <li className="hover:text-black">Alphabetically, Z - A</li>
-          <li className="hover:text-black">Price, low - high</li>
-          <li className="hover:text-black">Price, high - low</li>
-          <li className="hover:text-black">Date,new - old</li>
-          <li className="hover:text-black">Date, old - new</li>
+        <ul className="flex flex-col gap-4 cursor-pointer ">
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === true &&
+                sortConfig.field === "product_name"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("product_name", true);
+            }}
+          >
+            Alphabetically, A - Z
+          </li>
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === false &&
+                sortConfig.field === "product_name"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("product_name", false);
+            }}
+          >
+            Alphabetically, Z - A
+          </li>
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === true &&
+                sortConfig.field === "product_price"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("product_price", true);
+            }}
+          >
+            Price, low - high
+          </li>
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === false &&
+                sortConfig.field === "product_price"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("product_price", false);
+            }}
+          >
+            Price, high - low
+          </li>
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === true &&
+                sortConfig.field === "created_at"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("created_at", true);
+            }}
+          >
+            Date,new - old
+          </li>
+          <li
+            className="hover:text-black"
+            style={{
+              listStyle:
+                sortConfig.ascending === false &&
+                sortConfig.field === "created_at"
+                  ? "disc"
+                  : "none",
+            }}
+            onClick={() => {
+              handleSort("created_at", false);
+            }}
+          >
+            Date, old - new
+          </li>
         </ul>
 
         <p></p>

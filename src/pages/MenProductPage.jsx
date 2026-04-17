@@ -4,20 +4,17 @@ import ProdGridPaginated from "../components/ProductGridPaginated";
 import TopProductFilter from "../components/TopProductFilter";
 import SortBy from "../components/SortBy";
 import { useModal } from "../context/ModalContext";
+import SideFilter from "../components/SideFilter";
 
 const MenProductPage = () => {
-  const { setModalOpen, modalOpen, setIsOpen, isOpen } = useModal();
-
-  const handleClick = () => {
-    setIsOpen(true);
-    setModalOpen(true);
-  };
+  // const size = (sizes) => {};
 
   return (
     <div className=" overflow-x-hidden ">
-      <TopProductFilter isOpen={isOpen} onClick={handleClick} />
-      <SortBy isOpen={isOpen} />
-      <ProdGridPaginated tableName="men_store" />
+      <TopProductFilter />
+      <SideFilter />
+      <SortBy />
+      <ProdGridPaginated tableName="products_store" gender="male" />
     </div>
   );
 };

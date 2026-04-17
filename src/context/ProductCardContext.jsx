@@ -1,10 +1,9 @@
 import React, { createContext, useContext, useState } from "react";
-import SupabaseFetch from "../components/useSupabaseFetch";
 
 const ProductContext = createContext();
 
 export const ProductProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
+  const [products] = useState([]);
   const [prodCardHover, setProdCardHover] = useState(null);
 
   const handleCardHover = (id) => {

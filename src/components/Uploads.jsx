@@ -48,7 +48,7 @@ function ImageUploadForm() {
     setUploading(false);
     // 3. Save URL to your Database Table
     const { data: tableData, error: tableError } = await supabase
-      .from("women_new_arrival") // e.g., 'posts' or 'profiles'
+      .from("products_store") // e.g., 'posts' or 'profiles'
       .insert([
         {
           product_name: name,

@@ -15,6 +15,11 @@ import { NavBarProvider } from "./context/NavBarContext";
 import MenProductPage from "./pages/MenProductPage";
 import WomenProductPage from "./pages/WomenProductPage";
 import { ModalProvider } from "./context/ModalContext";
+import ViewProductPage from "./pages/ViewProductPage";
+import { SortProvider } from "./context/SortContext";
+import { FilterProvider } from "./context/FilterContext";
+import { CategoryProvider } from "./context/CategoryContext";
+import { SearchProvider } from "./context/SearchContext";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +31,10 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignInPage /> },
       { path: "/menproducts", element: <MenProductPage /> },
       { path: "/womenproducts", element: <WomenProductPage /> },
+      {
+        path: "/product/:productId",
+        element: <ViewProductPage />,
+      },
     ],
   },
 ]);
@@ -34,15 +43,23 @@ function App() {
   return (
     <PopUpProvider>
       <AuthProvider>
-        <ModalProvider>
-          <NavBarProvider>
-            <ProductProvider>
-              <WishListProvider>
-                <RouterProvider router={router} />
-              </WishListProvider>
-            </ProductProvider>
-          </NavBarProvider>
-        </ModalProvider>
+        <SearchProvider>
+          <CategoryProvider>
+            <ModalProvider>
+              <NavBarProvider>
+                <FilterProvider>
+                  <SortProvider>
+                    <ProductProvider>
+                      <WishListProvider>
+                        <RouterProvider router={router} />
+                      </WishListProvider>
+                    </ProductProvider>
+                  </SortProvider>
+                </FilterProvider>
+              </NavBarProvider>
+            </ModalProvider>
+          </CategoryProvider>
+        </SearchProvider>
       </AuthProvider>
     </PopUpProvider>
   );

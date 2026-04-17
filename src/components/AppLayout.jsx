@@ -1,5 +1,4 @@
 import { Outlet, useLocation } from "react-router-dom";
-import supabase from "./supabaseClient";
 import { useEffect, useRef } from "react";
 
 import Header from "./Header";
@@ -14,13 +13,15 @@ import BackToTop from "./BackToTop";
 import Modal from "./Modal";
 import { useModal } from "../context/ModalContext";
 import { useNavBar } from "../context/NavBarContext";
+import { useSearch } from "../context/SearchContext";
 
 const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
   const { pathname } = useLocation();
   const mainRef = useRef(null);
-  const { modalOpen, setModalOpen, setIsOpen } = useModal();
+  const { modalOpen, setModalOpen, setIsOpen, setClosedFilter } = useModal();
   const { closeNavBar } = useNavBar();
+  const { setSearchOpen } = useSearch();
 
   useEffect(() => {
     if (mainRef.current) {
@@ -59,6 +60,8 @@ const AppLayout = () => {
               setModalOpen(false);
               setIsOpen(false);
               closeNavBar();
+              setClosedFilter(true);
+              setSearchOpen(false);
             }}
           />
         )}

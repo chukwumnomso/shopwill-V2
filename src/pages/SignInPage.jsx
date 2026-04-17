@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { signIn } from "../supabaseAuth/supabaseAuth";
 import Button from "../components/Button";
-import { getCurrentUser } from "../supabaseAuth/supabaseAuth";
+import ViewProductPage from "./ViewProductPage";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -43,6 +42,7 @@ const SignInPage = () => {
         </Button>
       </form>
     </div>
+    // <ViewProductPage />
   );
 };
 

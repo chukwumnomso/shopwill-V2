@@ -8,7 +8,8 @@ import { useSearch } from "../context/SearchContext";
 const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
   const { category } = useNavBar();
   const { sortConfig } = useSort();
-  const { productType, currentPage, setCurrentPage } = useFilter();
+  const { currentPage, setCurrentPage } = useFilter();
+  const { searchValue } = useSearch();
   const [products, setProducts] = useState([]);
 
   const [totalPages, setTotalPages] = useState(0);
@@ -21,15 +22,19 @@ const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage - 1;
 
-    let query = supabase
-      .from(tableName)
-      .select("*", { count: "exact" })
-      .eq("gender", gender);
-    if (productType && productType !== "all") {
-      query = query.eq("product_type", productType);
+    let query = supabase.from(tableName).select("*", { count: "exact" });
+    if (gender && gender !== "") {
+      query = query.eq("gender", gender);
     }
+
     if (category && category !== "all") {
       query = query.eq("category", category);
+    }
+
+    if (searchValue && !gender) {
+      query = query.or(
+        `product_name.ilike.%${searchValue}%,category.ilike.${searchValue}%`,
+      );
     }
 
     query = query
@@ -49,8 +54,8 @@ const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
     itemsPerPage,
     tableName,
     gender,
-    productType,
     category,
+    searchValue,
     sortConfig.field,
     sortConfig.ascending,
   ]);

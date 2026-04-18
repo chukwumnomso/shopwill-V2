@@ -34,7 +34,10 @@ const AppLayout = () => {
 
   return (
     <>
-      <div ref={mainRef} className="relative overflow-y-auto h-screen">
+      <div
+        ref={mainRef}
+        className={`relative  h-screen ${modalOpen ? "overflow-hidden" : "overflow-y-auto"} `}
+      >
         <PopUp>
           <Icon name="check" className="mr-4 size-8 text-green-500" />
           {popUpMessage === "addedToCart"

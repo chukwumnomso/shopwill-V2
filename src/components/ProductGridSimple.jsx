@@ -5,26 +5,33 @@ import { useAuth } from "../context/AuthContext";
 import Loading from "./SmallLoadingSpinner";
 import FullPageSpinner from "./FullPageSpinner";
 
-const ProdGridSimple = ({ tableName, limit = 12, gender }) => {
+const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await supabase
-        .from(tableName)
-        .select("*")
-        .eq("gender", gender)
-        .limit(limit)
-        .order("created_at", { ascending: false });
+      let query = supabase.from(tableName).select("*").eq("gender", gender);
+      if (category && category !== "") {
+        query = query.eq("category", category);
+      }
+      query = query.limit(limit).order("created_at", { ascending: false });
+      const { data } = await query;
+
+      // const { data } = await supabase
+      //   .from(tableName)
+      //   .select("*")
+      //   .eq("gender", gender)
+      //   .limit(limit)
+      //   .order("created_at", { ascending: false });
 
       setProducts(data);
       setLoading(false);
     };
 
     fetchProducts();
-  }, [tableName, limit, gender]);
+  }, [tableName, limit, gender, category]);
 
   if (loading) {
     return <Loading />;

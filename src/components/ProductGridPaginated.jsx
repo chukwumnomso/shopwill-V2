@@ -138,9 +138,11 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
       )}
 
       {/* Page Info */}
-      <div className="text-center text-gray-500 text-sm  font-[jost]">
-        Page {currentPage} of {totalPages}
-      </div>
+      {totalPages > 1 && (
+        <div className="text-center text-gray-500 text-sm  font-[jost]">
+          Page {currentPage} / {totalPages}
+        </div>
+      )}
     </div>
   );
 };

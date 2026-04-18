@@ -7,6 +7,7 @@ const SearchProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const [searchLimit, setSearchLimit] = useState(5);
   const debounceTimer = useRef(null);
 
   useEffect(() => {
@@ -16,15 +17,25 @@ const SearchProvider = ({ children }) => {
 
     debounceTimer.current = setTimeout(async () => {
       try {
-        const { data, error } = await supabase
-          .from("products_store")
-          .select("*")
-          .or(
-            `product_name.ilike.%${searchValue}%,category.ilike.%${searchValue}%`,
+        if (searchValue === "") {
+          setSearchResult([]);
+          return;
+        }
+
+        let query = supabase.from("products_store").select("*");
+
+        if (searchValue) {
+          query = query.or(
+            `product_name.ilike.%${searchValue}%,category.ilike.${searchValue}%`,
           );
-        if (!error) {
+        }
+
+        query = query.limit(searchLimit);
+
+        const { data, error } = await query;
+
+        if (!error && searchValue) {
           setSearchResult(data);
-          console.log(data);
         }
       } catch (err) {
         console.error(err);
@@ -36,7 +47,7 @@ const SearchProvider = ({ children }) => {
         clearTimeout(debounceTimer.current);
       }
     };
-  }, [searchValue]);
+  }, [searchValue, searchLimit]);
 
   return (
     <SearchContext.Provider
@@ -46,6 +57,8 @@ const SearchProvider = ({ children }) => {
         searchOpen,
         setSearchOpen,
         searchResult,
+        searchLimit,
+        setSearchLimit,
       }}
     >
       {children}

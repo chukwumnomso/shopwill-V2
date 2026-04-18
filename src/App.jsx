@@ -20,6 +20,7 @@ import { SortProvider } from "./context/SortContext";
 import { FilterProvider } from "./context/FilterContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { SearchProvider } from "./context/SearchContext";
+import SearchPage from "./pages/SearchPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "/signin", element: <SignInPage /> },
       { path: "/menproducts", element: <MenProductPage /> },
       { path: "/womenproducts", element: <WomenProductPage /> },
+      { path: "/searched", element: <SearchPage /> },
       {
         path: "/product/:productId",
         element: <ViewProductPage />,

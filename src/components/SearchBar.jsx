@@ -1,12 +1,16 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 import Icon from "./Icon";
 import { useSearch } from "../context/SearchContext";
 import { useModal } from "../context/ModalContext";
-import searchResultComponent from "./SearchProductComponent";
 import SearchProductComponent from "./SearchProductComponent";
+import { useCategory } from "../context/CategoryContext";
+
+import Button from "./Button";
 
 const SearchBar = () => {
+  const { setCategory } = useCategory();
   const {
     searchOpen,
     setSearchOpen,
@@ -24,16 +28,18 @@ const SearchBar = () => {
 
   return (
     <div
-      className=" px-4 overflow-y-scroll  w-full  z-50 font-[jost] absolute transition-transform duration-300 bg-white"
+      className=" px-4 overflow-y-auto  w-full  z-40 font-[jost] absolute transition-transform duration-300 bg-white "
       style={{
-        transform: searchOpen ? "translateY(0)" : "translateY(-100%)",
-        height: searchValue !== "" ? "30rem" : 0,
+        transform: searchOpen ? "translateY(0)" : "translateY(-500%)",
+        maxHeight: searchResult.length >= 1 ? "30rem" : "4rem",
         display: searchOpen ? "block" : "hidden",
-        padding: searchOpen ? "2rem" : 0,
+        padding: searchOpen ? "1rem " : 0,
+        borderTop: searchOpen ? "solid 1px black" : "none",
+        zIndex: searchOpen ? "40" : "10",
       }}
     >
-      <div className="flex justify-between w-full items-center ">
-        <div className="flex gap-4 w-full ">
+      <div className="flex justify-between w-full items-center  ">
+        <div className="flex gap-4 w-full">
           <Icon name="search" className="size-6 text-gray-500" />
 
           <input
@@ -51,21 +57,39 @@ const SearchBar = () => {
           onClick={() => {
             setSearchOpen(false);
             setModalOpen(false);
+            setSearchValue("");
           }}
         >
           <Icon name="cancel" className="size-6 text-gray-500" />
         </button>
       </div>
-
-      {searchValue !== "" && (
-        <div className="py-10 ">
-          {searchResult.map((productResult) => (
-            <SearchProductComponent
-              key={productResult.id}
-              product={productResult}
-            />
-          ))}
-        </div>
+      {searchResult.length > 0 && (
+        <p className="my-8 text-lg uppercase underline">products</p>
+      )}
+      <div
+        className="transition-opacity duration-500 bg-red-200"
+        style={{ opacity: searchValue ? 1 : 0 }}
+      >
+        {searchResult.map((productResult) => (
+          <SearchProductComponent
+            key={productResult.id}
+            product={productResult}
+          />
+        ))}
+      </div>
+      {searchResult.length > 0 && (
+        <Link to="/searched">
+          <Button
+            className="px-4 uppercase mt-4 bg-black h-10 text-white hover:text-blue-300 cursor-pointer"
+            onClick={() => {
+              setSearchOpen(false);
+              setModalOpen(false);
+              setCategory("all");
+            }}
+          >
+            view all results
+          </Button>
+        </Link>
       )}
     </div>
   );

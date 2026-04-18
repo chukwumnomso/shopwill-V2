@@ -6,22 +6,19 @@ const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
   const { setModalOpen, setClosedFilter } = useModal();
-  const { productType, setProductType, setCategory } = useCategory();
+  const { setCategory } = useCategory();
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleProductType = (product_type) => {
-    setProductType(product_type);
     setModalOpen(false);
     setClosedFilter(true);
     setCurrentPage(1);
-    setCategory("all");
+    setCategory(product_type);
   };
 
   return (
     <FilterContext.Provider
       value={{
-        productType,
-        setProductType,
         handleProductType,
         setCurrentPage,
         currentPage,

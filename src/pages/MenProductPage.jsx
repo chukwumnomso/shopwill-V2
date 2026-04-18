@@ -10,9 +10,9 @@ const MenProductPage = () => {
   // const size = (sizes) => {};
 
   return (
-    <div className=" overflow-x-hidden ">
+    <div className=" overflow-hidden ">
       <TopProductFilter />
-      <SideFilter />
+      <SideFilter gender="male" />
       <SortBy />
       <ProdGridPaginated tableName="products_store" gender="male" />
     </div>

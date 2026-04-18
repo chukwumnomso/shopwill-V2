@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import supabase from "../components/supabaseClient";
 import ViewedProduct from "../components/ViewedProduct";
+import Loading from "../components/SmallLoadingSpinner";
 
 const ViewProductPage = () => {
   const { productId } = useParams();
@@ -38,7 +39,7 @@ const ViewProductPage = () => {
     fetchProduct();
   }, [productId]);
 
-  if (isLoading) return <div className="p-8">Loading product...</div>;
+  if (isLoading) return <Loading />;
   if (error) return <div className="p-8 text-red-600">Error: {error}</div>;
   if (!product) return <div className="p-8">Product not found</div>;
 

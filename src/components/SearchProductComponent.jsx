@@ -1,6 +1,6 @@
 const SearchProductComponent = ({ product }) => {
   return (
-    <div className="flex items-center gap-4 mt-4 border-b">
+    <div className="flex items-center gap-4 mt-4 ">
       <img
         src={product.imageUrl_1}
         alt={product.product_name}
@@ -8,10 +8,19 @@ const SearchProductComponent = ({ product }) => {
       />
       <div>
         <p className="tracking-widest">{product.product_name}</p>
-        <p className="flex gap-4 text-red-500 tracking-wide mt-2 ">
-          ₦{product.product_price.toLocaleString()}
-          {product.discounts}
-        </p>
+        <div className="mt-1 flex items-center gap-4 text-sm">
+          <p className="flex gap-4 text-amber-600 tracking-wide   ">
+            ₦{product.product_price.toLocaleString()}
+          </p>
+          <p className="text-gray-500 line-through font-light">
+            {product.discounts
+              ? `${product.discounts}% OFF ${(
+                  (product.discounts / 100) * product.product_price +
+                  product.product_price
+                ).toLocaleString()}`
+              : null}
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -4,11 +4,9 @@ const CategoryContext = createContext();
 
 const CategoryProvider = ({ children }) => {
   const [category, setCategory] = useState();
-  const [productType, setProductType] = useState("all");
+
   return (
-    <CategoryContext.Provider
-      value={{ category, setCategory, productType, setProductType }}
-    >
+    <CategoryContext.Provider value={{ category, setCategory }}>
       {children}
     </CategoryContext.Provider>
   );

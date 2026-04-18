@@ -9,8 +9,10 @@ import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "../supabaseAuth/supabaseAuth";
 import { useModal } from "../context/ModalContext";
+import { useCategory } from "../context/CategoryContext";
 
 const MobileNav = () => {
+  const { setCategory } = useCategory();
   const {
     navSlide,
     toggleNavSlide,
@@ -105,6 +107,7 @@ const MobileNav = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   handleCloseNav();
+                  setCategory("all");
                 }}
               >
                 men
@@ -124,6 +127,7 @@ const MobileNav = () => {
                 onClick={(e) => {
                   e.stopPropagation();
                   handleCloseNav();
+                  setCategory("all");
                 }}
               >
                 women

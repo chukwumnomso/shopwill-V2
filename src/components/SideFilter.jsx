@@ -1,16 +1,40 @@
-import { useState } from "react";
+import supabase from "./supabaseClient";
+
+import { useEffect, useState } from "react";
 import Icon from "./Icon";
 import { useModal } from "../context/ModalContext";
 import Button from "./Button";
 import { useFilter } from "../context/FilterContext";
 
-const size = ["s", "m", "l", "xl", "xxl"];
-const productType = ["accessory", "apparel", "footwear"];
+// const productType = ["accessory", "apparel", "footwear"];
+// const gender = ["male", "female", "unisex"];
 
-const SideFilter = ({ onClick }) => {
+const SideFilter = ({ gender }) => {
   const [isClicked, setIsClicked] = useState(null);
+  const [productType, setProductType] = useState(null);
+  const [quantity, setQuantity] = useState("");
   const { setModalOpen, setClosedFilter, closedFilter } = useModal(false);
   const { handleProductType } = useFilter();
+
+  useEffect(() => {
+    const fetchProductType = async () => {
+      const { data, error } = await supabase
+        .from("products_store")
+        .select("category")
+        .eq("gender", gender);
+      if (!error) {
+        const prodType = data?.map((type) => type.category);
+        const newProdType = [...new Set(prodType)];
+        setProductType(newProdType);
+        const productCount = prodType.reduce((acc, prod) => {
+          acc[prod] = (acc[prod] || 0) + 1;
+          return acc;
+        }, {});
+        setQuantity(productCount);
+      }
+    };
+    fetchProductType();
+  }, [gender]);
 
   const handleClick = (filter) => {
     setIsClicked((prev) => (prev === filter ? null : filter));
@@ -55,49 +79,17 @@ const SideFilter = ({ onClick }) => {
         </div>
         <ul
           className="capitalize flex flex-col gap-2 h-0 overflow-hidden transition-all duration-300"
-          style={{ height: isClicked === 1 ? "10rem" : "0" }}
+          style={{ height: isClicked === 1 ? "25rem" : "0" }}
         >
-          {productType.map((p, index) => (
+          {productType?.map((prod_type, index) => (
             <li
               className="border-b py-2 hover:text-gray-500"
               key={index}
               onClick={() => {
-                handleProductType(p);
+                handleProductType(prod_type);
               }}
             >
-              {p}
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className="border-b py-4 border-t hover:text-black">
-        <div
-          className="mb-2 flex items-center justify-between"
-          onClick={() => handleClick(2)}
-        >
-          size
-          <div
-            className="transition-transform duration-300"
-            style={{
-              transform: isClicked === 2 ? "rotate(180deg)" : "rotate(0deg)",
-            }}
-          >
-            <Icon name="arrowDown" className="size-5 " />
-          </div>
-        </div>
-        <ul
-          className="uppercase flex flex-col gap-2 h-0 overflow-hidden transition-all duration-300"
-          style={{ height: isClicked === 2 ? "15rem" : "0" }}
-        >
-          {size.map((s, index) => (
-            <li
-              className="border-b py-2 hover:text-gray-500"
-              key={index}
-              onClick={() => {
-                onClick(s);
-              }}
-            >
-              {s}
+              {prod_type} <span>({quantity[prod_type]})</span>
             </li>
           ))}
         </ul>

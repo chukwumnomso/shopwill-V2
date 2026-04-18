@@ -75,8 +75,10 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
             {product.product_name}
           </h2>
         </Link>
-        <p>₦{product.product_price.toLocaleString()}</p>
-        <p className="text-gray-500 line-through">
+        <p className="text-amber-600">
+          ₦{product.product_price.toLocaleString()}
+        </p>
+        <p className="text-gray-500 line-through font-light">
           {product.discounts
             ? `${product.discounts}% OFF ${(
                 (product.discounts / 100) * product.product_price +

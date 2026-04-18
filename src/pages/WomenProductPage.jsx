@@ -8,7 +8,7 @@ const WomenProductPage = () => {
   return (
     <div className="relative overflow-x-hidden">
       <TopProductFilter />
-      <SideFilter />
+      <SideFilter gender="female" />
       <SortBy />
       <ProdGridPaginated tableName="products_store" gender="female" />
     </div>

@@ -1,55 +1,74 @@
-// import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
 
-// const cartContext = createContext();
+import supabase from "../components/supabaseClient";
+import { useAuth } from "./AuthContext";
+import Loading from "../components/SmallLoadingSpinner";
 
-// const CartProvider = ({ children }) => {
-//   const [cart];
+const CartContext = createContext();
 
-//   async function addToCart(newItem) {
-//     try {
-//       const { product_id, quantity, user_id, product_name, product_price } =
-//         newItem;
+const CartProvider = ({ children }) => {
+  const { user } = useAuth();
+  const [cart, setCart] = useState([]);
+  const [wishLists, setWishLists] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
-//       // Get current user
-//       const {
-//         data: { user },
-//         error: userError,
-//       } = await supabase.auth.getUser();
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        setIsLoading(true);
+        if (!user) {
+          const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+          setCart(localCart);
+        } else {
+          const { data, error } = await supabase
+            .from("cart_items")
+            .select("*")
+            .eq("user_id", user.id);
+          if (!error) {
+            setCart(data);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetch();
+  }, [user, cart]);
 
-//       if (userError || !user) {
-//         console.log("her");
-//       }
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        setIsLoading(true);
+        const { data, error } = await supabase
+          .from("wishlist")
+          .select("*")
+          .eq("user_id", user.id);
+        if (!error) {
+          setWishLists(data);
+        }
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetch();
+  }, [user.id, wishLists]);
 
-//       // Check if item already in cart
-//       const { data: existingItem, error: fetchError } = await supabase
-//         .from("cart_items")
-//         .select("id, quantity")
-//         .eq("user_id", user.id)
-//         .eq("product_id", product_id)
-//         .maybeSingle();
+  return (
+    <CartContext.Provider value={{ cart, setCart, wishLists }}>
+      {children}
+    </CartContext.Provider>
+  );
+};
 
-//       if (existingItem) {
-//         // Update quantity if already exists
-//         const { error: updateError } = await supabase
-//           .from("cart_items")
-//           .update({ quantity: existingItem.quantity + quantity })
-//           .eq("id", existingItem.id);
+const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) throw new Error("must be used within the cart provider");
+  return context;
+};
 
-//         if (updateError) throw updateError;
-//         return { message: "Cart updated" };
-//       } else {
-//         // Insert new item
-//         const { error: insertError } = await supabase
-//           .from("cart_items")
-//           .insert(newItem);
-
-//         if (insertError) throw insertError;
-//         return { message: "Item added to cart" };
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
-
-//   return <cartContext.Provider value={{}}>{children}</cartContext.Provider>;
-// };
+// eslint-disable-next-line react-refresh/only-export-components
+export { useCart, CartProvider };

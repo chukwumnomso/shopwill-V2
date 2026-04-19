@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import Header from "./Header";
 import PopUp from "./PopUp";
 import { usePopUp } from "../context/PopUpContext";
-import SideCart from "./SideCart";
 import MobileNav from "./MobileNav";
 import Icon from "./Icon";
 import ServicesSlider from "./ServicesSlider";
@@ -14,6 +13,7 @@ import Modal from "./Modal";
 import { useModal } from "../context/ModalContext";
 import { useNavBar } from "../context/NavBarContext";
 import { useSearch } from "../context/SearchContext";
+import CartDrawer from "./CartDrawer";
 
 const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
@@ -70,6 +70,7 @@ const AppLayout = () => {
         )}
         <Header />
         <MobileNav />
+        <CartDrawer />
         <Outlet />
         <ServicesSlider />
         <Footer />

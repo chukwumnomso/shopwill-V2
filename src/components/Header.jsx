@@ -5,17 +5,20 @@ import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
 import CartIcon from "./CartIcon";
 import Button from "./Button";
-
+import { useCart } from "../context/CartContext";
 import { useNavBar } from "../context/NavBarContext";
 import { useModal } from "../context/ModalContext";
 import SearchBar from "./SearchBar";
 import { useSearch } from "../context/SearchContext";
+import { useAuth } from "../context/AuthContext";
 
 export default function Header() {
+  const { cart, wishLists } = useCart();
   const { setNavOpen } = useNavBar();
   const { setModalOpen } = useModal();
   const { searchOpen, setSearchOpen } = useSearch();
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <>
@@ -65,12 +68,12 @@ export default function Header() {
           </Button>
           <Button className="cursor-pointer">
             <CartIcon name="fav" className="relative">
-              0
+              {user ? wishLists?.length : 0}
             </CartIcon>
           </Button>
           <Button className="cursor-pointer">
             <CartIcon name="cart" className={"relative"}>
-              0
+              {cart.length}
             </CartIcon>
           </Button>
         </div>

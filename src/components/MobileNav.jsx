@@ -26,10 +26,10 @@ const MobileNav = () => {
   const navigate = useNavigate();
   const { setModalOpen } = useModal();
 
-  const r = () => {
-    console.log("clicked");
-    navigate("/");
-  };
+  // const r = () => {
+  //   console.log("clicked");
+  //   navigate("/");
+  // };
 
   const handleActiveNav = () => {
     toggleNavSlide("");

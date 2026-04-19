@@ -18,28 +18,31 @@ import { FilterProvider } from "./context/FilterContext";
 import { CategoryProvider } from "./context/CategoryContext";
 import { SearchProvider } from "./context/SearchContext";
 import SearchPage from "./pages/SearchPage";
+import { CartProvider } from "./context/CartContext";
 
 // Wrap AppLayout with all providers
 const AppLayoutWithProviders = () => (
   <PopUpProvider>
     <AuthProvider>
-      <SearchProvider>
-        <CategoryProvider>
-          <ModalProvider>
-            <NavBarProvider>
-              <FilterProvider>
-                <SortProvider>
-                  <ProductProvider>
-                    <WishListProvider>
-                      <AppLayout />
-                    </WishListProvider>
-                  </ProductProvider>
-                </SortProvider>
-              </FilterProvider>
-            </NavBarProvider>
-          </ModalProvider>
-        </CategoryProvider>
-      </SearchProvider>
+      <CartProvider>
+        <SearchProvider>
+          <CategoryProvider>
+            <ModalProvider>
+              <NavBarProvider>
+                <FilterProvider>
+                  <SortProvider>
+                    <ProductProvider>
+                      <WishListProvider>
+                        <AppLayout />
+                      </WishListProvider>
+                    </ProductProvider>
+                  </SortProvider>
+                </FilterProvider>
+              </NavBarProvider>
+            </ModalProvider>
+          </CategoryProvider>
+        </SearchProvider>
+      </CartProvider>
     </AuthProvider>
   </PopUpProvider>
 );

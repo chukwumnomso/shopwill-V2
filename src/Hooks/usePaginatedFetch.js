@@ -1,20 +1,20 @@
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "react-router-dom";
 import supabase from "../components/supabaseClient";
 import { useSort } from "../context/SortContext";
 import { useFilter } from "../context/FilterContext";
 import { useNavBar } from "../context/NavBarContext";
-import { useSearch } from "../context/SearchContext";
 
 const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
   const { category } = useNavBar();
   const { sortConfig } = useSort();
   const { currentPage, setCurrentPage } = useFilter();
-  const { searchValue } = useSearch();
   const [products, setProducts] = useState([]);
-
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchQuery = searchParams.get("q") || "";
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -31,9 +31,9 @@ const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
       query = query.eq("category", category);
     }
 
-    if (searchValue && !gender) {
+    if (searchQuery && !gender) {
       query = query.or(
-        `product_name.ilike.%${searchValue}%,category.ilike.${searchValue}%`,
+        `product_name.ilike.%${searchQuery}%,category.ilike.${searchQuery}%`,
       );
     }
 
@@ -55,7 +55,7 @@ const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
     tableName,
     gender,
     category,
-    searchValue,
+    searchQuery,
     sortConfig.field,
     sortConfig.ascending,
   ]);

@@ -13,7 +13,7 @@ function ViewedProduct({ product }) {
   const images = [product.imageUrl_1, product.imageUrl_2];
   const [prodSize, setProdSize] = useState(null);
   const [inputValue, setInputValue] = useState(1);
-  const { setPopUpMessage, setPopUpVisible, popUpVisible } = usePopUp();
+  const { setPopUpMessage, setPopUpVisible } = usePopUp();
   const { user } = useAuth();
 
   const newCartItem = {
@@ -34,7 +34,7 @@ function ViewedProduct({ product }) {
   };
 
   return (
-    <div className=" font-[jost] px-4 ">
+    <div className=" font-[jost] px-4 pt-15">
       <div className="flex items-center mb-2  relative ">
         <button
           onClick={() => {

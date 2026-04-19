@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
@@ -14,6 +15,7 @@ export default function Header() {
   const { setNavOpen } = useNavBar();
   const { setModalOpen } = useModal();
   const { searchOpen, setSearchOpen } = useSearch();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -38,7 +40,11 @@ export default function Header() {
           >
             <Icon name="menu" />
           </Button>
-          <ShopLogo />
+          <ShopLogo
+            onClick={() => {
+              navigate("/");
+            }}
+          />
         </div>
         <div
           className="w-full h-full"

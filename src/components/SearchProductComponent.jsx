@@ -1,4 +1,6 @@
-const SearchProductComponent = ({ product }) => {
+import { Link } from "react-router-dom";
+
+const SearchProductComponent = ({ product, setSearch, setModal }) => {
   return (
     <div className="flex items-center gap-4 mt-4 ">
       <img
@@ -7,7 +9,17 @@ const SearchProductComponent = ({ product }) => {
         className="size-15"
       />
       <div>
-        <p className="tracking-widest">{product.product_name}</p>
+        <Link to={`product/${product.id}`}>
+          <p
+            className="tracking-widest"
+            onClick={() => {
+              setSearch(false);
+              setModal(false);
+            }}
+          >
+            {product.product_name}
+          </p>
+        </Link>
         <div className="mt-1 flex items-center gap-4 text-sm">
           <p className="flex gap-4 text-amber-600 tracking-wide   ">
             ₦{product.product_price.toLocaleString()}

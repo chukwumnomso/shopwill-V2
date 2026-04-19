@@ -15,8 +15,10 @@ const SearchBar = () => {
     searchOpen,
     setSearchOpen,
     searchResult,
-    searchValue,
-    setSearchValue,
+    // searchValue,
+    // setSearchValue,
+    handleSearch,
+    searchQuery,
   } = useSearch();
   const { setModalOpen } = useModal();
   const searchInputRef = useRef(null);
@@ -25,6 +27,8 @@ const SearchBar = () => {
       searchInputRef.current.focus();
     }
   }, [searchOpen]);
+
+  const result = searchResult.slice(0, 5);
 
   return (
     <div
@@ -43,8 +47,8 @@ const SearchBar = () => {
           <Icon name="search" className="size-6 text-gray-500" />
 
           <input
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => handleSearch(e.target.value)}
             ref={searchInputRef}
             type="text"
             placeholder="search for..."
@@ -57,7 +61,7 @@ const SearchBar = () => {
           onClick={() => {
             setSearchOpen(false);
             setModalOpen(false);
-            setSearchValue("");
+            // setSearchValue("");
           }}
         >
           <Icon name="cancel" className="size-6 text-gray-500" />
@@ -67,18 +71,20 @@ const SearchBar = () => {
         <p className="my-8 text-lg uppercase underline">products</p>
       )}
       <div
-        className="transition-opacity duration-500 bg-red-200"
-        style={{ opacity: searchValue ? 1 : 0 }}
+        className="transition-opacity duration-500 "
+        style={{ opacity: searchQuery ? 1 : 0 }}
       >
-        {searchResult.map((productResult) => (
+        {result.map((productResult) => (
           <SearchProductComponent
             key={productResult.id}
             product={productResult}
+            setSearch={setSearchOpen}
+            setModal={setModalOpen}
           />
         ))}
       </div>
       {searchResult.length > 0 && (
-        <Link to="/searched">
+        <Link to={`/searched?q=${searchQuery}`}>
           <Button
             className="px-4 uppercase mt-4 bg-black h-10 text-white hover:text-blue-300 cursor-pointer"
             onClick={() => {

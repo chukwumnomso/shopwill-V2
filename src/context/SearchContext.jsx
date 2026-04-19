@@ -1,14 +1,26 @@
 import { createContext, useContext, useEffect, useState, useRef } from "react";
 import supabase from "../components/supabaseClient";
+import { useSearchParams } from "react-router-dom";
 
 const SearchContext = createContext();
 
 const SearchProvider = ({ children }) => {
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  const [searchLimit, setSearchLimit] = useState(5);
+  // const [searchLimit, setSearchLimit] = useState(3);
   const debounceTimer = useRef(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get("q") || "";
+
+  const handleSearch = (newQuery) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      q: newQuery,
+    });
+    console.log(newQuery);
+  };
 
   useEffect(() => {
     if (debounceTimer.current) {
@@ -17,24 +29,24 @@ const SearchProvider = ({ children }) => {
 
     debounceTimer.current = setTimeout(async () => {
       try {
-        if (searchValue === "") {
+        if (searchQuery === "") {
           setSearchResult([]);
           return;
         }
 
         let query = supabase.from("products_store").select("*");
 
-        if (searchValue) {
+        if (searchQuery) {
           query = query.or(
-            `product_name.ilike.%${searchValue}%,category.ilike.${searchValue}%`,
+            `product_name.ilike.%${searchQuery}%,category.ilike.${searchQuery}%`,
           );
         }
 
-        query = query.limit(searchLimit);
+        // query = query.limit(searchLimit);
 
         const { data, error } = await query;
 
-        if (!error && searchValue) {
+        if (!error && searchQuery) {
           setSearchResult(data);
         }
       } catch (err) {
@@ -47,18 +59,21 @@ const SearchProvider = ({ children }) => {
         clearTimeout(debounceTimer.current);
       }
     };
-  }, [searchValue, searchLimit]);
+  }, [searchQuery]);
 
   return (
     <SearchContext.Provider
       value={{
-        searchValue,
-        setSearchValue,
+        // searchValue,
+        // setSearchValue,
         searchOpen,
         setSearchOpen,
         searchResult,
-        searchLimit,
-        setSearchLimit,
+        handleSearch,
+        searchQuery,
+
+        // searchLimit,
+        // setSearchLimit,
       }}
     >
       {children}

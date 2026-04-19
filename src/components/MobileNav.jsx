@@ -26,6 +26,11 @@ const MobileNav = () => {
   const navigate = useNavigate();
   const { setModalOpen } = useModal();
 
+  const r = () => {
+    console.log("clicked");
+    navigate("/");
+  };
+
   const handleActiveNav = () => {
     toggleNavSlide("");
     setActiveNav((prev) => !prev);
@@ -63,7 +68,9 @@ const MobileNav = () => {
           >
             <Link to="/">home</Link>
           </p>
+
           <ShopLogo />
+
           <button
             onClick={() => {
               handleCloseNav();
@@ -157,8 +164,9 @@ const MobileNav = () => {
           Pants="Pants"
           Shorts="Shorts"
           Hoodies="Hoodies"
-          onClick={handleActiveNav}
           Accessories="Accessories"
+          handleActiveNav={handleActiveNav}
+          handleCategory={handleCategory}
         />
 
         <MenMobileNavSlide

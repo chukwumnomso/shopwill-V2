@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Header from "./Header";
 import PopUp from "./PopUp";
@@ -14,6 +14,8 @@ import { useModal } from "../context/ModalContext";
 import { useNavBar } from "../context/NavBarContext";
 import { useSearch } from "../context/SearchContext";
 import CartDrawer from "./CartDrawer";
+import BottomSlideView from "./BottomSlideView";
+import { useCart } from "../context/CartContext";
 
 const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
@@ -22,7 +24,7 @@ const AppLayout = () => {
   const { modalOpen, setModalOpen, setIsOpen, setClosedFilter } = useModal();
   const { closeNavBar } = useNavBar();
   const { setSearchOpen } = useSearch();
-
+  const { setBottomCartOpen, setCartDrawerOpen } = useCart();
   useEffect(() => {
     if (mainRef.current) {
       mainRef.current.scrollTop = 0;
@@ -48,7 +50,9 @@ const AppLayout = () => {
                 ? "please login to add to wishlist"
                 : popUpMessage === "removedFromWishlist"
                   ? "item removed from wishlist "
-                  : ""}
+                  : popUpMessage === "wishlistexist"
+                    ? "item already in your wishlist"
+                    : ""}
           <Icon
             name="cancel"
             className="ml-4 size-6 text-gray-200 hover:rotate-90 cursor-pointer transition-transform duration-300"
@@ -65,15 +69,18 @@ const AppLayout = () => {
               closeNavBar();
               setClosedFilter(true);
               setSearchOpen(false);
+              setBottomCartOpen(false);
+              setCartDrawerOpen(false);
             }}
           />
         )}
         <Header />
         <MobileNav />
-        <CartDrawer />
+        <CartDrawer setModalOpen={setModalOpen} />
         <Outlet />
         <ServicesSlider />
         <Footer />
+        <BottomSlideView setModalOpen={setModalOpen} />
       </div>
       <BackToTop containerRef={mainRef} />
     </>

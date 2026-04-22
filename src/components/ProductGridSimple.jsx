@@ -7,27 +7,31 @@ import FullPageSpinner from "./FullPageSpinner";
 
 const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { user } = useAuth();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      let query = supabase.from(tableName).select("*").eq("gender", gender);
-      if (category && category !== "") {
-        query = query.eq("category", category);
+      setLoading(true);
+      try {
+        let query = supabase.from(tableName).select("*");
+        if (gender && gender !== "") {
+          query = query.eq("gender", gender);
+        }
+        if (category && category !== "") {
+          query = query.eq("category", category);
+        }
+        query = query.limit(limit).order("created_at", { ascending: false });
+        const { data } = await query;
+
+        setProducts(data);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-      query = query.limit(limit).order("created_at", { ascending: false });
-      const { data } = await query;
-
-      // const { data } = await supabase
-      //   .from(tableName)
-      //   .select("*")
-      //   .eq("gender", gender)
-      //   .limit(limit)
-      //   .order("created_at", { ascending: false });
-
-      setProducts(data);
-      setLoading(false);
     };
 
     fetchProducts();
@@ -35,6 +39,9 @@ const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
 
   if (loading) {
     return <Loading />;
+  }
+  if (error) {
+    return <div className="text-red-500">Error:{error}</div>;
   }
 
   return (
@@ -50,20 +57,11 @@ const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
           user_id: user?.id,
         };
 
-        const newCartItem = {
-          product_id: product.id,
-          quantity: 1,
-          user_id: user?.id,
-          product_name: product.product_name,
-          product_price: product.product_price,
-        };
-
         return (
           <ProdCard
             key={product.id}
             product={product}
             newWishlistItem={newWishlistItem}
-            newCartItem={newCartItem}
           />
         );
       })}

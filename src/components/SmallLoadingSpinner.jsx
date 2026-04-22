@@ -18,7 +18,7 @@ const Loading = ({ size = "md", color = "gold" }) => {
   };
 
   return (
-    <div className="flex justify-center items-center overflow-y-hidden">
+    <div className="flex justify-center items-center overflow-hidden">
       <div
         className={`
           ${sizeClasses[size]}

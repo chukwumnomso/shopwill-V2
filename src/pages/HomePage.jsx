@@ -4,6 +4,7 @@ import ProdGridSimple from "../components/ProductGridSimple";
 import HomePageCategory from "../components/HomePageCategory";
 // import Uploads from "../components/Uploads";
 // import ProdGridPaginated from "../components/ProductGridPaginated";
+import ViewedProduct from "../components/ViewedProduct";
 
 const HomePage = () => {
   return (

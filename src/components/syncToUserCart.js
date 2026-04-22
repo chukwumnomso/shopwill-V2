@@ -13,7 +13,7 @@ const synchronizeCart = async (user_id) => {
   // 3. Sync everything to Supabase in one call
   const { data, error } = await supabase
     .from("cart_items")
-    .upsert(cartWithUser, { onConflict: "user_id,product_id" }) // Use your unique constraints
+    .upsert(cartWithUser, { onConflict: "user_id,product_id,size" })
     .select();
 
   if (error) {

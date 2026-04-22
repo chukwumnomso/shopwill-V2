@@ -11,14 +11,21 @@ import { useModal } from "../context/ModalContext";
 import SearchBar from "./SearchBar";
 import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
+import { useWishList } from "../context/WishedListContext";
 
 export default function Header() {
-  const { cart, wishLists } = useCart();
+  const { cart, setCartDrawerOpen } = useCart();
+  const { wishList } = useWishList();
   const { setNavOpen } = useNavBar();
   const { setModalOpen } = useModal();
   const { searchOpen, setSearchOpen } = useSearch();
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  const handleCartOpen = () => {
+    setModalOpen(true);
+    setCartDrawerOpen(true);
+  };
 
   return (
     <>
@@ -68,12 +75,12 @@ export default function Header() {
           </Button>
           <Button className="cursor-pointer">
             <CartIcon name="fav" className="relative">
-              {user ? wishLists?.length : 0}
+              {user ? wishList : 0}
             </CartIcon>
           </Button>
-          <Button className="cursor-pointer">
+          <Button className="cursor-pointer" onClick={handleCartOpen}>
             <CartIcon name="cart" className={"relative"}>
-              {cart.length}
+              {cart}
             </CartIcon>
           </Button>
         </div>

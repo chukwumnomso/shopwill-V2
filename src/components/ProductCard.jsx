@@ -3,16 +3,18 @@ import Icon from "./Icon";
 import { useProduct } from "../context/ProductCardContext";
 import { useWishList } from "../context/WishedListContext";
 import { usePopUp } from "../context/PopUpContext";
-import { AddToCart } from "./supabaseCartActions";
+import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useModal } from "../context/ModalContext";
 
-const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
+const ProdCard = ({ product, newWishlistItem }) => {
   const { handleCardHover, handleCardLeave, prodCardHover } = useProduct();
-  const { wishList, ToggleLike } = useWishList();
-
-  const { setPopUpMessage, setPopUpVisible, popUpVisible } = usePopUp();
+  const { wishList, AddWishList } = useWishList();
+  const { popUpVisible } = usePopUp();
   const { user } = useAuth();
+  const { setProductID, setBottomCartOpen } = useCart();
+  const { setModalOpen } = useModal();
 
   return (
     <div>
@@ -38,7 +40,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
               transform: prodCardHover === product.id ? "" : "translateY(50px)",
             }}
             onClick={() => {
-              ToggleLike(product.id, newWishlistItem);
+              AddWishList(newWishlistItem);
             }}
             disabled={popUpVisible}
           >
@@ -48,6 +50,7 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
               fill={wishList?.[product.id] && user ? "#B0E0E6" : "white"}
             />
           </Button>
+
           <Button
             className="bg-black text-white size-10 rounded-full flex justify-center items-center cursor-pointer  hover:scale-115 transition-transform duration-500"
             style={{
@@ -55,13 +58,9 @@ const ProdCard = ({ product, newWishlistItem, newCartItem }) => {
                 prodCardHover === product.id ? "" : "translateY(1000px)",
             }}
             onClick={() => {
-              AddToCart(newCartItem);
-              setPopUpMessage("addedToCart");
-              setPopUpVisible(true);
-
-              setTimeout(() => {
-                setPopUpVisible(false);
-              }, 3000);
+              setProductID(product.id);
+              setModalOpen(true);
+              setBottomCartOpen(true);
             }}
             disable={popUpVisible}
           >

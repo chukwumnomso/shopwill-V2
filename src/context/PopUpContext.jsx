@@ -4,7 +4,7 @@ import { createContext, useState, useContext } from "react";
 const PopUpContext = createContext();
 
 const PopUpProvider = ({ children }) => {
-  const [popUpMessage, setPopUpMessage] = useState(false);
+  const [popUpMessage, setPopUpMessage] = useState("");
   const [popUpVisible, setPopUpVisible] = useState(false);
 
   return (

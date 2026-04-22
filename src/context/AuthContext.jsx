@@ -24,8 +24,10 @@ const AuthProvider = ({ children }) => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_IN") {
-        synchronizeCart(session.user.id);
-        setUser(session.user);
+        setTimeout(() => {
+          synchronizeCart(session.user.id);
+          setUser(session.user);
+        }, 500);
       }
       if (event === "SIGNED_OUT") {
         setUser("");

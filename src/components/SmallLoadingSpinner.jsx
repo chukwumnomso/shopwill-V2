@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = ({ size = "md", color = "gold" }) => {
+const Loading = ({ size = "md", color = "gold", style = "dotted" }) => {
   const sizeClasses = {
     sm: "w-4 h-4 border-2",
     md: "w-8 h-8 border-4",
@@ -27,7 +27,7 @@ const Loading = ({ size = "md", color = "gold" }) => {
           rounded-full
           animate-spin
         `}
-        style={{ borderStyle: "dotted" }}
+        style={{ borderStyle: style }}
       ></div>
     </div>
   );

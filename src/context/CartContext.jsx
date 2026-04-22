@@ -19,17 +19,19 @@ const CartProvider = ({ children }) => {
     try {
       setIsLoading(true);
       if (!user) {
-        let LocalCart = JSON.parse(localStorage.getItem("cart") || "[]");
-        LocalCart = LocalCart.filter((prod) => prod.timestamp !== timestamp);
-        setShoppinCart(LocalCart);
-        localStorage.setItem("cart", JSON.stringify(LocalCart));
+        const rawCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const Cart = rawCart.filter((prod) => prod.timestamp !== timestamp);
+        localStorage.setItem("cart", JSON.stringify(Cart));
         const newRawCart = JSON.parse(localStorage.getItem("cart") || []);
+
         const localCartQuantity = newRawCart
           ?.map((q) => {
             return q.quantity;
           })
           .reduce((a, b) => a + b, 0);
+        setShoppinCart(newRawCart);
         setCart(localCartQuantity);
+        return;
       }
       const { error } = await supabase
         .from("cart_items")

@@ -80,13 +80,10 @@ const CartComponent = ({ product }) => {
           </button>
         </div>
       </div>
-      {isLoading ? (
-        <Loading size="sm" />
-      ) : (
-        <p className="absolute right-4 text-gray-800">
-          ₦ {(product.product_price * inputValue).toLocaleString()}
-        </p>
-      )}
+
+      <p className="absolute right-4 text-gray-800 text-sm">
+        ₦{(product.product_price * inputValue).toLocaleString()}
+      </p>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 
 const SortContext = createContext();
 

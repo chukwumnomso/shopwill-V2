@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const SearchProductComponent = ({ product, setSearch, setModal }) => {
   return (
-    <div className="flex items-center gap-4 mt-4 ">
+    <div className="flex items-center gap-4 mt-4  ">
       <img
         src={product.imageUrl_1}
         alt={product.product_name}

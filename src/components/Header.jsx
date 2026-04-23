@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Icon from "./Icon";
@@ -12,15 +12,20 @@ import SearchBar from "./SearchBar";
 import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
 import { useWishList } from "../context/WishedListContext";
+import SearchProductComponent from "./SearchProductComponent";
+import Loading from "./SmallLoadingSpinner";
 
 export default function Header() {
   const { cart, setCartDrawerOpen } = useCart();
   const { wishList } = useWishList();
   const { setNavOpen } = useNavBar();
   const { setModalOpen } = useModal();
-  const { searchOpen, setSearchOpen } = useSearch();
+  const { searchOpen, setSearchOpen, searchResult, searchQuery, isLoading } =
+    useSearch();
   const navigate = useNavigate();
   const { user } = useAuth();
+
+  const result = searchResult?.slice(0, 5);
 
   const handleCartOpen = () => {
     setModalOpen(true);
@@ -85,7 +90,28 @@ export default function Header() {
           </Button>
         </div>
       </header>
+
       <SearchBar />
+      {searchResult?.length > 0 ? (
+        <div
+          className={`fixed z-50 overflow-auto mt-10 w-full max-h-[70%] bg-white  ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-50" : "z-10"} transition-transform duration-300`}
+        >
+          {result.map((productResult) => (
+            <SearchProductComponent
+              key={productResult.id}
+              product={productResult}
+              setSearch={setSearchOpen}
+              setModal={setModalOpen}
+            />
+          ))}
+        </div>
+      ) : (
+        <p
+          className={`fixed z-50 px-4 font-[jost] tracking-wider text-center uppercase font-light overflow-auto mt-10 w-full max-h-[70%] bg-white ${searchQuery === "" || (searchQuery !== "" && searchResult === null) ? "hidden" : "block"}`}
+        >
+          No results could be found 😐
+        </p>
+      )}
     </>
   );
 }

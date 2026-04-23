@@ -7,6 +7,7 @@ const SearchContext = createContext();
 const SearchProvider = ({ children }) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const debounceTimer = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,8 +29,9 @@ const SearchProvider = ({ children }) => {
 
     debounceTimer.current = setTimeout(async () => {
       try {
+        setIsLoading(true);
         if (searchQuery === "") {
-          setSearchResult([]);
+          setSearchResult(null);
           return;
         }
 
@@ -37,19 +39,20 @@ const SearchProvider = ({ children }) => {
 
         if (searchQuery) {
           query = query.or(
-            `product_name.ilike.%${searchQuery}%,category.ilike.${searchQuery}%`,
+            `product_name.ilike.${searchQuery}%,category.ilike.${searchQuery}%`,
           );
         }
-
-        // query = query.limit(searchLimit);
 
         const { data, error } = await query;
 
         if (!error && searchQuery) {
           setSearchResult(data);
+          console.log(data);
         }
       } catch (err) {
         console.error(err);
+      } finally {
+        setIsLoading(false);
       }
     }, 500);
 
@@ -70,7 +73,7 @@ const SearchProvider = ({ children }) => {
         searchResult,
         handleSearch,
         searchQuery,
-
+        isLoading,
         // searchLimit,
         // setSearchLimit,
       }}

@@ -11,15 +11,8 @@ import Button from "./Button";
 
 const SearchBar = () => {
   const { setCategory } = useCategory();
-  const {
-    searchOpen,
-    setSearchOpen,
-    searchResult,
-    // searchValue,
-    // setSearchValue,
-    handleSearch,
-    searchQuery,
-  } = useSearch();
+  const { searchOpen, setSearchOpen, searchResult, handleSearch, searchQuery } =
+    useSearch();
   const { setModalOpen } = useModal();
   const searchInputRef = useRef(null);
   useEffect(() => {

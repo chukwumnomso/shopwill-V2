@@ -19,7 +19,7 @@ import { useCart } from "../context/CartContext";
 
 const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const mainRef = useRef(null);
   const { modalOpen, setModalOpen, setIsOpen, setClosedFilter } = useModal();
   const { closeNavBar } = useNavBar();
@@ -27,12 +27,15 @@ const AppLayout = () => {
   const { setBottomCartOpen, setCartDrawerOpen } = useCart();
   useEffect(() => {
     if (mainRef.current) {
-      mainRef.current.scrollTop = 0;
+      mainRef.current.scrollTo({
+        top: 0,
+        behavior: "smooth", // Use "smooth" for better UX
+      });
     }
     window.scrollTo(0, 0);
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
-  }, [pathname]);
+  }, [pathname, search]);
 
   return (
     <>

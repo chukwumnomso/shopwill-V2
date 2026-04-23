@@ -70,7 +70,7 @@ const ProdCard = ({ product, newWishlistItem }) => {
       </div>
       <div className="h-20 font-[jost] text-[0.8rem]  px-1 uppercase ">
         <Link to={`/product/${product.id}`}>
-          <h2 className="hover:text-gray-700 transition-colors duration-300 cursor-pointer ">
+          <h2 className="hover:text-gray-700 transition-colors duration-300 cursor-pointer tracking-wider ">
             {product.product_name}
           </h2>
         </Link>

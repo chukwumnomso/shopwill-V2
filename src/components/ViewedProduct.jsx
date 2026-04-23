@@ -23,7 +23,7 @@ function ViewedProduct({
   }
 
   return (
-    <div className=" font-[jost] px-4 pt-15  ">
+    <div className=" font-[jost]  pt-15  ">
       <div className={`flex items-center mb-2  relative ${imageStyle}`}>
         <button
           onClick={() => {

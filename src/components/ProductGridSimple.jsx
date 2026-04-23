@@ -5,7 +5,13 @@ import { useAuth } from "../context/AuthContext";
 import Loading from "./SmallLoadingSpinner";
 import FullPageSpinner from "./FullPageSpinner";
 
-const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
+const ProdGridSimple = ({
+  tableName,
+  limit = 12,
+  gender,
+  category,
+  notEqual,
+}) => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,6 +28,9 @@ const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
         if (category && category !== "") {
           query = query.eq("category", category);
         }
+        if (notEqual && notEqual !== "") {
+          query = query.neq("id", notEqual);
+        }
         query = query.limit(limit).order("created_at", { ascending: false });
         const { data } = await query;
 
@@ -35,7 +44,7 @@ const ProdGridSimple = ({ tableName, limit = 12, gender, category }) => {
     };
 
     fetchProducts();
-  }, [tableName, limit, gender, category]);
+  }, [tableName, limit, gender, category, notEqual]);
 
   if (loading) {
     return <Loading />;

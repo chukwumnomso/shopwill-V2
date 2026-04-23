@@ -4,10 +4,10 @@ import { useSort } from "../context/SortContext";
 
 const SortBy = () => {
   const { modalOpen, setModalOpen, isOpen, setIsOpen } = useModal();
-  const { sortProducts, sortConfig } = useSort();
+  const { handleSort, isAscending, sort } = useSort();
 
-  const handleSort = (field, ascending) => {
-    sortProducts(field, ascending);
+  const handleSortFlow = (field, ascending) => {
+    handleSort(field, ascending);
     setModalOpen(false);
     setIsOpen(false);
   };
@@ -40,13 +40,12 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === true &&
-                sortConfig.field === "product_name"
+                isAscending === true && sort === "product_name"
                   ? "disc"
                   : "none",
             }}
             onClick={() => {
-              handleSort("product_name", true);
+              handleSortFlow("product_name", true);
             }}
           >
             Alphabetically, A - Z
@@ -55,13 +54,12 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === false &&
-                sortConfig.field === "product_name"
+                isAscending !== true && sort === "product_name"
                   ? "disc"
                   : "none",
             }}
             onClick={() => {
-              handleSort("product_name", false);
+              handleSortFlow("product_name", false);
             }}
           >
             Alphabetically, Z - A
@@ -70,13 +68,12 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === true &&
-                sortConfig.field === "product_price"
+                isAscending === true && sort === "product_price"
                   ? "disc"
                   : "none",
             }}
             onClick={() => {
-              handleSort("product_price", true);
+              handleSortFlow("product_price", true);
             }}
           >
             Price, low - high
@@ -85,13 +82,12 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === false &&
-                sortConfig.field === "product_price"
+                isAscending !== true && sort === "product_price"
                   ? "disc"
                   : "none",
             }}
             onClick={() => {
-              handleSort("product_price", false);
+              handleSortFlow("product_price", false);
             }}
           >
             Price, high - low
@@ -100,13 +96,10 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === true &&
-                sortConfig.field === "created_at"
-                  ? "disc"
-                  : "none",
+                isAscending === true && sort === "created_at" ? "disc" : "none",
             }}
             onClick={() => {
-              handleSort("created_at", true);
+              handleSortFlow("created_at", true);
             }}
           >
             Date,new - old
@@ -115,13 +108,10 @@ const SortBy = () => {
             className="hover:text-black"
             style={{
               listStyle:
-                sortConfig.ascending === false &&
-                sortConfig.field === "created_at"
-                  ? "disc"
-                  : "none",
+                isAscending !== true && sort === "created_at" ? "disc" : "none",
             }}
             onClick={() => {
-              handleSort("created_at", false);
+              handleSortFlow("created_at", false);
             }}
           >
             Date, old - new

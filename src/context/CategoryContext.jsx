@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const CategoryContext = createContext();
 

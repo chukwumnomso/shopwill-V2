@@ -1,23 +1,26 @@
-// contexts/SortContext.jsx
+import { useSearchParams } from "react-router-dom";
 import { createContext, useContext, useState } from "react";
-import { useFilter } from "./FilterContext";
 
 const SortContext = createContext();
 
 const SortProvider = ({ children }) => {
-  const { setCurrentPage } = useFilter();
-  const [sortConfig, setSortConfig] = useState({
-    field: "created_at",
-    ascending: false,
-  });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const sort = searchParams.get("sort") || "";
+  const asc = searchParams.get("asc") || "";
+  const isAscending = asc === "true";
 
-  const sortProducts = (field, ascending) => {
-    setSortConfig({ field, ascending });
-    setCurrentPage(1);
+  const handleSort = (newSort, boolen) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      sort: newSort,
+      asc: boolen,
+      page: 1,
+    });
   };
 
   return (
-    <SortContext.Provider value={{ sortConfig, sortProducts }}>
+    <SortContext.Provider value={{ handleSort, isAscending, sort, asc }}>
       {children}
     </SortContext.Provider>
   );

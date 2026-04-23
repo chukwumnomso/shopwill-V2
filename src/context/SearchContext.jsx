@@ -5,10 +5,9 @@ import { useSearchParams } from "react-router-dom";
 const SearchContext = createContext();
 
 const SearchProvider = ({ children }) => {
-  // const [searchValue, setSearchValue] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
-  // const [searchLimit, setSearchLimit] = useState(3);
+
   const debounceTimer = useRef(null);
   const [searchParams, setSearchParams] = useSearchParams();
 

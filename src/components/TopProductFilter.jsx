@@ -15,7 +15,7 @@ const TopProductFilter = () => {
 
   return (
     <div>
-      <div className="flex justify-between h-15 font-[jost] uppercase cursor-pointer mb-15 border-b">
+      <div className="flex justify-between h-15 font-[jost] uppercase cursor-pointer mb-4 border-b tracking-widest">
         <div
           className="flex justify-center items-center w-full hover:text-black text-gray-700 border-r"
           onClick={handleOpenSideFilter}

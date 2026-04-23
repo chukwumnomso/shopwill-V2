@@ -1,11 +1,13 @@
 import ProdCard from "./ProductCard";
-import usePaginatedFetch from "../Hooks/usePaginatedFetch";
+import { usePaginatedFetch } from "../Hooks/usePaginatedFetch";
 import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Loading from "./SmallLoadingSpinner";
+// import { useEffect, useRef } from "react";
 
 const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
   const { user } = useAuth();
+  // const scrollRef = useRef(null);
 
   const {
     products,
@@ -16,6 +18,22 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
     prevPage,
     goToPage,
   } = usePaginatedFetch(tableName, gender, itemsPerPage);
+
+  // useEffect(() => {
+  //   window.scrollTo({
+  //     top: 0,
+  //     behavior: "smooth",
+  //   });
+  // }, [currentPage]);
+
+  // useEffect(() => {
+  //   if (scrollRef.current) {
+  //     scrollRef.current.scrollTo({
+  //       top: 0,
+  //       behavior: "smooth",
+  //     });
+  //   }
+  // }, [currentPage]);
 
   if (loading) {
     return <Loading />;
@@ -77,12 +95,14 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
               }`}
             />
           </button>
-
           {/* Page Numbers */}
+
           <div className="flex gap-1">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map(
               (pageNum) => {
-                // Show first page, last page, and pages around current page
+                // FIX: Ensure both are treated as numbers for the CSS highlight
+                const isPageActive = Number(currentPage) === pageNum;
+
                 if (
                   pageNum === 1 ||
                   pageNum === totalPages ||
@@ -92,9 +112,9 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
                     <button
                       key={pageNum}
                       onClick={() => goToPage(pageNum)}
-                      className={`size-8 ${
-                        currentPage === pageNum
-                          ? "bg-black text-white"
+                      className={`size-8 font-[jost] ${
+                        isPageActive
+                          ? "bg-black text-white" // Indicator now works
                           : "bg-gray-100 text-black hover:bg-gray-200"
                       }`}
                     >
@@ -103,7 +123,6 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
                   );
                 }
 
-                // Show ... for gaps
                 if (
                   pageNum === currentPage - 2 ||
                   pageNum === currentPage + 2
@@ -117,14 +136,18 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
                     </span>
                   );
                 }
-
                 return null;
               },
             )}
           </div>
-
           {/* Next Button */}
-          <button onClick={nextPage} disabled={currentPage === totalPages}>
+          <button
+            onClick={() => {
+              nextPage();
+              console.log("click");
+            }}
+            disabled={currentPage === totalPages}
+          >
             <Icon
               name="arrowRight"
               className={`size-8 ${

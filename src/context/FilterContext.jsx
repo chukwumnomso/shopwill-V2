@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { useModal } from "./ModalContext";
 import { useCategory } from "./CategoryContext";
 
@@ -6,22 +7,27 @@ const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
   const { setModalOpen, setClosedFilter } = useModal();
-  const { setCategory } = useCategory();
-  const [currentPage, setCurrentPage] = useState(1);
 
-  const handleProductType = (product_type) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const category = searchParams.get("cat") || "";
+  const currentPage = Number(searchParams.get("page")) || 1;
+
+  const handleCategory = (newCat) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      cat: newCat,
+      page: 1,
+    });
     setModalOpen(false);
     setClosedFilter(true);
-    setCurrentPage(1);
-    setCategory(product_type);
   };
 
   return (
     <FilterContext.Provider
       value={{
-        handleProductType,
-        setCurrentPage,
-        currentPage,
+        handleCategory,
+        category,
       }}
     >
       {children}

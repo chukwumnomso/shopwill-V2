@@ -78,14 +78,14 @@ const ViewProductPage = () => {
   if (!product) return <div className="p-8">Product not found</div>;
 
   return (
-    <div>
+    <div className="px-4">
       <ViewedProduct
         product={product}
         littleImg={`size-15`}
         prodNameStyle={`text-lg`}
         btnStyle={`bg-black/5  text-white`}
       />
-      <div className=" my-6">
+      <div className=" my-6 ">
         <p className="text-lg uppercase tracking-wider">description</p>
         <p className="font-light">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe facilis
@@ -101,7 +101,7 @@ const ViewProductPage = () => {
       <div className="flex gap-4 ">
         {product.sizes.map((size) => (
           <button
-            className={`px-4 ${prodSize === size ? "border-2 border-amber-500" : "border"} size-8 text-lg uppercase flex justify-center items-center cursor-pointer`}
+            className={` ${prodSize === size ? "border-2 border-amber-500" : "border"} size-8 text-sm  uppercase flex justify-center items-center cursor-pointer`}
             key={size}
             onClick={() => handleSize(size)}
           >
@@ -155,13 +155,14 @@ const ViewProductPage = () => {
       <Button className=" bg-black text-white uppercase hover:text-blue-300 w-full p-3 cursor-pointer">
         buy now
       </Button>
-      <p className="text-center mt-10 font-light text-2xl uppercase ">
+      <p className="text-center mt-10 font-light text-2xl uppercase mb-8 ">
         you may also like
       </p>
       <ProdGridSimple
         tableName="products_store"
         limit="4"
         category={product.category}
+        notEqual={product.id}
       />
     </div>
   );

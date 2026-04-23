@@ -6,15 +6,12 @@ import { useModal } from "../context/ModalContext";
 import Button from "./Button";
 import { useFilter } from "../context/FilterContext";
 
-// const productType = ["accessory", "apparel", "footwear"];
-// const gender = ["male", "female", "unisex"];
-
 const SideFilter = ({ gender }) => {
   const [isClicked, setIsClicked] = useState(null);
   const [productType, setProductType] = useState(null);
   const [quantity, setQuantity] = useState("");
   const { setModalOpen, setClosedFilter, closedFilter } = useModal(false);
-  const { handleProductType } = useFilter();
+  const { handleCategory } = useFilter();
 
   useEffect(() => {
     const fetchProductType = async () => {
@@ -86,7 +83,7 @@ const SideFilter = ({ gender }) => {
               className="border-b py-2 hover:text-gray-500"
               key={index}
               onClick={() => {
-                handleProductType(prod_type);
+                handleCategory(prod_type);
               }}
             >
               {prod_type} <span>({quantity[prod_type]})</span>

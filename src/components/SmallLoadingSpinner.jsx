@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = ({ size = "md", color = "gold", style = "dotted" }) => {
+const Loading = ({ size = "md", color = "gold", style = "solid" }) => {
   const sizeClasses = {
     sm: "w-4 h-4 border-2",
     md: "w-8 h-8 border-4",

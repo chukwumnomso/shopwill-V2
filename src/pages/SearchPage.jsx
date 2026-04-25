@@ -12,7 +12,7 @@ const SearchPage = () => {
       <div className="text-center mb-10 text-xl uppercase font-[jost] font-bold">
         search
         <p className="text-sm font-normal capitalize">
-          {searchResult.length} results for "{searchQuery}"
+          {searchResult?.length} results for "{searchQuery}"
         </p>
       </div>
       <TopProductFilter />

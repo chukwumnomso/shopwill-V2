@@ -39,7 +39,7 @@ const SearchProvider = ({ children }) => {
 
         if (searchQuery) {
           query = query.or(
-            `product_name.ilike.${searchQuery}%,category.ilike.${searchQuery}%`,
+            `product_name.ilike.%${searchQuery}%,category.ilike.${searchQuery}%`,
           );
         }
 
@@ -74,8 +74,7 @@ const SearchProvider = ({ children }) => {
         handleSearch,
         searchQuery,
         isLoading,
-        // searchLimit,
-        // setSearchLimit,
+        setSearchParams,
       }}
     >
       {children}

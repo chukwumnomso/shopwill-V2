@@ -5,88 +5,94 @@ import Icon from "./Icon";
 import { useModal } from "../context/ModalContext";
 import Button from "./Button";
 import { useFilter } from "../context/FilterContext";
+import { useUrlParams } from "../context/UrlParamsContext";
 
-const SideFilter = ({ gender }) => {
+const SideFilter = () => {
   const [isClicked, setIsClicked] = useState(null);
-  const [productType, setProductType] = useState(null);
-  const [quantity, setQuantity] = useState("");
-  const { setModalOpen, setClosedFilter, closedFilter } = useModal(false);
-  const { handleCategory } = useFilter();
-
-  useEffect(() => {
-    const fetchProductType = async () => {
-      const { data, error } = await supabase
-        .from("products_store")
-        .select("category")
-        .eq("gender", gender);
-      if (!error) {
-        const prodType = data?.map((type) => type.category);
-        const newProdType = [...new Set(prodType)];
-        setProductType(newProdType);
-        const productCount = prodType.reduce((acc, prod) => {
-          acc[prod] = (acc[prod] || 0) + 1;
-          return acc;
-        }, {});
-        setQuantity(productCount);
-      }
-    };
-    fetchProductType();
-  }, [gender]);
-
-  const handleClick = (filter) => {
+  const { setModalOpen, setFilterOpen, filterOpen } = useModal();
+  const { productType, productSize } = useFilter();
+  const openAccordion = (filter) => {
     setIsClicked((prev) => (prev === filter ? null : filter));
   };
-  const handleCloseSideFilter = () => {
+
+  const closeFilterDrawer = () => {
+    setFilterOpen(false);
     setModalOpen(false);
-    setClosedFilter(true);
   };
 
   return (
     <div
-      className="bg-white fixed z-50 h-full w-[60%] px-4 font-[jost] uppercase top-0 left-0 pt-10 cursor-pointer overflow-auto text-gray-500 "
-      style={{
-        transform: closedFilter ? "translateX(-100%)" : "translateX(0)",
-        transition: "transform 0.3s linear",
-      }}
+      className={`bg-white w-[80%] fixed h-full z-50 top-0 left-0 font-[jost] ${filterOpen ? "translate-x-0" : "-translate-x-full"} transition-transform ease-in-out duration-300 `}
     >
-      <div className="uppercase border-b pb-4 font-bold flex justify-between items-center text-black">
-        <p>Filters</p>
-        <Button onClick={handleCloseSideFilter}>
-          <Icon
-            name="cancel"
-            className="size-8 hover:rotate-90 transition-transform duration-300 cursor-pointer"
-          />
-        </Button>
+      <div className="flex items-center justify-between px-6 border-b  border-gray-500 h-20 text-xl">
+        <span className="font-[jost] uppercase tracking-widest">filter</span>
+        <button
+          onClick={closeFilterDrawer}
+          className="hover:rotate-90 transition-transform duration-300 cursor-pointer"
+        >
+          <Icon name="cancel" className="size-7" />
+        </button>
       </div>
 
-      <div className=" py-4 hover:text-black">
-        <div
-          className="mb-2 flex items-center justify-between"
-          onClick={() => handleClick(1)}
+      <FilterAccordion
+        data={productType}
+        onClick={openAccordion}
+        isClicked={isClicked}
+        heading={"product types"}
+      />
+      <FilterAccordion
+        data={productSize}
+        onClick={openAccordion}
+        isClicked={isClicked}
+        heading={"size"}
+      />
+    </div>
+  );
+};
+
+export default SideFilter;
+
+const FilterAccordion = ({ isClicked, onClick, data, heading }) => {
+  const { setModalOpen, setFilterOpen } = useModal();
+  const { handleCategory } = useFilter();
+  const { setSearchParams } = useUrlParams();
+  return (
+    <div>
+      <div
+        className={` tracking-widest mx-4 cursor-pointer  `}
+        onClick={() => {
+          onClick(heading);
+        }}
+      >
+        <div className="uppercase py-4  flex items-center justify-between text-sm">
+          <p>{heading}</p>
+          <Icon
+            name="arrowDown"
+            className={`size-5 ${isClicked !== heading ? "rotate-0" : "rotate-180"} transition-transform duration-500 `}
+          />
+        </div>
+      </div>
+      <div
+        className={`${isClicked !== heading ? "max-h-0" : "max-h-600"} cursor-pointer transition-all duration-500 border-b border-gray-300 mx-4 tracking-widest overflow-hidden`}
+      >
+        <ul
+          className={`uppercase text-xs mb-3 flex flex-col gap-4 text-gray-600 py-2 ${isClicked !== heading ? "opacity-0" : "opacity-100"} transition-opacity duration-500`}
         >
-          product type
-          <div
-            className="transition-transform duration-500"
-            style={{
-              transform: isClicked === 1 ? "rotate(180deg)" : "rotate(0deg)",
+          <li
+            onClick={() => {
+              setModalOpen(false);
+              setFilterOpen(false);
+              setSearchParams((prev) => {
+                prev.set("cat", "");
+                return prev;
+              });
             }}
           >
-            <Icon name="arrowDown" className="size-5 " />
-          </div>
-        </div>
-        <ul
-          className="capitalize flex flex-col gap-2 h-0 overflow-hidden transition-all duration-300"
-          style={{ height: isClicked === 1 ? "25rem" : "0" }}
-        >
-          {productType?.map((prod_type, index) => (
-            <li
-              className="border-b py-2 hover:text-gray-500"
-              key={index}
-              onClick={() => {
-                handleCategory(prod_type);
-              }}
-            >
-              {prod_type} <span>({quantity[prod_type]})</span>
+            all
+          </li>
+          {Object.entries(data).map(([name, count]) => (
+            <li key={name} onClick={() => handleCategory(name)}>
+              {name} ({count})
             </li>
           ))}
         </ul>
@@ -94,5 +100,3 @@ const SideFilter = ({ gender }) => {
     </div>
   );
 };
-
-export default SideFilter;

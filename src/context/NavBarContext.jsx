@@ -1,16 +1,17 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import { useModal } from "./ModalContext";
-import { useCategory } from "./CategoryContext";
 
 const NavBarContext = createContext();
 
 export const NavBarProvider = ({ children }) => {
   const { setModalOpen } = useModal();
-  const { category, setCategory, setProductType } = useCategory();
-
   const [navOpen, setNavOpen] = useState(false);
   const [navSlide, setNavSlide] = useState("");
   const [activeNav, setActiveNav] = useState(true);
+  const navigate = useNavigate();
 
   const closeNavBar = () => {
     setNavOpen(false);
@@ -23,14 +24,21 @@ export const NavBarProvider = ({ children }) => {
     setActiveNav(false);
   };
 
-  const handleCategory = (category) => {
-    setCategory(category);
+  const handleCategory = (path, gender, category) => {
+    navigate(`${path}?gender=${gender}&cat=${category}&page=1`);
     setNavOpen(false);
-    toggleNavSlide("");
+    setNavSlide("");
     setActiveNav(true);
     setModalOpen(false);
-    setProductType("all");
   };
+
+  // const handleGenderPage = (path, gender) => {
+  //   navigate(`${path}?gender=${gender}&page=1`);
+  //   setNavOpen(false);
+  //   setNavSlide("");
+  //   setActiveNav(true);
+  //   setModalOpen(false);
+  // };
 
   useEffect(() => {
     if (navOpen) {
@@ -54,8 +62,7 @@ export const NavBarProvider = ({ children }) => {
         setActiveNav,
         closeNavBar,
         handleCategory,
-        category,
-        setCategory,
+        // handleGenderPage,
       }}
     >
       {children}

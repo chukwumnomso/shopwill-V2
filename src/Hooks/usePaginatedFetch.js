@@ -1,21 +1,25 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSort } from "../context/SortContext";
-import { useFilter } from "../context/FilterContext";
+import { useUrlParams } from "../context/UrlParamsContext";
+
 import supabase from "../components/supabaseClient";
 
-export const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
-  const { setCurrentPage, category } = useFilter();
-  const { isAscending, sort, asc } = useSort();
+export const usePaginatedFetch = (tableName, itemsPerPage = 24) => {
+  const {
+    isAscending,
+    sort,
+    asc,
+    category,
+    currentPage,
+    searchQuery,
+    gender,
+    searchParams,
+    setSearchParams,
+  } = useUrlParams();
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const searchQuery = searchParams.get("q") || "";
-
-  // 1. Always derive currentPage from the URL
-  const currentPage = Number(searchParams.get("page")) || 1;
 
   useEffect(() => {
     // 2. FIX: Only force page 1 if the 'page' parameter is missing entirely
@@ -79,7 +83,7 @@ export const usePaginatedFetch = (tableName, gender, itemsPerPage = 24) => {
         ...Object.fromEntries(searchParams),
         page: page,
       });
-      setCurrentPage(page);
+      // setCurrentPage(page);
     }
   };
 

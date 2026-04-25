@@ -5,7 +5,7 @@ const ModalContext = createContext();
 const ModalProvider = ({ children }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [closedFilter, setClosedFilter] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
 
   return (
     <ModalContext.Provider
@@ -14,8 +14,8 @@ const ModalProvider = ({ children }) => {
         setModalOpen,
         setIsOpen,
         isOpen,
-        closedFilter,
-        setClosedFilter,
+        filterOpen,
+        setFilterOpen,
       }}
     >
       {children}
@@ -25,8 +25,7 @@ const ModalProvider = ({ children }) => {
 
 const useModal = () => {
   const context = useContext(ModalContext);
-  if (!context)
-    throw new Error("useModal must be used within a NavBarProvider");
+  if (!context) throw new Error("useModal must be used within a ModalProvider");
   return context;
 };
 

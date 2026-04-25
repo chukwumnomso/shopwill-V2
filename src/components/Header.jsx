@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
@@ -94,8 +94,9 @@ export default function Header() {
       <SearchBar />
       {searchResult?.length > 0 ? (
         <div
-          className={`fixed z-50 overflow-auto mt-10 w-full max-h-[70%] bg-white  ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-50" : "z-10"} transition-transform duration-300`}
+          className={`fixed z-50 overflow-auto p-4  mt-10 w-full max-h-[70%] bg-white  ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-50" : "z-10"} ${searchQuery === "" ? "opacity-0" : "opacity-100"} transition-transform duration-300`}
         >
+          <p className="uppercase text-sm">({searchResult.length})products</p>
           {result.map((productResult) => (
             <SearchProductComponent
               key={productResult.id}
@@ -104,10 +105,21 @@ export default function Header() {
               setModal={setModalOpen}
             />
           ))}
+          <Link to={`/searched?q=${searchQuery}`}>
+            <Button
+              className="px-4 uppercase mt-4 bg-black h-10 text-white hover:text-blue-300 cursor-pointer"
+              onClick={() => {
+                setSearchOpen(false);
+                setModalOpen(false);
+              }}
+            >
+              view all results
+            </Button>
+          </Link>
         </div>
       ) : (
         <p
-          className={`fixed z-50 px-4 font-[jost] tracking-wider text-center uppercase font-light overflow-auto mt-10 w-full max-h-[70%] bg-white ${searchQuery === "" || (searchQuery !== "" && searchResult === null) ? "hidden" : "block"}`}
+          className={`fixed z-50 flex items-center justify-center px-4 font-[jost] h-10 tracking-wider  uppercase font-light mt-10 w-full max-h-[70%] bg-white ${searchQuery === "" || (searchQuery !== "" && searchResult === null) ? "hidden" : "block"} ${searchOpen ? "translate-y-0" : "-translate-y-200"} transition-transform duration-300`}
         >
           No results could be found 😐
         </p>

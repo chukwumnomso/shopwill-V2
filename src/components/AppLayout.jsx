@@ -21,7 +21,7 @@ const AppLayout = () => {
   const { popUpMessage, setPopUpVisible } = usePopUp();
   const { pathname, search } = useLocation();
   const mainRef = useRef(null);
-  const { modalOpen, setModalOpen, setIsOpen, setClosedFilter } = useModal();
+  const { modalOpen, setModalOpen, setIsOpen, setFilterOpen } = useModal();
   const { closeNavBar } = useNavBar();
   const { setSearchOpen } = useSearch();
   const { setBottomCartOpen, setCartDrawerOpen } = useCart();
@@ -70,7 +70,7 @@ const AppLayout = () => {
               setModalOpen(false);
               setIsOpen(false);
               closeNavBar();
-              setClosedFilter(true);
+              setFilterOpen(false);
               setSearchOpen(false);
               setBottomCartOpen(false);
               setCartDrawerOpen(false);

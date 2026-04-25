@@ -12,8 +12,6 @@ export const ProductProvider = ({ children }) => {
 
   const handleCardLeave = () => setProdCardHover(null);
 
-  // SupabaseFetch("women_new_arrival", "*", setProducts);
-
   return (
     <ProductContext.Provider
       value={{ products, handleCardHover, handleCardLeave, prodCardHover }}

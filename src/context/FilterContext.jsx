@@ -1,33 +1,69 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import supabase from "../components/supabaseClient";
 import { useSearchParams } from "react-router-dom";
 import { useModal } from "./ModalContext";
-import { useCategory } from "./CategoryContext";
+import { useUrlParams } from "./UrlParamsContext";
 
 const FilterContext = createContext();
 
 const FilterProvider = ({ children }) => {
-  const { setModalOpen, setClosedFilter } = useModal();
+  const { setSearchParams, gender } = useUrlParams();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const category = searchParams.get("cat") || "";
-  const currentPage = Number(searchParams.get("page")) || 1;
+  const [productType, setProductType] = useState({});
+  const [productSize, setProductSize] = useState({});
+  const { setModalOpen, setFilterOpen } = useModal();
 
   const handleCategory = (newCat) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      cat: newCat,
-      page: 1,
+    setSearchParams((prev) => {
+      (prev.set("cat", newCat), prev.set("page", "1"));
+      return prev;
     });
     setModalOpen(false);
-    setClosedFilter(true);
+    setFilterOpen(false);
   };
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("products_store")
+          .select("category,sizes")
+          .eq("gender", gender);
+
+        if (!error && data) {
+          const counts = data.reduce((acc, item) => {
+            acc[item.category] = (acc[item.category] || 0) + 1;
+            return acc;
+          }, {});
+          setProductType(counts);
+
+          const allSizesFound = data
+            .map((item) => item.sizes)
+            .filter((val) => val !== null && val !== undefined)
+            .flat();
+
+          const sizeCounts = allSizesFound.reduce((acc, size) => {
+            const key = size;
+            acc[key] = (acc[key] || 0) + 1;
+            return acc;
+          }, {});
+
+          setProductSize(sizeCounts);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetch();
+  }, [gender]);
 
   return (
     <FilterContext.Provider
       value={{
         handleCategory,
-        category,
+        productType,
+        setProductType,
+        productSize,
       }}
     >
       {children}

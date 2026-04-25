@@ -3,11 +3,9 @@ import { usePaginatedFetch } from "../Hooks/usePaginatedFetch";
 import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Loading from "./SmallLoadingSpinner";
-// import { useEffect, useRef } from "react";
 
 const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
   const { user } = useAuth();
-  // const scrollRef = useRef(null);
 
   const {
     products,
@@ -18,22 +16,6 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
     prevPage,
     goToPage,
   } = usePaginatedFetch(tableName, gender, itemsPerPage);
-
-  // useEffect(() => {
-  //   window.scrollTo({
-  //     top: 0,
-  //     behavior: "smooth",
-  //   });
-  // }, [currentPage]);
-
-  // useEffect(() => {
-  //   if (scrollRef.current) {
-  //     scrollRef.current.scrollTo({
-  //       top: 0,
-  //       behavior: "smooth",
-  //     });
-  //   }
-  // }, [currentPage]);
 
   if (loading) {
     return <Loading />;

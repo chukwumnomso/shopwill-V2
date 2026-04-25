@@ -58,7 +58,12 @@ const CartDrawer = () => {
         )}
         <div>
           {shoppingCart.map((product) => (
-            <CartComponent key={product.timestamp} product={product} />
+            <CartComponent
+              key={product.timestamp}
+              product={product}
+              setCartDrawerOpen={setCartDrawerOpen}
+              setModalOpen={setModalOpen}
+            />
           ))}
         </div>
         {cart < 1 && (

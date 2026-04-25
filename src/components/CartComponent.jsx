@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import { useCart } from "../context/CartContext";
 import Loading from "./SmallLoadingSpinner";
 
-const CartComponent = ({ product }) => {
+const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
   const [inputValue, setInputValue] = useState(product.quantity);
   const { AddToCart, ReduceQuantity, DeleteFromCart, isLoading } = useCart();
   const { user } = useAuth();
-
+  const navigate = useNavigate();
   const newItem = {
     product_id: product.product_id,
     product_name: product.product_name,
@@ -24,19 +24,27 @@ const CartComponent = ({ product }) => {
 
   return (
     <div className="flex gap-4 font-[jost] border-b border-gray-300 pb-6 mt-10 px-4 items-center relative">
-      <Link to={`product/${product.product_id}`}>
-        <img
-          src={product.imageUrl_1}
-          alt={product.product_name}
-          className="size-20"
-        />
-      </Link>
+      <img
+        src={product.imageUrl_1}
+        alt={product.product_name}
+        className="size-20 cursor-pointer"
+        onClick={() => {
+          navigate(`product/${product.product_id}`);
+          (setCartDrawerOpen(false), setModalOpen(false));
+        }}
+      />
+
       <div className="flex flex-col gap-1  ">
-        <Link to={`product/${product.product_id}`}>
-          <p className="tracking-wide text-sm uppercase hover:underline max-w-60">
-            {product.product_name}
-          </p>
-        </Link>
+        <p
+          className="tracking-wide text-sm uppercase hover:underline max-w-60 cursor-pointer"
+          onClick={() => {
+            navigate(`product/${product.product_id}`);
+            (setCartDrawerOpen(false), setModalOpen(false));
+          }}
+        >
+          {product.product_name}
+        </p>
+
         <p className="uppercase text-xs text-gray-500">size:{product.size}</p>
         <p className="text-black text-sm">
           ₦{product.product_price.toLocaleString()}

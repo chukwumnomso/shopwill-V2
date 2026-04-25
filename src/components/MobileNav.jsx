@@ -9,10 +9,10 @@ import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "../supabaseAuth/supabaseAuth";
 import { useModal } from "../context/ModalContext";
-import { useCategory } from "../context/CategoryContext";
+// import { useUrlParams } from "../context/UrlParamsContext";
+// import ProductsPage from "../pages/ProductsPage";
 
 const MobileNav = () => {
-  const { setCategory } = useCategory();
   const {
     navSlide,
     toggleNavSlide,
@@ -21,15 +21,11 @@ const MobileNav = () => {
     navOpen,
     setNavOpen,
     handleCategory,
+    // handleGenderPage,
   } = useNavBar();
   const { user } = useAuth();
   const navigate = useNavigate();
   const { setModalOpen } = useModal();
-
-  // const r = () => {
-  //   console.log("clicked");
-  //   navigate("/");
-  // };
 
   const handleActiveNav = () => {
     toggleNavSlide("");
@@ -108,17 +104,17 @@ const MobileNav = () => {
                 toggleNavSlide("men");
               }}
             >
-              <Link
+              <p
                 className="hover:underline"
-                to="/menproducts"
                 onClick={(e) => {
                   e.stopPropagation();
+                  navigate(`/products?gender=male&page=1`);
                   handleCloseNav();
-                  setCategory("all");
+                  //  setCategory("all");
                 }}
               >
                 men
-              </Link>
+              </p>
 
               <Icon name="chevronRight" className="size-5 " />
             </li>
@@ -128,17 +124,16 @@ const MobileNav = () => {
                 toggleNavSlide("women");
               }}
             >
-              <Link
-                to="/womenproducts"
+              <p
                 className="hover:underline"
                 onClick={(e) => {
                   e.stopPropagation();
+                  navigate(`/products?gender=female&page=1`);
                   handleCloseNav();
-                  setCategory("all");
                 }}
               >
                 women
-              </Link>
+              </p>
               <Icon name="chevronRight" className="size-5 " />
             </li>
             <li

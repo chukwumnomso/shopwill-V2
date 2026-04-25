@@ -1,10 +1,10 @@
 import { useModal } from "../context/ModalContext";
 import Icon from "./Icon";
-import { useSort } from "../context/SortContext";
+import { useUrlParams } from "../context/UrlParamsContext";
 
 const SortBy = () => {
   const { modalOpen, setModalOpen, isOpen, setIsOpen } = useModal();
-  const { handleSort, isAscending, sort } = useSort();
+  const { handleSort, isAscending, sort } = useUrlParams();
 
   const handleSortFlow = (field, ascending) => {
     handleSort(field, ascending);
@@ -21,7 +21,7 @@ const SortBy = () => {
       }}
     >
       <div className="font-[jost] pt-5 pb-10 px-10 text-gray-700 ">
-        <div className="flex justify-between items-center  mb-10 font-bold uppercase">
+        <div className="flex justify-between items-center border-b border-gray-500 mb-10 f uppercase">
           sort by
           <button
             onClick={() => {
@@ -31,7 +31,7 @@ const SortBy = () => {
           >
             <Icon
               name="cancel"
-              className="size-10  cursor-pointer hover:rotate-90 transition-transform duration-300 hover:text-black"
+              className="size-7  cursor-pointer hover:rotate-90 transition-transform duration-300 hover:text-black"
             />
           </button>
         </div>

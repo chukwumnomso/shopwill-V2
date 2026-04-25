@@ -219,7 +219,6 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCartTotal(CartTotal);
-        console.log(CartTotal);
       }
     } catch (err) {
       console.error(err);

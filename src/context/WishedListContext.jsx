@@ -8,8 +8,10 @@ const wishListContext = createContext();
 
 const WishListProvider = ({ children }) => {
   const { user } = useAuth();
+  const [products, setProducts] = useState([]);
   const { setPopUpVisible, setPopUpMessage } = usePopUp();
   const [wishList, setWishList] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const AddWishList = async (newItem) => {
     try {
@@ -57,18 +59,52 @@ const WishListProvider = ({ children }) => {
     }
   };
 
+  const RemoveWishList = async (productId) => {
+    try {
+      setIsLoading(true);
+      const { error } = await supabase
+        .from("wishlist")
+        .delete()
+        .eq("product_id", productId);
+      if (error) {
+        throw new Error(error);
+      }
+
+      const { data } = await supabase.from("wishlist").select("*");
+      if (data) {
+        setWishList(data.length);
+        setProducts(data);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     const fetch = async () => {
       const { data, error } = await supabase.from("wishlist").select("*");
       if (!error) {
         setWishList(data.length);
+        setProducts(data);
       }
     };
     fetch();
   }, [user]);
 
   return (
-    <wishListContext.Provider value={{ wishList, AddWishList }}>
+    <wishListContext.Provider
+      value={{
+        wishList,
+        AddWishList,
+        isLoading,
+        setIsLoading,
+        RemoveWishList,
+        products,
+        setProducts,
+      }}
+    >
       {children}
     </wishListContext.Provider>
   );

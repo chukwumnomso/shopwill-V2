@@ -10,7 +10,7 @@ import { PopUpProvider } from "./context/PopUpContext";
 import AppLayout from "./components/AppLayout";
 import { NavBarProvider } from "./context/NavBarContext";
 import ProductsPage from "./pages/ProductsPage";
-
+import WishListPage from "./components/WishListPage";
 import { ModalProvider } from "./context/ModalContext";
 import ViewProductPage from "./pages/ViewProductPage";
 import { FilterProvider } from "./context/FilterContext";
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUpPage /> },
       { path: "/signin", element: <SignInPage /> },
       { path: "/products", element: <ProductsPage /> },
-
+      { path: "/wishlist", element: <WishListPage /> },
       { path: "/searched", element: <SearchPage /> },
       {
         path: "/product/:productId",

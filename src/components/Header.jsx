@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 import Icon from "./Icon";
@@ -13,15 +12,13 @@ import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
 import { useWishList } from "../context/WishedListContext";
 import SearchProductComponent from "./SearchProductComponent";
-import Loading from "./SmallLoadingSpinner";
 
 export default function Header() {
   const { cart, setCartDrawerOpen } = useCart();
   const { wishList } = useWishList();
   const { setNavOpen } = useNavBar();
   const { setModalOpen } = useModal();
-  const { searchOpen, setSearchOpen, searchResult, searchQuery, isLoading } =
-    useSearch();
+  const { searchOpen, setSearchOpen, searchResult, searchQuery } = useSearch();
   const navigate = useNavigate();
   const { user } = useAuth();
 
@@ -78,7 +75,12 @@ export default function Header() {
           >
             <Icon name="search" className="size-6 text-black" />
           </Button>
-          <Button className="cursor-pointer">
+          <Button
+            className="cursor-pointer"
+            onClick={() => {
+              navigate("/wishlist");
+            }}
+          >
             <CartIcon name="fav" className="relative">
               {user ? wishList : 0}
             </CartIcon>

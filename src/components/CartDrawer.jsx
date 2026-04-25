@@ -68,7 +68,7 @@ const CartDrawer = () => {
         </div>
         {cart < 1 && (
           <div className=" h-50 pt-15 flex flex-col  font-[jost] uppercase text-sm tracking-widest justify-center items-center gap-2 ">
-            <p>your shopping cart is empty 😐 </p>
+            <p className="text-gray-500">your shopping cart is empty 😐 </p>
 
             <button
               className="bg-black text-white h-10 w-[70%] text-sm uppercase hover:scale-103 cursor-pointer transition-transform duration-300"

@@ -1,15 +1,14 @@
-import supabase from "./supabaseClient";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Icon from "./Icon";
 import { useModal } from "../context/ModalContext";
-import Button from "./Button";
+
 import { useFilter } from "../context/FilterContext";
 import { useUrlParams } from "../context/UrlParamsContext";
 
 const SideFilter = () => {
   const [isClicked, setIsClicked] = useState(null);
   const { setModalOpen, setFilterOpen, filterOpen } = useModal();
+  const { handleFilter, handleReset } = useFilter();
   const { productType, productSize } = useFilter();
   const openAccordion = (filter) => {
     setIsClicked((prev) => (prev === filter ? null : filter));
@@ -36,15 +35,21 @@ const SideFilter = () => {
 
       <FilterAccordion
         data={productType}
-        onClick={openAccordion}
+        openAccordion={openAccordion}
         isClicked={isClicked}
         heading={"product types"}
+        handleFilter={handleFilter}
+        handleReset={handleReset}
+        param={"cat"}
       />
       <FilterAccordion
         data={productSize}
-        onClick={openAccordion}
+        openAccordion={openAccordion}
         isClicked={isClicked}
         heading={"size"}
+        handleFilter={handleFilter}
+        handleReset={handleReset}
+        param={"size"}
       />
     </div>
   );
@@ -52,16 +57,22 @@ const SideFilter = () => {
 
 export default SideFilter;
 
-const FilterAccordion = ({ isClicked, onClick, data, heading }) => {
-  const { setModalOpen, setFilterOpen } = useModal();
-  const { handleCategory } = useFilter();
-  const { setSearchParams } = useUrlParams();
+const FilterAccordion = ({
+  isClicked,
+  openAccordion,
+  data,
+  heading,
+  handleFilter,
+  handleReset,
+  param,
+}) => {
+  const { category, sizes } = useUrlParams();
   return (
     <div>
       <div
         className={` tracking-widest mx-4 cursor-pointer  `}
         onClick={() => {
-          onClick(heading);
+          openAccordion(heading);
         }}
       >
         <div className="uppercase py-4  flex items-center justify-between text-sm">
@@ -78,20 +89,13 @@ const FilterAccordion = ({ isClicked, onClick, data, heading }) => {
         <ul
           className={`uppercase text-xs mb-3 flex flex-col gap-4 text-gray-600 py-2 ${isClicked !== heading ? "opacity-0" : "opacity-100"} transition-opacity duration-500`}
         >
-          <li
-            onClick={() => {
-              setModalOpen(false);
-              setFilterOpen(false);
-              setSearchParams((prev) => {
-                prev.set("cat", "");
-                return prev;
-              });
-            }}
-          >
-            all
-          </li>
+          <li onClick={() => handleReset(param)}>all</li>
           {Object.entries(data).map(([name, count]) => (
-            <li key={name} onClick={() => handleCategory(name)}>
+            <li
+              key={name}
+              onClick={() => handleFilter(name, param)}
+              className={`${category.includes(name) ? "border ml-4 border-black list-disc" : null} ${sizes.includes(name) ? "border ml-4 border-black list-disc" : null} w-fit`}
+            >
               {name} ({count})
             </li>
           ))}

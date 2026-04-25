@@ -13,7 +13,8 @@ const SearchParamsProvider = ({ children }) => {
   const asc = searchParams.get("asc") || "";
   const isAscending = asc === "true";
   const searchQuery = searchParams.get("q") || "";
-  const category = searchParams.get("cat") || "";
+  const category = searchParams.getAll("cat") || [];
+  const sizes = searchParams.getAll("size") || [];
 
   const handleSort = (newSort, boolen) => {
     setSearchParams({
@@ -47,6 +48,7 @@ const SearchParamsProvider = ({ children }) => {
         category,
         currentPage,
         searchQuery,
+        sizes,
       }}
     >
       {children}

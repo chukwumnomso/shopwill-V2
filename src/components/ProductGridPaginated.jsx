@@ -42,14 +42,9 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
             imageUrl_2: product.imageUrl_2,
             discounts: product.discounts,
             user_id: user?.id,
-          };
-
-          const newCartItem = {
-            product_id: product.id,
-            quantity: 1,
-            user_id: user?.id,
-            product_name: product.product_name,
-            product_price: product.product_price,
+            size: "s",
+            timestamp: product.created_at,
+            stock: product.stock,
           };
 
           return (
@@ -57,7 +52,6 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
               key={product.id}
               product={product}
               newWishlistItem={newWishlistItem}
-              newCartItem={newCartItem}
             />
           );
         })}

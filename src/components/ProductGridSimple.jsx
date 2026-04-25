@@ -64,6 +64,9 @@ const ProdGridSimple = ({
           imageUrl_2: product.imageUrl_2,
           discounts: product.discounts,
           user_id: user?.id,
+          size: "s",
+          timestamp: product.created_at,
+          stock: product.stock,
         };
 
         return (

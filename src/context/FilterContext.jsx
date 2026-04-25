@@ -13,13 +13,40 @@ const FilterProvider = ({ children }) => {
   const [productSize, setProductSize] = useState({});
   const { setModalOpen, setFilterOpen } = useModal();
 
-  const handleCategory = (newCat) => {
+  const handleFilter = (newFilter, filter) => {
     setSearchParams((prev) => {
-      (prev.set("cat", newCat), prev.set("page", "1"));
+      const currentFilter = prev.getAll(filter);
+      if (currentFilter.includes(newFilter)) {
+        prev.delete(filter, newFilter);
+      } else {
+        prev.append(filter, newFilter);
+      }
+      prev.set("page", "1");
       return prev;
     });
     setModalOpen(false);
     setFilterOpen(false);
+  };
+
+  const handleReset = (filter) => {
+    setSearchParams((prev) => {
+      prev.delete(filter);
+      prev.set("page", "1");
+      return prev;
+    });
+    setModalOpen(false);
+    setFilterOpen(false);
+  };
+
+  const removeFilter = (filter, removedFilter) => {
+    setSearchParams((prev) => {
+      const currentFilter = prev.getAll(filter);
+      if (currentFilter.includes(removedFilter)) {
+        prev.delete(filter, removedFilter);
+        prev.set("page", "1");
+      }
+      return prev;
+    });
   };
 
   useEffect(() => {
@@ -60,10 +87,12 @@ const FilterProvider = ({ children }) => {
   return (
     <FilterContext.Provider
       value={{
-        handleCategory,
+        handleFilter,
         productType,
         setProductType,
         productSize,
+        handleReset,
+        removeFilter,
       }}
     >
       {children}

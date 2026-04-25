@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import { useUrlParams } from "../context/UrlParamsContext";
 
 import supabase from "../components/supabaseClient";
 
-export const usePaginatedFetch = (tableName, itemsPerPage = 24) => {
+export const usePaginatedFetch = (tableName, itemsPerPage = 8) => {
   const {
     isAscending,
     sort,
@@ -15,6 +14,7 @@ export const usePaginatedFetch = (tableName, itemsPerPage = 24) => {
     gender,
     searchParams,
     setSearchParams,
+    sizes,
   } = useUrlParams();
   const [products, setProducts] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
@@ -38,8 +38,10 @@ export const usePaginatedFetch = (tableName, itemsPerPage = 24) => {
 
     let query = supabase.from(tableName).select("*", { count: "exact" });
     if (gender && gender !== "") query = query.eq("gender", gender);
-    if (category && category !== "all") query = query.eq("category", category);
-
+    if (category && category.length > 0) query = query.in("category", category);
+    if (sizes && sizes.length > 0) {
+      query = query.overlaps("sizes", sizes);
+    }
     if (searchQuery && !gender) {
       query = query.or(
         `product_name.ilike.%${searchQuery}%,category.ilike.${searchQuery}%`,
@@ -66,6 +68,7 @@ export const usePaginatedFetch = (tableName, itemsPerPage = 24) => {
     tableName,
     gender,
     category,
+    sizes,
     searchQuery,
     asc,
     sort,

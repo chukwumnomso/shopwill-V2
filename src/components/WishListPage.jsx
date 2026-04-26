@@ -84,7 +84,7 @@ const WishListComponent = ({ product, user, isLoading }) => {
   const { RemoveWishList } = useWishList();
 
   const newCartItem = {
-    product_id: product?.id,
+    product_id: product?.product_id,
     quantity: 1,
     user_id: user?.id,
     product_name: product?.product_name,

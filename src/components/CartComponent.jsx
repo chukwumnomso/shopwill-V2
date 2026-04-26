@@ -57,12 +57,12 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
                 setInputValue((prev) => prev - 1);
                 ReduceQuantity(newItem);
               }}
-              disabled={inputValue <= 1 || isLoading ? true : false}
+              disabled={product.quantity <= 1 || isLoading ? true : false}
             >
               -
             </button>
             <input
-              value={inputValue < 1 ? 1 : inputValue}
+              value={product.quantity}
               onChange={(e) => setInputValue(e.target.value)}
               type="number"
               className="no-spin focus:outline-none focus:ring-none w-6 text-center text-sm "

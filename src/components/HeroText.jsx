@@ -8,7 +8,7 @@ export default function HeroText() {
         drip like you mean it, wear your attitude.
       </h1>
       <div>
-        <p className="animate-slide-2 text-lg font-[jost] max-w-[80%] sm:max-w-[60%] md:max-w-full md:text-xl tracking-wide">
+        <p className="animate-slide-2 text-lg font-[jost]  max-w-[80%] sm:max-w-[60%] md:max-w-full md:text-xl tracking-wider">
           Where street meets style, you are the trend. Shop the hottest picks
           now & make a statement.
         </p>

@@ -13,21 +13,21 @@ const AuthProvider = ({ children }) => {
       const userData = await getCurrentUser();
       if (userData) {
         setUser(userData);
+        synchronizeCart(user.id);
       }
     };
     verify();
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     // 1. Set up the listener
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
-      if (event === "SIGNED_IN") {
-        setTimeout(() => {
-          synchronizeCart(session.user.id);
-          setUser(session.user);
-        }, 500);
+      if (event === "SIGNED_IN" && session?.user) {
+        setUser(session.user);
+
+        synchronizeCart(session.user.id);
       }
       if (event === "SIGNED_OUT") {
         setUser("");

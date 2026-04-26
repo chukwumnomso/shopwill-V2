@@ -9,8 +9,6 @@ import Button from "./Button";
 import { useAuth } from "../context/AuthContext";
 import { signOut } from "../supabaseAuth/supabaseAuth";
 import { useModal } from "../context/ModalContext";
-// import { useUrlParams } from "../context/UrlParamsContext";
-// import ProductsPage from "../pages/ProductsPage";
 
 const MobileNav = () => {
   const {
@@ -21,7 +19,6 @@ const MobileNav = () => {
     navOpen,
     setNavOpen,
     handleCategory,
-    // handleGenderPage,
   } = useNavBar();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -110,7 +107,6 @@ const MobileNav = () => {
                   e.stopPropagation();
                   navigate(`/products?gender=male&page=1`);
                   handleCloseNav();
-                  //  setCategory("all");
                 }}
               >
                 men

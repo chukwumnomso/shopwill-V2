@@ -96,7 +96,7 @@ export default function Header() {
       <SearchBar />
       {searchResult?.length > 0 ? (
         <div
-          className={`fixed z-50 overflow-auto p-4  mt-10 w-full max-h-[70%] bg-white  ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-50" : "z-10"} ${searchQuery === "" ? "opacity-0" : "opacity-100"} transition-transform duration-300`}
+          className={`fixed z-50 overflow-auto p-4  mt-10 w-full max-h-[80%] bg-white  ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-50" : "z-10"} ${searchQuery === "" ? "opacity-0" : "opacity-100"} transition-transform duration-300`}
         >
           <p className="uppercase text-sm">({searchResult.length})products</p>
           {result.map((productResult) => (

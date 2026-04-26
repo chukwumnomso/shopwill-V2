@@ -16,13 +16,14 @@ const FilterProvider = ({ children }) => {
   const handleFilter = (newFilter, filter) => {
     setSearchParams((prev) => {
       const currentFilter = prev.getAll(filter);
+      const newParams = new URLSearchParams(prev);
       if (currentFilter.includes(newFilter)) {
-        prev.delete(filter, newFilter);
+        newParams.delete(filter, newFilter);
       } else {
-        prev.append(filter, newFilter);
+        newParams.append(filter, newFilter);
       }
-      prev.set("page", "1");
-      return prev;
+      newParams.set("page", "1");
+      return newParams;
     });
     setModalOpen(false);
     setFilterOpen(false);
@@ -30,9 +31,10 @@ const FilterProvider = ({ children }) => {
 
   const handleReset = (filter) => {
     setSearchParams((prev) => {
-      prev.delete(filter);
-      prev.set("page", "1");
-      return prev;
+      const newParams = new URLSearchParams(prev);
+      newParams.delete(filter);
+      newParams.set("page", "1");
+      return newParams;
     });
     setModalOpen(false);
     setFilterOpen(false);
@@ -41,11 +43,12 @@ const FilterProvider = ({ children }) => {
   const removeFilter = (filter, removedFilter) => {
     setSearchParams((prev) => {
       const currentFilter = prev.getAll(filter);
+      const newParams = new URLSearchParams(prev);
       if (currentFilter.includes(removedFilter)) {
-        prev.delete(filter, removedFilter);
-        prev.set("page", "1");
+        newParams.delete(filter, removedFilter);
+        newParams.set("page", "1");
       }
-      return prev;
+      return newParams;
     });
   };
 

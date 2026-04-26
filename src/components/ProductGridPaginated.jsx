@@ -4,24 +4,28 @@ import { useAuth } from "../context/AuthContext";
 import Icon from "./Icon";
 import Loading from "./SmallLoadingSpinner";
 
-const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
+const ProdGridPaginated = ({ tableName, itemsPerPage = 6 }) => {
   const { user } = useAuth();
 
   const {
     products,
-    loading,
+    isLoading,
+    error,
     currentPage,
     totalPages,
     nextPage,
     prevPage,
     goToPage,
-  } = usePaginatedFetch(tableName, gender, itemsPerPage);
+  } = usePaginatedFetch(tableName, itemsPerPage);
 
-  if (loading) {
-    return <Loading />;
+  if (error) {
+    return (
+      <div className="flex items-center justify-center uppercase font-[jost] text-red-500">
+        <p>{error} 😥</p>
+      </div>
+    );
   }
-
-  if (products.length < 1) {
+  if (products?.length < 1) {
     return (
       <div className="flex items-center justify-center uppercase font-[jost ] text-gray-500">
         <p>No products found</p>
@@ -120,7 +124,6 @@ const ProdGridPaginated = ({ tableName, gender, itemsPerPage = 6 }) => {
           <button
             onClick={() => {
               nextPage();
-              console.log("click");
             }}
             disabled={currentPage === totalPages}
           >

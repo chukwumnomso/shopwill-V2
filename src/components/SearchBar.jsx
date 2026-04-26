@@ -1,13 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
 
 import Icon from "./Icon";
 import { useSearch } from "../context/SearchContext";
 import { useModal } from "../context/ModalContext";
-import SearchProductComponent from "./SearchProductComponent";
-
-import Loading from "../components/SmallLoadingSpinner";
-import Button from "./Button";
 
 const SearchBar = () => {
   const {
@@ -43,7 +38,7 @@ const SearchBar = () => {
         />
       </div>
       <button
-        className="hover:rotate-90 transition-transform duration-300 cursor-pointer"
+        className="hover:rotate-90 transition-transform duration-300 cursor-pointer bg-black size-6 flex justify-center items-center rounded-full hover:bg-gray-700 hover:scale-105"
         onClick={() => {
           setSearchOpen((prev) => !prev);
           setModalOpen((prev) => !prev);
@@ -53,7 +48,7 @@ const SearchBar = () => {
           });
         }}
       >
-        <Icon name="cancel" className="size-6" />
+        <Icon name="cancel" className="size-6 text-white" />
       </button>
     </div>
   );

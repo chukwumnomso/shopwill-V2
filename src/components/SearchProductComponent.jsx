@@ -11,7 +11,7 @@ const SearchProductComponent = ({ product, setSearch, setModal }) => {
       <div>
         <Link to={`product/${product.id}`}>
           <p
-            className="tracking-widest"
+            className="tracking-widest text-sm text-gray-700 hover:text-black hover:underline"
             onClick={() => {
               setSearch(false);
               setModal(false);
@@ -21,10 +21,10 @@ const SearchProductComponent = ({ product, setSearch, setModal }) => {
           </p>
         </Link>
         <div className="mt-1 flex items-center gap-4 text-sm">
-          <p className="flex gap-4 text-amber-600 tracking-wide   ">
+          <p className="flex gap-4 text-gray-800 tracking-wide   ">
             ₦{product.product_price.toLocaleString()}
           </p>
-          <p className="text-gray-500 line-through font-light">
+          <p className="text-gray-500 line-through font-light text-xs">
             {product.discounts
               ? `${product.discounts}% OFF ${(
                   (product.discounts / 100) * product.product_price +

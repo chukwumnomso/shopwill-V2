@@ -19,7 +19,6 @@ const SearchProvider = ({ children }) => {
       ...Object.fromEntries(searchParams),
       q: newQuery,
     });
-    console.log(newQuery);
   };
 
   useEffect(() => {
@@ -47,7 +46,6 @@ const SearchProvider = ({ children }) => {
 
         if (!error && searchQuery) {
           setSearchResult(data);
-          console.log(data);
         }
       } catch (err) {
         console.error(err);

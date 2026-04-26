@@ -28,10 +28,17 @@ const ProdCard = ({ product, newWishlistItem }) => {
           src={product.imageUrl_1}
           alt=""
           loading="lazy"
+          decoding="async"
           className="absolute top-0 left-0 transition-opacity duration-500 cursor-pointer h-full w-full"
           style={{ opacity: prodCardHover === product.id ? 0 : 1 }}
         />
-        <img src={product.imageUrl_2} alt="" className="h-full w-full" />
+        <img
+          src={product.imageUrl_2}
+          alt=""
+          className="h-full w-full"
+          loading="lazy"
+          decoding="async"
+        />
 
         <div className="absolute  w-full bottom-1 flex justify-end items-center gap-2 px-4 cursor-pointer">
           <Button

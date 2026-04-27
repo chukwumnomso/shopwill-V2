@@ -103,7 +103,7 @@ const BottomSlideView = ({ setModalOpen }) => {
         <div className="flex gap-4 text-white ">
           {product?.sizes.map((size) => (
             <button
-              className={`px-4 ${prodSize === size ? "border-2 border-amber-500" : "border"} size-6 text-sm uppercase flex justify-center items-center cursor-pointer `}
+              className={`px-4 py-2 ${prodSize === size ? "border-2 border-amber-500" : "border"}  text-sm uppercase flex justify-center items-center cursor-pointer `}
               key={size}
               onClick={() => handleSize(size)}
             >

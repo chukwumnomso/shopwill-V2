@@ -64,6 +64,10 @@ const router = createBrowserRouter([
         path: "/cartpage",
         element: <CartPage />,
       },
+      {
+        path: "/checkoutpage",
+        element: <CheckOutPage />,
+      },
     ],
   },
 ]);

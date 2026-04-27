@@ -50,7 +50,7 @@ const CartDrawer = () => {
           </button>
         </p>
         {cart > 0 && (
-          <div className="flex justify-between px-4 font- [jost] uppercase mt-6 text-sm text-gray-500">
+          <div className="flex justify-between px-4 font- [jost] uppercase mt-6 text-xs tracking-widest text-gray-500">
             <p>
               ({cart}) product<span className="text-xs">(s)</span>
             </p>
@@ -127,6 +127,8 @@ const CartDrawer = () => {
               className="bg-white text-black w-[50%] py-2 uppercase border-black border   hover:scale-105 transition-transform duration-300 cursor-pointer "
               onClick={() => {
                 navigate("/cartpage");
+                setCartDrawerOpen(false);
+                setModalOpen(false);
               }}
             >
               view cart

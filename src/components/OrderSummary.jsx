@@ -37,7 +37,7 @@ const OrderSummary = () => {
           </div>
           <div>
             <p className="max-w-60 mb-2">{product.product_name}</p>
-            <p>{product.size}</p>
+            <p className="text-xs">size:{product.size}</p>
           </div>
           <p className="absolute top-0 right-4">
             ₦{(product.product_price * product.quantity).toLocaleString()}

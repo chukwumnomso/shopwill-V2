@@ -119,7 +119,14 @@ const CartDrawer = () => {
             Tax included. Shipping calculated at checkout.
           </p>
           <div className="flex gap-4 mt-4">
-            <button className="bg-black text-white w-[50%] py-2 uppercase hover:bg-gray-800 hover:scale-105 transition-all duration-300 cursor-pointer ">
+            <button
+              className="bg-black text-white w-[50%] py-2 uppercase hover:bg-gray-800 hover:scale-105 transition-all duration-300 cursor-pointer "
+              onClick={() => {
+                navigate("/checkoutpage");
+                setCartDrawerOpen(false);
+                setModalOpen(false);
+              }}
+            >
               checkout
             </button>
 

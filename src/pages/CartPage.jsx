@@ -13,8 +13,8 @@ import OrderSummary from "../components/OrderSummary";
 const CartPage = () => {
   const { shoppingCart, cart, cartTotal } = useCart();
   return (
-    <div className="md:flex justify-between items-start gap-4">
-      <div className="md:w-[50%]">
+    <div className="md:flex justify-between  items-start  gap-4">
+      <div className="md:w-[50%] ">
         <p className="text-center text-sm uppercase tracking-widest py-4">
           cart items
         </p>
@@ -25,7 +25,7 @@ const CartPage = () => {
         </div>
       </div>
 
-      <div className="bg-gray-100 md:w-[50%] sticky top-5">
+      <div className="bg-gray-200 md:w-[50%]  sticky top-5">
         <p className="uppercase py-4 text-center tracking-widest text-sm">
           order summary
         </p>

@@ -19,7 +19,7 @@ import SearchPage from "./pages/SearchPage";
 import { CartProvider } from "./context/CartContext";
 import { SearchParamsProvider } from "./context/UrlParamsContext";
 import CartPage from "./pages/CartPage";
-
+import CheckOutPage from "./pages/CheckOutPage";
 // Wrap AppLayout with all providers
 const AppLayoutWithProviders = () => (
   <PopUpProvider>

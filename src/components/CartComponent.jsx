@@ -23,7 +23,7 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
   };
 
   return (
-    <div className="flex gap-4 font-[jost] border-b border-gray-300 pb-6 mt-10 px-4 items-center relative">
+    <div className="flex gap-4 font-[jost] border-b border-gray-300 pb-6 mt-10 px-4 items-center relative tracking-widest font-light">
       <img
         src={product.imageUrl_1}
         alt={product.product_name}
@@ -36,7 +36,7 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
 
       <div className="flex flex-col gap-1  ">
         <p
-          className="tracking-wide text-sm uppercase hover:underline max-w-60 cursor-pointer"
+          className="tracking-widest text-sm uppercase hover:underline max-w-60 cursor-pointer"
           onClick={() => {
             navigate(`product/${product.product_id}`);
             (setCartDrawerOpen(false), setModalOpen(false));
@@ -50,16 +50,16 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
           ₦{product.product_price.toLocaleString()}
         </p>
         <div className="flex items-center gap-4">
-          <div className="border flex items-center w-20 h-10 justify-between mt-2 bg-white ">
+          <div className="border border-gray-300 flex items-center w-30 h-10 justify-between mt-2 bg-white ">
             <button
-              className="bg-white text-4xl size-6 flex items-center justify-center cursor-pointer "
+              className="bg-white text-gray-500 text-2xl size-6 flex items-center justify-center cursor-pointer "
               onClick={() => {
                 setInputValue((prev) => prev - 1);
                 ReduceQuantity(newItem);
               }}
               disabled={product.quantity <= 1 || isLoading ? true : false}
             >
-              -
+              <Icon name="minus" className="w-4 text-black" />
             </button>
             <input
               value={product.quantity}
@@ -68,14 +68,14 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
               className="no-spin focus:outline-none focus:ring-none w-6 text-center text-sm "
             />
             <button
-              className="bg-white text-xl size-6  flex items-center justify-center cursor-pointer"
+              className="bg-white text-gray-500 text-xl size-6  flex items-center justify-center cursor-pointer"
               onClick={() => {
                 setInputValue((prev) => Number(prev) + 1);
                 AddToCart(newItem);
               }}
               disabled={isLoading}
             >
-              +
+              <Icon name="add" className="w-4 text-black" />
             </button>
           </div>
           <button
@@ -89,7 +89,7 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
         </div>
       </div>
 
-      <p className="absolute right-4 text-gray-800 text-sm">
+      <p className="absolute right-4 text-gray-800 text-sm ">
         ₦{(product.product_price * inputValue).toLocaleString()}
       </p>
     </div>

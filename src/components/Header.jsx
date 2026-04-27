@@ -22,6 +22,8 @@ export default function Header() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const url = window.location;
+
   const result = searchResult?.slice(0, 5);
 
   const handleCartOpen = () => {
@@ -85,7 +87,11 @@ export default function Header() {
               {user ? wishList : 0}
             </CartIcon>
           </Button>
-          <Button className="cursor-pointer" onClick={handleCartOpen}>
+          <Button
+            className="cursor-pointer"
+            onClick={handleCartOpen}
+            disabled={url.pathname === "/cartpage"}
+          >
             <CartIcon name="cart" className={"relative"}>
               {cart}
             </CartIcon>

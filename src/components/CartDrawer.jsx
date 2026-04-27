@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useCart } from "../context/CartContext";
 import CartComponent from "./CartComponent";
@@ -18,6 +18,7 @@ const CartDrawer = () => {
   } = useCart();
   const { user } = useAuth();
   const { setModalOpen } = useModal();
+  const navigate = useNavigate();
 
   const localCartTotal = shoppingCart
     .map((T) => {
@@ -121,7 +122,13 @@ const CartDrawer = () => {
             <button className="bg-black text-white w-[50%] py-2 uppercase hover:bg-gray-800 hover:scale-105 transition-all duration-300 cursor-pointer ">
               checkout
             </button>
-            <button className="bg-white text-black w-[50%] py-2 uppercase border-black border   hover:scale-105 transition-transform duration-300 cursor-pointer ">
+
+            <button
+              className="bg-white text-black w-[50%] py-2 uppercase border-black border   hover:scale-105 transition-transform duration-300 cursor-pointer "
+              onClick={() => {
+                navigate("/cartpage");
+              }}
+            >
               view cart
             </button>
           </div>

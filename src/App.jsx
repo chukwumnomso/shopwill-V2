@@ -18,6 +18,7 @@ import { SearchProvider } from "./context/SearchContext";
 import SearchPage from "./pages/SearchPage";
 import { CartProvider } from "./context/CartContext";
 import { SearchParamsProvider } from "./context/UrlParamsContext";
+import CartPage from "./pages/CartPage";
 
 // Wrap AppLayout with all providers
 const AppLayoutWithProviders = () => (
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "/product/:productId",
         element: <ViewProductPage />,
+      },
+      {
+        path: "/cartpage",
+        element: <CartPage />,
       },
     ],
   },

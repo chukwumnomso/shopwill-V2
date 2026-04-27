@@ -9,6 +9,16 @@ const icons = {
     />
   ),
 
+  add: (
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      d="M12 4.5v15m7.5-7.5h-15"
+    />
+  ),
+
+  minus: <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />,
+
   sort: (
     <path
       strokeLinecap="round"

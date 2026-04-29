@@ -77,6 +77,7 @@ const ContactForm = () => {
             phone_number: phoneNumber,
             country: country,
             region: region,
+            apartment: apartment,
             postal_code: postalCode,
             updated_at: new Date(),
           },

@@ -180,7 +180,7 @@ const ContactForm = () => {
 
   return (
     <div>
-      <form className="border px-4 py-4 font-[jost] uppercase text-sm">
+      <form className=" px-4 py-4 font-[jost] uppercase text-sm">
         <p className="font-bold mb-2">contact</p>
         <input
           value={email}

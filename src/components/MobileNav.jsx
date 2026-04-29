@@ -2,6 +2,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 import { MenMobileNavSlide } from "./MobileNavSlide";
 import { WomenMobileNavSlide } from "./MobileNavSlide";
+
 import Icon from "./Icon";
 import ShopLogo from "./ShopLogo";
 import { useNavBar } from "../context/NavBarContext";
@@ -39,10 +40,10 @@ const MobileNav = () => {
     signOut(navigate);
     handleCloseNav();
   };
-  const handleLogin = () => {
-    navigate("/signin");
-    handleCloseNav();
-  };
+  // const handleLogin = () => {
+  //   navigate("/signin");
+  //   handleCloseNav();
+  // };
 
   return (
     <>
@@ -59,7 +60,9 @@ const MobileNav = () => {
               handleCloseNav();
             }}
           >
-            <Link to="/">home</Link>
+            <Link to="/" className="text-sm tracking-widest">
+              home
+            </Link>
           </p>
 
           <ShopLogo />
@@ -72,11 +75,10 @@ const MobileNav = () => {
           >
             <Icon
               name="cancel"
-              className="size-10  cursor-pointer hover:rotate-90 transition-transform duration-300"
+              className="size-8  cursor-pointer hover:rotate-90 transition-transform duration-300 "
             />
           </button>
         </div>
-
         {/* ////////////////////////////////////////// */}
         <div
           className="bg-white text-black font-[jost] cursor-pointer"
@@ -86,15 +88,6 @@ const MobileNav = () => {
           }}
         >
           <ul>
-            <li
-              className="flex items-center justify-between border-b h-15 hover:text-gray-500"
-              onClick={() => {
-                toggleNavSlide("best seller");
-              }}
-            >
-              best seller
-              <Icon name="chevronRight" className="size-5 " />
-            </li>
             <li
               className="flex items-center justify-between     border-b text-black h-15 hover:text-gray-500"
               onClick={() => {
@@ -132,34 +125,8 @@ const MobileNav = () => {
               </p>
               <Icon name="chevronRight" className="size-5 " />
             </li>
-            <li
-              className="flex items-center justify-between  border-b  h-15 hover:text-gray-500"
-              onClick={() => {
-                toggleNavSlide("kids");
-              }}
-            >
-              kids
-              <Icon name="chevronRight" className="size-5 " />
-            </li>
           </ul>
         </div>
-
-        <MenMobileNavSlide
-          style={{
-            transform:
-              navSlide === "best seller" ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 0.3s ease-in-out",
-          }}
-          head="best seller"
-          Tshirts="T-shirts"
-          Pants="Pants"
-          Shorts="Shorts"
-          Hoodies="Hoodies"
-          Accessories="Accessories"
-          handleActiveNav={handleActiveNav}
-          handleCategory={handleCategory}
-        />
-
         <MenMobileNavSlide
           style={{
             transform:
@@ -171,11 +138,9 @@ const MobileNav = () => {
           Pants="Pants"
           Shorts="Shorts"
           Hoodies="Hoodies"
-          Accessories="Accessories"
           handleActiveNav={handleActiveNav}
           handleCategory={handleCategory}
         />
-
         <WomenMobileNavSlide
           style={{
             transform:
@@ -191,32 +156,51 @@ const MobileNav = () => {
           handleActiveNav={handleActiveNav}
           handleCategory={handleCategory}
         />
-        <WomenMobileNavSlide
-          style={{
-            transform:
-              navSlide === "kids" ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 0.3s ease-in-out",
-          }}
-          head="Kids"
-          Tshirts="T-shirts"
-          Pants="Pants"
-          Shorts="Shorts"
-          Hoodies="Hoodies"
-          Accessories="Accessories"
-          handleActiveNav={handleActiveNav}
-        />
-
-        <Button
-          className="w-[90%] h-10 bg-black text-white absolute bottom-7 font-[jost]  text-xl right-0 left-0 mx-auto uppercase hover:text-blue-300 transition-color duration-300 cursor-pointer"
-          onClick={() => {
-            user ? handleLogout() : handleLogin();
-          }}
-        >
-          {user ? "logout" : "login"}
-        </Button>
+        {user ? (
+          <button
+            className="bg-black text-white text-sm tracking-widest mt-8 px-4 py-2 uppercase cursor-pointer"
+            onClick={() => {
+              handleLogout(navigate);
+            }}
+          >
+            signout
+          </button>
+        ) : (
+          <p className="mt-10">
+            user?
+            <span
+              className="text-blue-500 cursor-pointer"
+              onClick={() => {
+                navigate("/signin");
+                handleCloseNav();
+              }}
+            >
+              login
+            </span>
+            /
+            <span
+              className="text-blue-500 ml-2 cursor-pointer"
+              onClick={() => {
+                navigate("/signup");
+                handleCloseNav();
+              }}
+            >
+              signup
+            </span>
+          </p>
+        )}
       </div>
     </>
   );
 };
 
 export default MobileNav;
+
+//  <Button
+//    className="w-[90%] h-10 bg-black text-white absolute bottom-7 font-[jost]  text-xl right-0 left-0 mx-auto uppercase hover:text-blue-300 transition-color duration-300 cursor-pointer"
+//    onClick={() => {
+//      user ? handleLogout() : handleLogin();
+//    }}
+//  >
+//    {user ? "logout" : "login"}
+//  </Button>;

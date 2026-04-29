@@ -19,7 +19,7 @@ const ProdCard = ({ product, newWishlistItem }) => {
   return (
     <div>
       <div
-        className="h-50 bg-gray-200 relative overflow-hidden object-cover object-center flex items-center justify-center sm:h-65 md:h-65 lg:h-80 cursor-pointer"
+        className="size-55 bg-gray-200 sm:size-70 md:size-60 lg:size-60 relative overflow-hidden object-cover object-center flex items-center justify-center  cursor-pointer"
         onMouseEnter={() => handleCardHover(product.id)}
         onMouseLeave={handleCardLeave}
         onTouchStart={() => handleCardHover(product.id)}
@@ -75,13 +75,13 @@ const ProdCard = ({ product, newWishlistItem }) => {
           </Button>
         </div>
       </div>
-      <div className="h-20 font-[jost] text-[0.8rem]  px-1 uppercase ">
+      <div className="h-20 font-[jost] text-[0.8rem]  px-1 uppercase max-w-60 mb-6">
         <Link to={`/product/${product.id}`}>
           <h2 className="hover:text-gray-700 transition-colors duration-300 cursor-pointer tracking-wider ">
             {product.product_name}
           </h2>
         </Link>
-        <p className="text-amber-600">
+        <p className="text-black font-semibold mt-2">
           ₦{product.product_price.toLocaleString()}
         </p>
         <p className="text-gray-500 line-through font-light">

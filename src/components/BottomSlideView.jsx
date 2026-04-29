@@ -71,15 +71,15 @@ const BottomSlideView = ({ setModalOpen }) => {
 
   return (
     <div
-      className={`fixed z-50 h-[80%] bg-gray-900 bottom-0 w-full overflow-y-auto ${bottomCartOpen ? "translate-y-0" : "translate-y-full"} transition-transform duration-500`}
+      className={`fixed z-50 h-[80%] bg-gray-100  bottom-0 w-full md:w-[80%] md:left-1/2  md:-translate-x-1/2 overflow-y-auto ${bottomCartOpen ? "translate-y-0" : "translate-y-full"} transition-transform duration-500`}
     >
-      <div className="h-15  flex text-center items-center px-4 border-b border-white">
-        <p className="font-[jost] m-auto  uppercase text-white">
+      <div className="h-15  flex text-center items-center px-4 border-b border-black">
+        <p className="font-[jost] m-auto  uppercase text-black">
           choose options
         </p>
         <Icon
           name="cancel"
-          className="size-6 absolute right-5 text-white"
+          className="size-6 absolute right-5 text-black cursor-pointer hover:rotate-90 transition-transform duration-300"
           onClick={() => {
             setBottomCartOpen(false);
             setModalOpen(false);
@@ -90,20 +90,20 @@ const BottomSlideView = ({ setModalOpen }) => {
         <div>
           <ViewedProduct
             product={product}
-            imageStyle={`size-70 m-auto`}
-            littleImg={`size-15`}
+            imageStyle={`size-70 m-auto md:size-90 `}
+            littleImg={`size-15 md:size-25`}
             littleImgPos={`justify-center`}
             discountsStyle={`text-sm text-red-500`}
-            prodPriceStyle={`text-sm`}
-            prodNameStyle={`text-sm text-white`}
-            btnStyle={`bg-white/50`}
+            prodPriceStyle={`text-sm text-black`}
+            prodNameStyle={`text-lg text-black`}
+            btnStyle={`bg-black/50 `}
           />
         </div>
-        <p className="mt-4 text-white">sizes:</p>
-        <div className="flex gap-4 text-white ">
+        <p className="mt-4 text-black">sizes:</p>
+        <div className="flex gap-4 text-black ">
           {product?.sizes.map((size) => (
             <button
-              className={`px-4 py-2 ${prodSize === size ? "border-2 border-amber-500" : "border"}  text-sm uppercase flex justify-center items-center cursor-pointer `}
+              className={`px-4 py-2 ${prodSize === size ? "border-2 border-black" : "border"}  text-sm uppercase flex justify-center items-center cursor-pointer `}
               key={size}
               onClick={() => handleSize(size)}
             >
@@ -114,9 +114,9 @@ const BottomSlideView = ({ setModalOpen }) => {
         {prodSize === null && (
           <p className="text-xs text-red-500 italic mt-2">*choose size*</p>
         )}
-        <div className="border flex items-center w-30 h-10 justify-between mt-4 bg-white ">
+        <div className="border flex items-center w-30 h-10 justify-between mt-4  ">
           <button
-            className="bg-white text-4xl size-8 flex items-center justify-center cursor-pointer "
+            className=" text-4xl size-8 flex items-center justify-center cursor-pointer "
             onClick={() => {
               setInputValue((prev) => prev - 1);
             }}
@@ -131,7 +131,7 @@ const BottomSlideView = ({ setModalOpen }) => {
             className="no-spin focus:outline-none focus:ring-none w-8 text-center "
           />
           <button
-            className="bg-white text-xl size-8  flex items-center justify-center cursor-pointer"
+            className="text-xl size-8  flex items-center justify-center cursor-pointer"
             onClick={() => {
               setInputValue((prev) => Number(prev) + 1);
             }}
@@ -140,16 +140,13 @@ const BottomSlideView = ({ setModalOpen }) => {
           </button>
         </div>
         <Button
-          className=" bg-white text-black uppercase hover:text-blue-300 w-full p-3 border my-4 cursor-pointer"
+          className=" bg-black text-white uppercase hover:text-blue-300 w-full p-3 border my-4 cursor-pointer tracking-widest h"
           onClick={() => {
             handleAddToCart();
           }}
           disabled={prodSize === null ? true : false}
         >
           add to cart
-        </Button>
-        <Button className=" bg-black text-white uppercase hover:text-blue-300 w-full p-3 cursor-pointer">
-          buy now
         </Button>
       </div>
     </div>

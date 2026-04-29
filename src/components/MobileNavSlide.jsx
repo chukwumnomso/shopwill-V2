@@ -8,7 +8,7 @@ const MenMobileNavSlide = ({
   Pants,
   Shorts,
   Hoodies,
-  Accessories,
+
   style,
   handleActiveNav,
   handleCategory,
@@ -55,7 +55,6 @@ const MenMobileNavSlide = ({
         >
           {Hoodies}
         </li>
-        <li className="flex items-center border-b  h-15">{Accessories}</li>
       </ul>
     </div>
   );

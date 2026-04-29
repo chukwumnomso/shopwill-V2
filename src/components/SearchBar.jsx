@@ -22,7 +22,7 @@ const SearchBar = () => {
 
   return (
     <div
-      className={` fixed bg-white w-full  flex items-center justify-between px-4 ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-40" : "z-10"} transition-transform duration-300`}
+      className={` absolute bg-white w-full  flex items-center justify-between px-4 ${searchOpen ? "translate-y-0" : "-translate-y-200"} ${searchOpen ? "z-40" : "z-10"} transition-transform duration-300`}
     >
       <div className="flex items-center gap-4  w-full h-10">
         <Icon name="search" className="size-6" />

@@ -71,7 +71,7 @@ function ViewedProduct({
       <h3 className={`font-normal uppercase ${prodNameStyle} tracking-widest`}>
         {product?.product_name}
       </h3>
-      <p className={`text-amber-600 ${prodPriceStyle}`}>
+      <p className={` ${prodPriceStyle}`}>
         ₦{product.product_price?.toLocaleString()}
       </p>
       <p className={`line-through text-gray-500 ${discountsStyle}`}>

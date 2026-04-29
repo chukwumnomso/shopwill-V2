@@ -34,7 +34,7 @@ const CartDrawer = () => {
 
   return (
     <div
-      className={`bg-white h-full w-[90%] fixed z-50 right-0 top-0  shadow-neutral-800 shadow-2xl ${cartDrawerOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 `}
+      className={`bg-white h-full w-[90%] fixed z-50 right-0 top-0  shadow-neutral-800 shadow-2xl ${cartDrawerOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 sm:w-[70%] md:w-[50%] `}
     >
       <div className="overflow-y-auto h-[70%]">
         <p className="border-b border-gray-300  h-15 uppercase font-[jost] flex items-center justify-between tracking-widest px-4">

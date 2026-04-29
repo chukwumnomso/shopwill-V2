@@ -32,14 +32,6 @@ export const NavBarProvider = ({ children }) => {
     setModalOpen(false);
   };
 
-  // const handleGenderPage = (path, gender) => {
-  //   navigate(`${path}?gender=${gender}&page=1`);
-  //   setNavOpen(false);
-  //   setNavSlide("");
-  //   setActiveNav(true);
-  //   setModalOpen(false);
-  // };
-
   useEffect(() => {
     if (navOpen) {
       document.body.style.overflow = "hidden";

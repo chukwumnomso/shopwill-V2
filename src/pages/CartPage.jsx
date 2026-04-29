@@ -11,9 +11,9 @@ import Loading from "../components/SmallLoadingSpinner";
 import OrderSummary from "../components/OrderSummary";
 
 const CartPage = () => {
-  const { shoppingCart, cart, cartTotal } = useCart();
+  const { shoppingCart } = useCart();
   return (
-    <div className="md:flex justify-between  items-start  gap-4">
+    <div className="md:flex justify-between  items-start  gap-4 md:gap-8 md:mt-8">
       <div className="md:w-[50%] ">
         <p className="text-center text-sm uppercase tracking-widest py-4">
           cart items

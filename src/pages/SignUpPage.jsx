@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { signUp } from "../supabaseAuth/supabaseAuth";
 import Button from "../components/Button";
@@ -9,14 +10,16 @@ const SignUpPage = () => {
   const [password, setPassword] = useState("");
   const [lastName, setLastName] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     signUp(email, password, firstName, lastName);
   };
 
   return (
-    <div className="flex items-center justify-center  ">
-      <form onSubmit={handleSubmit} className=" w-[80%] ">
+    <div className="flex items-center justify-center   ">
+      <form onSubmit={handleSubmit} className=" w-[80%] md:w-[40%] py-10 ">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -49,6 +52,17 @@ const SignUpPage = () => {
         <Button className="bg-black text-white w-full h-10 uppercase hover:text-blue-300 cursor-pointer transition-color duration-300">
           sign up
         </Button>
+        <p className="font-[jost] text-center">
+          Already have an account?{" "}
+          <span
+            className="text-blue-500 pt-2 cursor-pointer"
+            onClick={() => {
+              navigate("/signin");
+            }}
+          >
+            Signin
+          </span>
+        </p>
       </form>
     </div>
   );

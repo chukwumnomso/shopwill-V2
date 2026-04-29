@@ -21,7 +21,7 @@ const SignInPage = () => {
 
   return (
     <div className="flex items-center justify-center  ">
-      <form onSubmit={handleSubmit} className=" w-[80%] ">
+      <form onSubmit={handleSubmit} className=" w-[80%] md:w-[40%] py-10 ">
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -40,9 +40,19 @@ const SignInPage = () => {
         <Button className="bg-black text-white w-full h-10 uppercase hover:text-blue-300 cursor-pointer transition-color duration-300">
           login
         </Button>
+        <p className="font-[jost] text-center">
+          Not a user?
+          <span
+            className="text-blue-500 pt-2 cursor-pointer ml-2"
+            onClick={() => {
+              navigate("/signup");
+            }}
+          >
+            Signup
+          </span>
+        </p>
       </form>
     </div>
-    // <ViewProductPage />
   );
 };
 

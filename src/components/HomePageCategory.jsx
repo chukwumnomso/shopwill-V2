@@ -1,3 +1,6 @@
+import react from "react";
+import { useNavigate } from "react-router-dom";
+
 import tShirt from "../assets/images/category-images/T-shirt.webp";
 import joggers from "../assets/images/category-images/joggers.jpg";
 import hoodie from "../assets/images/category-images/hoodie.webp";
@@ -6,15 +9,16 @@ import accessory from "../assets/images/vooglam-eyewear.jpg";
 const categories = [
   {
     name: "T-Shirts",
-    slug: "tshirts",
+    slug: "t-shirt",
     image: tShirt,
   },
-  { name: "Hoodies", slug: "hoodies", image: hoodie },
-  { name: "Pants", slug: "pants", image: joggers },
-  { name: "Jackets", slug: "jackets", image: accessory },
+  { name: "Hoodies", slug: "hoodie", image: hoodie },
+  { name: "Pants", slug: "pant", image: joggers },
+  { name: "accessories", slug: "bag", image: accessory },
 ];
 
 const HomePageCategory = () => {
+  const navigate = useNavigate();
   return (
     <div className="my-15 py-16 bg-gray-50">
       {/* Soft gray background for elegant separation */}
@@ -35,9 +39,7 @@ const HomePageCategory = () => {
             <div
               key={category.name}
               className="group relative aspect-4/3 rounded-3xl overflow-hidden cursor-pointer shadow-sm hover:shadow-xl transition-all duration-300"
-              onClick={() =>
-                (window.location.href = `/shop?category=${category.slug}`)
-              } // or use React Router Link
+              onClick={() => navigate(`/products?&page=1&cat=${category.slug}`)} // or use React Router Link
             >
               <img
                 src={category.image} // e.g. "/images/categories/hoodies.jpg"

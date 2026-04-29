@@ -15,6 +15,23 @@ const CartProvider = ({ children }) => {
   const [cartTotal, setCartTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const ClearCart = async () => {
+    if (!user) {
+      localStorage.clear();
+      return;
+    }
+
+    try {
+      const { error } = await supabase
+        .from("cart_items")
+        .delete()
+        .eq("user_id", user.id);
+      if (!error) return;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   async function DeleteFromCart(timestamp) {
     try {
       setIsLoading(true);
@@ -280,6 +297,7 @@ const CartProvider = ({ children }) => {
         setCartTotal,
         DeleteFromCart,
         isLoading,
+        ClearCart,
       }}
     >
       {children}

@@ -131,6 +131,7 @@ const OrderSummary = () => {
                   cols="50"
                   placeholder="write your comment for seller here"
                   rows="5"
+                  name="message"
                   className="w-full border px-4 pt-2 uppercase text-xs mt-1"
                 ></textarea>
               </div>

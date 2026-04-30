@@ -13,7 +13,7 @@ const categories = [
     image: tShirt,
   },
   { name: "Hoodies", slug: "hoodie", image: hoodie },
-  { name: "Pants", slug: "pant", image: joggers },
+  { name: "shorts", slug: "short", image: joggers },
   { name: "accessories", slug: "bag", image: accessory },
 ];
 

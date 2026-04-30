@@ -115,7 +115,7 @@ const ContactForm = () => {
 
   const handlePayment = () => {
     if (!validateForm()) return;
-
+    console.log(user.id);
     setIsProcessing(true);
 
     const reference = `ORDER-${Date.now()}-${Math.random().toString(36).substr(2, 8)}`;
@@ -137,6 +137,7 @@ const ContactForm = () => {
       callback: (response) => {
         ClearCart();
 
+        console.log(response);
         setEmail("");
         setFirstName("");
         setLastName("");
@@ -179,8 +180,8 @@ const ContactForm = () => {
   }
 
   return (
-    <div>
-      <form className=" px-4 py-4 font-[jost] uppercase text-sm">
+    <div className="px-4">
+      <form className="  py-4 font-[jost] uppercase text-sm">
         <p className="font-bold mb-2">contact</p>
         <input
           value={email}

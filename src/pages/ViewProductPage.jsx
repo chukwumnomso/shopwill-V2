@@ -133,7 +133,7 @@ const ViewProductPage = () => {
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               type="number"
-              className="no-spin focus:outline-none focus:ring-none w-8 text-center  "
+              className="no-spin focus:outline-none focus:ring-none w-8 text-center text-sm "
             />
             <button
               className="bg-white text-xl size-8  flex items-center justify-center cursor-pointer"

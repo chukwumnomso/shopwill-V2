@@ -52,7 +52,7 @@ const SignUpPage = () => {
         <Button className="bg-black text-white w-full h-10 uppercase hover:text-blue-300 cursor-pointer transition-color duration-300">
           sign up
         </Button>
-        <p className="font-[jost] text-center">
+        <p className="font-[jost] text-center mt-2">
           Already have an account?{" "}
           <span
             className="text-blue-500 pt-2 cursor-pointer"
@@ -60,7 +60,7 @@ const SignUpPage = () => {
               navigate("/signin");
             }}
           >
-            Signin
+            Login
           </span>
         </p>
       </form>

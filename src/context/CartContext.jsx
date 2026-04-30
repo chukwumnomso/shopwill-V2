@@ -11,13 +11,14 @@ const CartProvider = ({ children }) => {
   const [bottomCartOpen, setBottomCartOpen] = useState(false);
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [sizeWarning, setSizeWarning] = useState(false);
-  const [shoppingCart, setShoppinCart] = useState([]);
+  const [shoppingCart, setShoppingCart] = useState([]);
   const [cartTotal, setCartTotal] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const ClearCart = async () => {
     if (!user) {
-      localStorage.clear();
+      localStorage.removeItem("cart");
+      setShoppingCart([]);
       return;
     }
 
@@ -26,7 +27,10 @@ const CartProvider = ({ children }) => {
         .from("cart_items")
         .delete()
         .eq("user_id", user.id);
-      if (!error) return;
+      if (!error) {
+        setShoppingCart([]);
+        return;
+      }
     } catch (err) {
       console.error(err);
     }
@@ -46,7 +50,7 @@ const CartProvider = ({ children }) => {
             return q.quantity;
           })
           .reduce((a, b) => a + b, 0);
-        setShoppinCart(newRawCart);
+        setShoppingCart(newRawCart);
         setCart(localCartQuantity);
         return;
       }
@@ -63,7 +67,7 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCart(databaseCartQuantity);
-        setShoppinCart(data);
+        setShoppingCart(data);
 
         const CartTotal = data
           .map((T) => {
@@ -110,7 +114,7 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCart(localCartQuantity);
-        setShoppinCart(newRawCart);
+        setShoppingCart(newRawCart);
 
         return;
       }
@@ -141,7 +145,7 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCart(databaseCartQuantity);
-        setShoppinCart(data);
+        setShoppingCart(data);
         const CartTotal = data
           .map((T) => {
             return T.quantity * T.product_price;
@@ -189,7 +193,7 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCart(localCartQuantity);
-        setShoppinCart(newRawCart);
+        setShoppingCart(newRawCart);
 
         return;
       }
@@ -228,7 +232,7 @@ const CartProvider = ({ children }) => {
           })
           .reduce((a, b) => a + b, 0);
         setCart(databaseCartQuantity);
-        setShoppinCart(data);
+        setShoppingCart(data);
 
         const CartTotal = data
           .map((T) => {
@@ -252,7 +256,7 @@ const CartProvider = ({ children }) => {
       })
       .reduce((a, b) => a + b, 0);
     setCart(localCartQuantity);
-    setShoppinCart(newRawCart);
+    setShoppingCart(newRawCart);
   }, [user]);
 
   useEffect(() => {
@@ -266,7 +270,7 @@ const CartProvider = ({ children }) => {
           .reduce((a, b) => a + b, 0);
 
         setCart(databaseCartQuantity);
-        setShoppinCart(data);
+        setShoppingCart(data);
         const CartTotal = data
           .map((T) => {
             return T.quantity * T.product_price;

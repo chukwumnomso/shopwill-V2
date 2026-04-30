@@ -2,24 +2,21 @@ import { serve } from "https://deno.land/std@0.177.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.0";
 
 serve(async (req) => {
-  // Only accept POST requests
   if (req.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
   }
 
   try {
-    // Get the raw body as text (required for signature verification)
     const rawBody = await req.text();
     const signature = req.headers.get("x-paystack-signature");
     const secret = Deno.env.get("PAYSTACK_SECRET_KEY");
 
-    // Verify signature (skip if no signature for testing)
+    // Verify signature
     if (signature && secret) {
       const encoder = new TextEncoder();
       const keyData = encoder.encode(secret);
       const bodyData = encoder.encode(rawBody);
 
-      // Create HMAC SHA512
       const cryptoKey = await crypto.subtle.importKey(
         "raw",
         keyData,
@@ -39,18 +36,15 @@ serve(async (req) => {
       }
     }
 
-    // Parse the verified payload
     const payload = JSON.parse(rawBody);
     const { event, data } = payload;
 
-    // Only process successful charges
     if (event !== "charge.success") {
       return new Response(JSON.stringify({ message: "Ignored" }), {
         status: 200,
       });
     }
 
-    // Initialize Supabase
     const supabase = createClient(
       Deno.env.get("PROJECT_URL"),
       Deno.env.get("PROJECT_ANON_KEY"),

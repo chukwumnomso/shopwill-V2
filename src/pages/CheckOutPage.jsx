@@ -31,7 +31,11 @@ const CheckOutPage = () => {
               setOrderOpen((prev) => !prev);
             }}
           >
-            order summary <Icon name="arrowUp" className="size-4" />
+            order summary{" "}
+            <Icon
+              name={`${orderOpen ? "arrowUp" : "arrowDown"}`}
+              className="size-4"
+            />
           </div>
           <span className="text-sm">
             ₦

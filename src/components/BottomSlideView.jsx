@@ -122,13 +122,13 @@ const BottomSlideView = ({ setModalOpen }) => {
             }}
             disabled={inputValue <= 1 ? true : false}
           >
-            -
+            <Icon name="minus" className="w-5 text-black" />
           </button>
           <input
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             type="number"
-            className="no-spin focus:outline-none focus:ring-none w-8 text-center "
+            className="no-spin focus:outline-none focus:ring-none w-8 text-center text-sm "
           />
           <button
             className="text-xl size-8  flex items-center justify-center cursor-pointer"
@@ -136,7 +136,7 @@ const BottomSlideView = ({ setModalOpen }) => {
               setInputValue((prev) => Number(prev) + 1);
             }}
           >
-            +
+            <Icon name="add" className="w-4 text-black" />
           </button>
         </div>
         <Button

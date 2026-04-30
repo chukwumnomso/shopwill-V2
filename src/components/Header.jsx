@@ -12,6 +12,7 @@ import { useSearch } from "../context/SearchContext";
 import { useAuth } from "../context/AuthContext";
 import { useWishList } from "../context/WishedListContext";
 import SearchProductComponent from "./SearchProductComponent";
+import { signOut } from "../supabaseAuth/supabaseAuth";
 
 export default function Header() {
   const { cart, setCartDrawerOpen } = useCart();
@@ -72,8 +73,10 @@ export default function Header() {
               home
             </li>
             <li className="hover:underline group relative">
-              men
-              <div class="absolute top-10 -left-10 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-50 invisible group-hover:visible  ">
+              <p className="flex gap-1 items-center">
+                men <Icon name="arrowDown" className="size-4 text-black" />
+              </p>
+              <div className="absolute top-10 -left-10 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-50 invisible group-hover:visible  ">
                 <p
                   onClick={() => {
                     navigate(`/products?gender=male&page=1&cat=t-shirt`);
@@ -117,8 +120,10 @@ export default function Header() {
               </div>
             </li>
             <li className="hover:underline group relative">
-              women
-              <div class="absolute top-10 -left-10 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-50 invisible group-hover:visible  ">
+              <p className="flex gap-1 items-center">
+                women <Icon name="arrowDown" className="size-4 text-black" />
+              </p>
+              <div className="absolute top-10 -left-10 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-50 invisible group-hover:visible  ">
                 <p
                   onClick={() => {
                     navigate(`/products?gender=female&page=1&cat=top`);
@@ -167,7 +172,7 @@ export default function Header() {
           </ul>
         </nav>
 
-        <div className="flex gap-4 items-center ">
+        <div className="flex gap-4 items-center md:gap-8 ">
           <Button
             className="cursor-pointer"
             onClick={() => {
@@ -177,13 +182,28 @@ export default function Header() {
           >
             <Icon name="search" className="size-6 text-black" />
           </Button>
+
+          <Button className="cursor-pointer group relative hidden md:block">
+            <Icon name="user" className="size-6" />
+            <div className="absolute top-10 -left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-15 invisible group-hover:visible   ">
+              <span
+                className="text-xs uppercase font-[jost]"
+                onClick={() => {
+                  user ? signOut(navigate) : navigate("/signin");
+                }}
+              >
+                {user ? "signout" : "login"}
+              </span>
+            </div>
+          </Button>
+
           <Button
             className="cursor-pointer"
             onClick={() => {
               navigate("/wishlist");
             }}
           >
-            <CartIcon name="fav" className="relative">
+            <CartIcon name="fav" className="relative  ">
               {user ? wishList : 0}
             </CartIcon>
           </Button>

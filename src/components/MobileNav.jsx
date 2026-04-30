@@ -40,10 +40,6 @@ const MobileNav = () => {
     signOut(navigate);
     handleCloseNav();
   };
-  // const handleLogin = () => {
-  //   navigate("/signin");
-  //   handleCloseNav();
-  // };
 
   return (
     <>
@@ -166,16 +162,16 @@ const MobileNav = () => {
             signout
           </button>
         ) : (
-          <p className="mt-10">
+          <p className="mt-10 normal-case">
             user?
             <span
-              className="text-blue-500 cursor-pointer"
+              className="text-blue-500 cursor-pointer mx-2"
               onClick={() => {
                 navigate("/signin");
                 handleCloseNav();
               }}
             >
-              login
+              Login
             </span>
             /
             <span
@@ -185,7 +181,7 @@ const MobileNav = () => {
                 handleCloseNav();
               }}
             >
-              signup
+              Signup
             </span>
           </p>
         )}

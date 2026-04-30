@@ -18,6 +18,8 @@ const CartProvider = ({ children }) => {
   const ClearCart = async () => {
     if (!user) {
       localStorage.removeItem("cart");
+      setCart(0);
+      setCartTotal(0);
       setShoppingCart([]);
       return;
     }
@@ -28,6 +30,8 @@ const CartProvider = ({ children }) => {
         .delete()
         .eq("user_id", user.id);
       if (!error) {
+        setCart(0);
+        setCartTotal(0);
         setShoppingCart([]);
         return;
       }

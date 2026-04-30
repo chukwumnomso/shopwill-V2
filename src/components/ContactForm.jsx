@@ -137,7 +137,6 @@ const ContactForm = () => {
       callback: (response) => {
         ClearCart();
 
-        console.log(response);
         setEmail("");
         setFirstName("");
         setLastName("");

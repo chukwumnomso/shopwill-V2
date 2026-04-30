@@ -19,7 +19,7 @@ const ProdCard = ({ product, newWishlistItem }) => {
   return (
     <div>
       <div
-        className="w-full h-50 bg-gray-200 sm:h-65 md:h-60 lg:h-60 relative overflow-hidden object-cover object-center flex items-center justify-center  cursor-pointer"
+        className="w-full h-50 bg-gray-200 sm:h-65 md:h-60 lg:h-60 relative overflow-hidden object-cover object-center flex items-center justify-center  cursor-pointer mt-4"
         onMouseEnter={() => handleCardHover(product.id)}
         onMouseLeave={handleCardLeave}
         onTouchStart={() => handleCardHover(product.id)}

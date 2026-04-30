@@ -22,9 +22,13 @@ const CheckOutPage = () => {
     })
     .reduce((a, b) => a + b, 0);
   return (
-    <div className="md:grid grid-cols-2 gap-4">
+    <div
+      className={`grid-cols-2 gap-4 ${shoppingCart.length < 1 || cartTotal === 0 ? "md:block" : "md:grid"}`}
+    >
       <>
-        <div className="flex justify-between items-center px-4 tracking-widest uppercase text-xs h-15 border border-gray-500 bg-gray-200  md:hidden">
+        <div
+          className={`flex justify-between items-center px-4 tracking-widest uppercase text-xs h-15 border border-gray-500 bg-gray-200  md:hidden ${shoppingCart.length < 1 || cartTotal === 0 ? "hidden" : "block"}`}
+        >
           <div
             className="flex items-center gap-1 cursor-pointer"
             onClick={() => {
@@ -45,7 +49,7 @@ const CheckOutPage = () => {
           </span>
         </div>
         <div
-          className={`${orderOpen ? "max-h-500" : "max-h-0"} ${orderOpen ? "py-6" : "py-0"} overflow-hidden transition-height duration-300 bg-gray-200  md:max-h-none md:py-6`}
+          className={`${orderOpen ? "max-h-500" : "max-h-0"} ${orderOpen ? "py-6" : "py-0"} overflow-hidden transition-height duration-300 bg-gray-200  md:max-h-none md:py-6  ${shoppingCart.length < 1 || cartTotal === 0 ? "hidden" : "block"}`}
         >
           <OrderSummary />
         </div>

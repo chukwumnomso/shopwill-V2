@@ -1,5 +1,7 @@
 import { CountryDropdown, RegionDropdown } from "react-country-region-selector";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
 import supabase from "./supabaseClient";
@@ -19,6 +21,8 @@ const ContactForm = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const { shoppingCart, ClearCart, cartTotal } = useCart();
+
+  const navigate = useNavigate();
 
   const localCartTotal = shoppingCart
     .map((T) => {
@@ -115,7 +119,10 @@ const ContactForm = () => {
 
   const handlePayment = () => {
     if (!validateForm()) return;
-    console.log(user.id);
+
+    const savedInfo = { first_name: firstName, email: email };
+    localStorage.setItem("info", JSON.stringify(savedInfo));
+
     setIsProcessing(true);
 
     const reference = `ORDER-${Date.now()}-${Math.random().toString(36).substr(2, 8)}`;
@@ -149,7 +156,7 @@ const ContactForm = () => {
         setContactCheckBox(false);
 
         saveInformation();
-
+        setOrderComplete(true);
         setIsProcessing(false);
       },
       onClose: () => {
@@ -161,16 +168,21 @@ const ContactForm = () => {
   };
 
   if (orderComplete) {
+    const getInfo = JSON.parse(localStorage.getItem("info"));
+    console.log;
     return (
-      <div className="border px-4 py-8 text-center font-[jost]">
+      <div className="border px-4 py-8 text-center font-[jost] justify-self-center">
         <div className="text-green-600 text-2xl mb-4">✓</div>
         <h2 className="text-xl uppercase mb-2">Payment Successful!</h2>
         <p className="text-sm text-gray-600">
-          Thank you. Confirmation sent to {email}
+          Thank you {getInfo.first_name}. Confirmation sent to {getInfo.email}
         </p>
         <button
-          onClick={() => setOrderComplete(false)}
-          className="mt-4 bg-black text-white px-6 py-2"
+          onClick={() => {
+            setOrderComplete(false);
+            navigate("/");
+          }}
+          className="mt-4 bg-black text-white px-6 py-2 cursor-pointer"
         >
           Continue
         </button>
@@ -263,6 +275,7 @@ const ContactForm = () => {
             checked={contactCheckBox}
             onChange={(e) => setContactCheckBox(e.target.checked)}
             type="checkbox"
+            disabled={!user}
           />
           <label className="text-xs">
             save my information (logged in users)
@@ -275,7 +288,7 @@ const ContactForm = () => {
           handlePayment();
         }}
         disabled={isProcessing}
-        className="w-full font-[jost] text-sm bg-green-700 text-white py-3 mt-4 uppercase  disabled:bg-gray-400"
+        className="w-full font-[jost] text-sm bg-green-700 text-white py-3 mt-4 uppercase  disabled:bg-gray-400 cursor-pointer"
       >
         {isProcessing
           ? "Processing..."

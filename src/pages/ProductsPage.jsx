@@ -21,7 +21,7 @@ const ProductsPage = () => {
       <Heading className="text-lg flex items-center justify-center font-[jost] uppercase my-5 tracking-wider font-light">
         {`${gender} `}
       </Heading>
-      <div className="flex gap-4 px-4 mb-4">
+      <div className="flex gap-4 px-4 mb-4 flex-wrap">
         {sizes.map((size) => (
           <ShowFilter
             key={size}

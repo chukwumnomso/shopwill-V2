@@ -1,25 +1,22 @@
 import supabase from "../components/supabaseClient";
-
-async function signUp(email, password, firstName, lastName) {
-  const { data, error } = await supabase.auth.signUp({
+async function signUp(email, password, firstName, lastName, navigate) {
+  const { error } = await supabase.auth.signUp({
     email: email,
     password: password,
     options: {
       data: {
-        firstName: firstName,
-        lastName: lastName,
+        first_name: firstName,
+        last_name: lastName,
       },
     },
   });
 
   if (error) {
-    console.error("Sign up failed:", error.message);
+    navigate("/");
     return { success: false, error };
   }
 
-  // Supabase automatically sends a confirmation email
-  console.log("Check your email for confirmation!", data);
-  return { success: true, user: data.user };
+  return { success: true }; // Profile will be created automatically by the trigger
 }
 
 async function signIn(email, password) {

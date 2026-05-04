@@ -10,19 +10,36 @@ const SearchParamsProvider = ({ children }) => {
   const currentPage = Number(searchParams.get("page")) || 1;
   const gender = searchParams.get("gender") || "";
   const sort = searchParams.get("sort") || "";
-  const asc = searchParams.get("asc") || "";
+  const asc = searchParams.get("asc") || true;
   const isAscending = asc === "true";
   const searchQuery = searchParams.get("q") || "";
   const category = searchParams.getAll("cat") || [];
   const sizes = searchParams.getAll("size") || [];
 
   const handleSort = (newSort, boolen) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      sort: newSort,
-      asc: boolen,
-      page: 1,
+    setSearchParams((prev) => {
+      const newParams = new URLSearchParams(prev);
+      newParams.set("sort", newSort);
+      newParams.set("asc", boolen);
+      newParams.set("page", "1");
+      return newParams;
     });
+  };
+
+  const handleFilter = (newFilter, filter) => {
+    setSearchParams((prev) => {
+      const currentFilter = prev.getAll(filter);
+      const newParams = new URLSearchParams(prev);
+      if (currentFilter.includes(newFilter)) {
+        newParams.delete(filter, newFilter);
+      } else {
+        newParams.append(filter, newFilter);
+      }
+      newParams.set("page", "1");
+      return newParams;
+    });
+    setModalOpen(false);
+    setFilterOpen(false);
   };
 
   const handleCategory = (newCat) => {

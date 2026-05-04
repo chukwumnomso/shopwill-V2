@@ -36,6 +36,7 @@ const WishListProvider = ({ children }) => {
         setTimeout(() => {
           setPopUpVisible(false);
         }, 2000);
+        return;
       } else {
         const { data: inserted } = await supabase
           .from("wishlist")

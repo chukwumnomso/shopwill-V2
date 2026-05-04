@@ -132,7 +132,9 @@ const ContactForm = () => {
       email: email,
       amount: `${user ? (cartTotal + tax) * 100 : (localCartTotal + tax) * 100}`,
       ref: reference,
+
       metadata: {
+        user_id: user?.id,
         customer_name: `${firstName} ${lastName}`,
         phone: phoneNumber,
         country: country,

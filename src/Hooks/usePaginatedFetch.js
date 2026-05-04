@@ -81,7 +81,6 @@ export const usePaginatedFetch = (tableName, itemsPerPage = 8) => {
     searchQuery,
     asc,
     sort,
-    isAscending,
   ]);
 
   useEffect(() => {

@@ -71,6 +71,7 @@ serve(async (req) => {
     const { error: orderError } = await supabase.from("orders").insert({
       reference: data.reference,
       customer_email: data.customer.email,
+      user_id: metadata.user_id,
       customer_name: metadata.customer_name,
       customer_phone: metadata.phone,
       shipping_country: metadata.country,
@@ -88,6 +89,7 @@ serve(async (req) => {
     for (const item of cartItems) {
       const { error: itemError } = await supabase.from("order_items").insert({
         order_reference: data.reference,
+        user_id: item.user_id,
         product_name: item.product_name,
         product_price: item.product_price,
         quantity: item.quantity,

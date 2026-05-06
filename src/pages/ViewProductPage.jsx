@@ -105,19 +105,65 @@ const ViewProductPage = () => {
           </div>
 
           <p className="mt-4 md:mt-8">sizes:</p>
+
           <div className="flex gap-4 md:mt-4 ">
-            {product.sizes.map((size) => (
-              <button
-                className={` px-4 py-2 w-fit ${prodSize === size ? "border-2 border-black" : "border"} size-8 text-sm  uppercase flex justify-center items-center cursor-pointer`}
-                key={size}
-                onClick={() => handleSize(size)}
+            {product?.sizes.size === "unisize" ? (
+              <SizeButton
+                onClick={handleSize}
+                size={product?.sizes.size ? product.sizes.size : ""}
+                prodSize={prodSize}
+                product={product}
               >
-                {size}
-              </button>
-            ))}
+                {product?.sizes.size}
+              </SizeButton>
+            ) : (
+              <>
+                <SizeButton
+                  onClick={handleSize}
+                  size={product?.sizes.small ? product.sizes.small : ""}
+                  prodSize={prodSize}
+                  product={product}
+                >
+                  {product?.sizes.small ? product.sizes.small : "S"}
+                </SizeButton>
+                <SizeButton
+                  onClick={handleSize}
+                  size={product?.sizes.medium ? product?.sizes.medium : ""}
+                  prodSize={prodSize}
+                  product={product}
+                >
+                  {product?.sizes.medium ? product?.sizes.medium : "M"}
+                </SizeButton>
+                <SizeButton
+                  onClick={handleSize}
+                  size={product?.sizes.large ? product?.sizes.large : "L"}
+                  prodSize={prodSize}
+                  product={product}
+                >
+                  {product?.sizes.large ? product?.sizes.large : "L"}
+                </SizeButton>
+                <SizeButton
+                  onClick={handleSize}
+                  size={product?.sizes.xlarge ? product?.sizes.xlarge : ""}
+                  prodSize={prodSize}
+                  product={product}
+                >
+                  {product?.sizes.xlarge ? product?.sizes.xlarge : "XL"}
+                </SizeButton>
+                <SizeButton
+                  onClick={handleSize}
+                  size={product?.sizes.xxlarge ? product?.sizes.xxlarge : ""}
+                  prodSize={prodSize}
+                  product={product}
+                >
+                  {product?.sizes.xxlarge ? product?.sizes.xxlarge : "XXL"}
+                </SizeButton>
+              </>
+            )}
           </div>
+
           {prodSize === null && (
-            <p className="text-xs text-red-500 italic mt-2">*choose size*</p>
+            <p className={`text-xs text-red-500 italic mt-2 `}>*choose size*</p>
           )}
           <div className="border flex items-center w-30 h-10 justify-between mt-4">
             <button
@@ -153,7 +199,7 @@ const ViewProductPage = () => {
             className=" bg-black text-white uppercase hover:text-blue-300 w-full p-3 border my-4 cursor-pointer"
             onClick={() => {
               handleAddToCart();
-              // console.log(product);
+              console.log(prodSize);
             }}
             disabled={prodSize === null ? true : false}
           >
@@ -175,3 +221,18 @@ const ViewProductPage = () => {
 };
 
 export default ViewProductPage;
+
+const SizeButton = ({ onClick, prodSize, size, children }) => {
+  return (
+    <button
+      className={` px-4 py-2 w-fit ${prodSize === size ? "border-2 border-black" : "border"} ${size === "" ? "line-through bg-gray-200 text-gray-500" : "none"}  size-8 text-sm  uppercase flex justify-center items-center cursor-pointer`}
+      onClick={() => {
+        onClick(size);
+      }}
+      disabled={size === ""}
+    >
+      {children}
+    </button>
+  );
+};
+export { SizeButton };

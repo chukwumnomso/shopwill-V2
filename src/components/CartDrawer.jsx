@@ -94,7 +94,7 @@ const CartDrawer = () => {
             {isLoading ? (
               <Loading size="sm" color="gray" style="solid" />
             ) : (
-              <span className="text-sm">
+              <span className="text-sm font-bold">
                 ₦
                 {user
                   ? cartTotal?.toLocaleString()
@@ -107,11 +107,12 @@ const CartDrawer = () => {
             {isLoading ? (
               <Loading size="sm" color="gray" style="solid" />
             ) : (
-              <span className="text-sm">
+              <span className="text-sm font-bold">
                 ₦
                 {user
                   ? (cartTotal + tax).toLocaleString()
                   : (localCartTotal + tax).toLocaleString()}
+                +<span className="uppercase text-xs">tax</span>
               </span>
             )}
           </div>

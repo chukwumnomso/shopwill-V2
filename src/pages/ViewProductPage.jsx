@@ -107,59 +107,46 @@ const ViewProductPage = () => {
           <p className="mt-4 md:mt-8">sizes:</p>
 
           <div className="flex gap-4 md:mt-4 ">
-            {product?.sizes.size === "unisize" ? (
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.size ? product.sizes.size : ""}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.size}
-              </SizeButton>
-            ) : (
-              <>
-                <SizeButton
-                  onClick={handleSize}
-                  size={product?.sizes.small ? product.sizes.small : ""}
-                  prodSize={prodSize}
-                  product={product}
-                >
-                  {product?.sizes.small ? product.sizes.small : "S"}
-                </SizeButton>
-                <SizeButton
-                  onClick={handleSize}
-                  size={product?.sizes.medium ? product?.sizes.medium : ""}
-                  prodSize={prodSize}
-                  product={product}
-                >
-                  {product?.sizes.medium ? product?.sizes.medium : "M"}
-                </SizeButton>
-                <SizeButton
-                  onClick={handleSize}
-                  size={product?.sizes.large ? product?.sizes.large : "L"}
-                  prodSize={prodSize}
-                  product={product}
-                >
-                  {product?.sizes.large ? product?.sizes.large : "L"}
-                </SizeButton>
-                <SizeButton
-                  onClick={handleSize}
-                  size={product?.sizes.xlarge ? product?.sizes.xlarge : ""}
-                  prodSize={prodSize}
-                  product={product}
-                >
-                  {product?.sizes.xlarge ? product?.sizes.xlarge : "XL"}
-                </SizeButton>
-                <SizeButton
-                  onClick={handleSize}
-                  size={product?.sizes.xxlarge ? product?.sizes.xxlarge : ""}
-                  prodSize={prodSize}
-                  product={product}
-                >
-                  {product?.sizes.xxlarge ? product?.sizes.xxlarge : "XXL"}
-                </SizeButton>
-              </>
-            )}
+            <SizeButton
+              onClick={handleSize}
+              size={product?.sizes.includes("s") ? "s" : ""}
+              prodSize={prodSize}
+              product={product}
+            >
+              {product?.sizes.small ? product.sizes.small : "S"}
+            </SizeButton>
+            <SizeButton
+              onClick={handleSize}
+              size={product?.sizes.includes("m") ? "m" : ""}
+              prodSize={prodSize}
+              product={product}
+            >
+              {product?.sizes.small ? product.sizes.small : "M"}
+            </SizeButton>
+            <SizeButton
+              onClick={handleSize}
+              size={product?.sizes.includes("l") ? "l" : ""}
+              prodSize={prodSize}
+              product={product}
+            >
+              {product?.sizes.small ? product.sizes.small : "l"}
+            </SizeButton>
+            <SizeButton
+              onClick={handleSize}
+              size={product?.sizes.includes("xl") ? "xl" : ""}
+              prodSize={prodSize}
+              product={product}
+            >
+              {product?.sizes.small ? product.sizes.small : "xl"}
+            </SizeButton>
+            <SizeButton
+              onClick={handleSize}
+              size={product?.sizes.includes("xxl") ? "xxl" : ""}
+              prodSize={prodSize}
+              product={product}
+            >
+              {product?.sizes.small ? product.sizes.small : "xxl"}
+            </SizeButton>
           </div>
 
           {prodSize === null && (

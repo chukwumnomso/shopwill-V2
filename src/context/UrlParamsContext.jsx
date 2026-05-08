@@ -26,22 +26,6 @@ const SearchParamsProvider = ({ children }) => {
     });
   };
 
-  const handleFilter = (newFilter, filter) => {
-    setSearchParams((prev) => {
-      const currentFilter = prev.getAll(filter);
-      const newParams = new URLSearchParams(prev);
-      if (currentFilter.includes(newFilter)) {
-        newParams.delete(filter, newFilter);
-      } else {
-        newParams.append(filter, newFilter);
-      }
-      newParams.set("page", "1");
-      return newParams;
-    });
-    setModalOpen(false);
-    setFilterOpen(false);
-  };
-
   const handleCategory = (newCat) => {
     setSearchParams((prev) => {
       (prev.set("cat", newCat), prev.set("page", "1"));

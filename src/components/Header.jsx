@@ -38,7 +38,7 @@ export default function Header() {
         className="bg-black h-6  text-white text-[0.6rem] flex items-center justify-center font-[montserrat] uppercase font-semibold sticky -top-7 left-0 z-30 w-full"
         style={{ zIndex: searchOpen ? 50 : 30 }}
       >
-        <p> make purchase@shopwill</p>
+        <p> free shipping on purchase worth 200k & above 👍</p>
       </div>
       <header
         className="flex  justify-between px-4 h-20 items-center sticky -top-2 left-0  w-full bg-white"

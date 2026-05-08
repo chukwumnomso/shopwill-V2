@@ -46,7 +46,7 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
         </p>
 
         <p className="uppercase text-xs text-gray-500">size:{product.size}</p>
-        <p className="text-black text-sm">
+        <p className="text-black text-sm font-semibold">
           ₦{product.product_price.toLocaleString()}
         </p>
         <div className="flex items-center gap-4">
@@ -89,7 +89,7 @@ const CartComponent = ({ product, setCartDrawerOpen, setModalOpen }) => {
         </div>
       </div>
 
-      <p className="absolute right-4 text-gray-800 text-sm ">
+      <p className="absolute right-4 text-gray-800 text-sm font-semibold">
         ₦{(product.product_price * inputValue).toLocaleString()}
       </p>
     </div>

@@ -14,7 +14,6 @@ const BottomSlideView = ({ setModalOpen }) => {
   const [product, setProduct] = useState(null);
   const [prodSize, setProdSize] = useState(null);
   const [inputValue, setInputValue] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
 
   const { setPopUpMessage, setPopUpVisible } = usePopUp();
   const { AddToCart, productID, bottomCartOpen, setBottomCartOpen } = useCart();
@@ -49,8 +48,6 @@ const BottomSlideView = ({ setModalOpen }) => {
   useEffect(() => {
     const fetch = async () => {
       try {
-        setIsLoading(true);
-
         let query = supabase.from("products_store").select("*");
         if (productID) {
           query = query.eq("id", productID);
@@ -66,8 +63,6 @@ const BottomSlideView = ({ setModalOpen }) => {
         }
       } catch (err) {
         console.error(err);
-      } finally {
-        setIsLoading(false);
       }
     };
     fetch();
@@ -105,59 +100,46 @@ const BottomSlideView = ({ setModalOpen }) => {
         </div>
         <p className="mt-4 text-black">sizes:</p>
         <div className="flex gap-4 text-black ">
-          {product?.sizes.size === "unisize" ? (
-            <SizeButton
-              onClick={handleSize}
-              size={product?.sizes.size ? product.sizes.size : ""}
-              prodSize={prodSize}
-              product={product}
-            >
-              {product?.sizes.size}
-            </SizeButton>
-          ) : (
-            <>
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.small ? product.sizes.small : ""}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.small ? product.sizes.small : "S"}
-              </SizeButton>
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.medium ? product?.sizes.medium : ""}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.medium ? product?.sizes.medium : "M"}
-              </SizeButton>
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.large ? product?.sizes.large : "L"}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.large ? product?.sizes.large : "L"}
-              </SizeButton>
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.xlarge ? product?.sizes.xlarge : ""}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.xlarge ? product?.sizes.xlarge : "XL"}
-              </SizeButton>
-              <SizeButton
-                onClick={handleSize}
-                size={product?.sizes.xxlarge ? product?.sizes.xxlarge : ""}
-                prodSize={prodSize}
-                product={product}
-              >
-                {product?.sizes.xxlarge ? product?.sizes.xxlarge : "XXL"}
-              </SizeButton>
-            </>
-          )}
+          <SizeButton
+            onClick={handleSize}
+            size={product?.sizes.includes("s") ? "s" : ""}
+            prodSize={prodSize}
+            product={product}
+          >
+            {product?.sizes.small ? product.sizes.small : "S"}
+          </SizeButton>
+          <SizeButton
+            onClick={handleSize}
+            size={product?.sizes.includes("m") ? "m" : ""}
+            prodSize={prodSize}
+            product={product}
+          >
+            {product?.sizes.small ? product.sizes.small : "M"}
+          </SizeButton>
+          <SizeButton
+            onClick={handleSize}
+            size={product?.sizes.includes("l") ? "l" : ""}
+            prodSize={prodSize}
+            product={product}
+          >
+            {product?.sizes.small ? product.sizes.small : "l"}
+          </SizeButton>
+          <SizeButton
+            onClick={handleSize}
+            size={product?.sizes.includes("xl") ? "xl" : ""}
+            prodSize={prodSize}
+            product={product}
+          >
+            {product?.sizes.small ? product.sizes.small : "xl"}
+          </SizeButton>
+          <SizeButton
+            onClick={handleSize}
+            size={product?.sizes.includes("xxl") ? "xxl" : ""}
+            prodSize={prodSize}
+            product={product}
+          >
+            {product?.sizes.small ? product.sizes.small : "xxl"}
+          </SizeButton>
         </div>
         {prodSize === null && (
           <p className="text-xs text-red-500 italic mt-2">*choose size*</p>
@@ -191,6 +173,7 @@ const BottomSlideView = ({ setModalOpen }) => {
           className=" bg-black text-white uppercase hover:text-blue-300 w-full p-3 border my-4 cursor-pointer tracking-widest "
           onClick={() => {
             handleAddToCart();
+            setProdSize(null);
           }}
           disabled={prodSize === null ? true : false}
         >

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const SearchProductComponent = ({ product, setSearch, setModal }) => {
   return (
-    <div className="flex items-center gap-4 mt-4  ">
+    <div className="flex items-center gap-4 mt-4 border-b ">
       <img
         src={product.imageUrl_1}
         alt={product.product_name}
@@ -21,7 +21,7 @@ const SearchProductComponent = ({ product, setSearch, setModal }) => {
           </p>
         </Link>
         <div className="mt-1 flex items-center gap-4 text-sm">
-          <p className="flex gap-4 text-gray-800 tracking-wide   ">
+          <p className="flex gap-4 text-gray-800 tracking-wide font-semibold mt-2  ">
             ₦{product.product_price.toLocaleString()}
           </p>
           <p className="text-gray-500 line-through font-light text-xs">

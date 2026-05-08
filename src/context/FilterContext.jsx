@@ -61,20 +61,19 @@ const FilterProvider = ({ children }) => {
           .eq("gender", gender);
 
         if (!error && data) {
-          const counts = data.reduce((acc, item) => {
+          const typeCounts = data.reduce((acc, item) => {
             acc[item.category] = (acc[item.category] || 0) + 1;
             return acc;
           }, {});
-          setProductType(counts);
+          setProductType(typeCounts);
 
           const allSizesFound = data
             .map((item) => item.sizes)
             .filter((val) => val !== null && val !== undefined)
-            .flat();
+            .flat(); // No need for Object.values() now
 
           const sizeCounts = allSizesFound.reduce((acc, size) => {
-            const key = size;
-            acc[key] = (acc[key] || 0) + 1;
+            acc[size] = (acc[size] || 0) + 1;
             return acc;
           }, {});
 

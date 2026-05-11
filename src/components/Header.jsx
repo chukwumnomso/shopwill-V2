@@ -183,11 +183,11 @@ export default function Header() {
             <Icon name="search" className="size-6 text-black" />
           </Button>
 
-          <Button className="cursor-pointer group relative hidden md:block">
+          <Button className="cursor-pointer group relative hidden md:block ">
             <Icon name="user" className="size-6" />
-            <div className="absolute top-10 -left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-15 invisible group-hover:visible   ">
+            <div className="absolute top-10 -left-4 opacity-0 group-hover:opacity-100 transition-all duration-500 bg-white w-15 invisible group-hover:visible  hover:bg-black hover:text-white  ">
               <span
-                className="text-xs uppercase font-[jost]"
+                className="text-xs uppercase font-[jost] "
                 onClick={() => {
                   user ? signOut(navigate) : navigate("/signin");
                 }}

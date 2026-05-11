@@ -8,7 +8,7 @@ import supabase from "./supabaseClient";
 
 const ContactForm = () => {
   const { user } = useAuth();
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState("Nigeria");
   const [region, setRegion] = useState("");
   const [email, setEmail] = useState("");
   const [emailCheckBox, setEmailCheckBox] = useState(false);
@@ -27,11 +27,6 @@ const ContactForm = () => {
   const localCartTotal = shoppingCart
     .map((T) => {
       return Number(T.quantity) * Number(T.product_price);
-    })
-    .reduce((a, b) => a + b, 0);
-  const tax = shoppingCart
-    .map((T) => {
-      return Number(T.quantity) * 100;
     })
     .reduce((a, b) => a + b, 0);
 
@@ -130,7 +125,7 @@ const ContactForm = () => {
     const handler = window.PaystackPop.setup({
       key: import.meta.env.VITE_PAYSTACK_PUBLIC_KEY,
       email: email,
-      amount: `${user ? (cartTotal + tax) * 100 : (localCartTotal + tax) * 100}`,
+      amount: `${user ? cartTotal * 100 : localCartTotal * 100}`,
       ref: reference,
 
       metadata: {
@@ -296,10 +291,13 @@ const ContactForm = () => {
           ? "Processing..."
           : `Pay with paystack NGN  ${
               user
-                ? (cartTotal + tax).toLocaleString()
-                : (localCartTotal + tax).toLocaleString()
+                ? cartTotal.toLocaleString()
+                : localCartTotal.toLocaleString()
             }`}
       </button>
+      <p className="w-full text-center text-xs  mt-2 tracking-widest c">
+        🔒 SSL Secure Paystack Verified Merchant
+      </p>
     </div>
   );
 };

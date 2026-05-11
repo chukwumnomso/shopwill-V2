@@ -16,11 +16,7 @@ const CheckOutPage = () => {
       return T.quantity * T.product_price;
     })
     .reduce((a, b) => a + b, 0);
-  const tax = shoppingCart
-    .map((T) => {
-      return T.quantity * 100;
-    })
-    .reduce((a, b) => a + b, 0);
+
   return (
     <div
       className={`grid-cols-2 gap-4 ${shoppingCart.length < 1 || cartTotal === 0 ? "md:block" : "md:grid"}`}
@@ -35,7 +31,7 @@ const CheckOutPage = () => {
               setOrderOpen((prev) => !prev);
             }}
           >
-            order summary{" "}
+            order summary
             <Icon
               name={`${orderOpen ? "arrowUp" : "arrowDown"}`}
               className="size-4"
@@ -44,8 +40,8 @@ const CheckOutPage = () => {
           <span className="text-sm">
             ₦
             {user
-              ? (cartTotal + tax).toLocaleString()
-              : (localCartTotal + tax).toLocaleString()}
+              ? cartTotal?.toLocaleString()
+              : localCartTotal?.toLocaleString()}
           </span>
         </div>
         <div

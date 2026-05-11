@@ -5,7 +5,7 @@ const PopUp = ({ children }) => {
   const { popUpVisible } = usePopUp();
   return (
     <div
-      className="fixed h-30  z-50 top-0 left-0 right-0 flex items-center justify-center  duration-500 transition-all"
+      className="fixed h-30   z-50 top-0 left-0 right-0 flex items-center justify-center  duration-500 transition-all lg:w-[50%]  mx-auto "
       style={{
         top: popUpVisible ? "0px" : "-100% ",
       }}

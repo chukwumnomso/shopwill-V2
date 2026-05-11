@@ -26,12 +26,6 @@ const CartDrawer = () => {
     })
     .reduce((a, b) => a + b, 0);
 
-  const tax = shoppingCart
-    .map((T) => {
-      return T.quantity * 100;
-    })
-    .reduce((a, b) => a + b, 0);
-
   return (
     <div
       className={`bg-white h-full w-[90%] fixed z-50 right-0 top-0  shadow-neutral-800 shadow-2xl ${cartDrawerOpen ? "translate-x-0" : "translate-x-full"} transition-transform duration-300 sm:w-[70%] md:w-[50%] `}
@@ -110,9 +104,8 @@ const CartDrawer = () => {
               <span className="text-sm font-bold">
                 ₦
                 {user
-                  ? (cartTotal + tax).toLocaleString()
-                  : (localCartTotal + tax).toLocaleString()}
-                +<span className="uppercase text-xs">tax</span>
+                  ? cartTotal.toLocaleString()
+                  : localCartTotal.toLocaleString()}
               </span>
             )}
           </div>

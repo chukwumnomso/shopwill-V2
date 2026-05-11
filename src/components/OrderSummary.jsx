@@ -19,11 +19,6 @@ const OrderSummary = () => {
     })
     .reduce((a, b) => a + b, 0);
 
-  const tax = shoppingCart
-    .map((T) => {
-      return T.quantity * 100;
-    })
-    .reduce((a, b) => a + b, 0);
   return (
     <>
       {shoppingCart.map((product) => (
@@ -55,7 +50,7 @@ const OrderSummary = () => {
                 cart total:
               </span>
 
-              <span className="text-sm">
+              <span className="text-sm font-semibold">
                 ₦
                 {user
                   ? cartTotal?.toLocaleString()
@@ -67,16 +62,18 @@ const OrderSummary = () => {
                 subtotal:
               </span>
 
-              <span className="text-sm">
+              <span className="text-sm font-semibold">
                 ₦
                 {user
-                  ? (cartTotal + tax).toLocaleString()
-                  : (localCartTotal + tax).toLocaleString()}
+                  ? cartTotal.toLocaleString()
+                  : localCartTotal.toLocaleString()}
               </span>
             </div>
             {url.pathname === "/checkoutpage" ? (
-              <span className="text-sm tracking-widest capitalize">
-                including ₦{tax} in taxes ₦100 x quantity{" "}
+              <span className="text-sm tracking-widest capitalize ">
+                <p className="font-semibold mt-2">
+                  Note: 3 days estimated delivery outside aba.
+                </p>
               </span>
             ) : null}
             {url.pathname !== "/checkoutpage" ? (

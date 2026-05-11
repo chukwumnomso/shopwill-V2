@@ -34,7 +34,7 @@ const SignInPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="password"
-          className="border w-full h-10 mb-2 px-5 font-[jost] text-5xl "
+          className="border w-full h-10 mb-2 px-5 font-[jost] "
         />
 
         <Button className="bg-black text-white w-full h-10 uppercase hover:text-blue-300 cursor-pointer transition-color duration-300">

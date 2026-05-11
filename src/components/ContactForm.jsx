@@ -291,8 +291,8 @@ const ContactForm = () => {
           ? "Processing..."
           : `Pay with paystack NGN  ${
               user
-                ? cartTotal.toLocaleString()
-                : localCartTotal.toLocaleString()
+                ? cartTotal?.toLocaleString()
+                : localCartTotal?.toLocaleString()
             }`}
       </button>
       <p className="w-full text-center text-xs  mt-2 tracking-widest c">

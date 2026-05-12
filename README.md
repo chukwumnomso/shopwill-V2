@@ -1,19 +1,18 @@
-# GitHub Profile Finder
+# E-Commerce Storefront
 
-Search any GitHub username and explore their profile, top repositories, languages and followers.
+A full-featured e-commerce web app built with React, Tailwind CSS and Supabase.
 
 ## Features
-- Search any GitHub user
-- View profile stats — repos, followers, following
-- Top 6 repositories sorted by stars
-- Language indicators per repo
-- Followers grid with avatars
+- User authentication (login & signup)
+- Product listings with real data
+- Shopping cart
+- Responsive design
 
 ## Built With
 - React
 - Tailwind CSS
-- GitHub REST API
-- Vite
+- Supabase
+- JavaScript
 
 ## Live Demo
-[View Live](https://chinomso-github-finder.vercel.app)
+[View Live](https://shopwillstore.vercel.app)

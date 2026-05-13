@@ -7,17 +7,19 @@ import { synchronizeCart } from "../components/syncToUserCart";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState(null);
   useEffect(() => {
     const verify = async () => {
       const userData = await getCurrentUser();
       if (userData) {
+        console.log("User data found:", userData);
         setUser(userData);
-        synchronizeCart(user.id);
+        synchronizeCart(userData.id);
+        window.location.reload();
       }
     };
     verify();
-  }, [user.id]);
+  }, []);
 
   useEffect(() => {
     // 1. Set up the listener
@@ -30,7 +32,7 @@ const AuthProvider = ({ children }) => {
         synchronizeCart(session.user.id);
       }
       if (event === "SIGNED_OUT") {
-        setUser("");
+        setUser(null);
       }
     });
 
@@ -38,7 +40,7 @@ const AuthProvider = ({ children }) => {
     return () => {
       subscription.unsubscribe();
     };
-  }, [user]);
+  }, []);
 
   return (
     <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>

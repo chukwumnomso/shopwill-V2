@@ -104,8 +104,8 @@ const CartDrawer = () => {
               <span className="text-sm font-bold">
                 ₦
                 {user
-                  ? cartTotal.toLocaleString()
-                  : localCartTotal.toLocaleString()}
+                  ? cartTotal?.toLocaleString()
+                  : localCartTotal?.toLocaleString()}
               </span>
             )}
           </div>

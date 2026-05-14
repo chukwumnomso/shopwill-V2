@@ -3,6 +3,7 @@ import { useState, useEffect, createContext, useContext } from "react";
 import supabase from "../components/supabaseClient";
 import { getCurrentUser } from "../supabaseAuth/supabaseAuth";
 import { synchronizeCart } from "../components/syncToUserCart";
+import { User } from "lucide-react";
 
 const AuthContext = createContext();
 
@@ -15,11 +16,10 @@ const AuthProvider = ({ children }) => {
         console.log("User data found:", userData);
         setUser(userData);
         synchronizeCart(userData.id);
-        window.location.reload();
       }
     };
     verify();
-  }, []);
+  }, [user?.id]);
 
   useEffect(() => {
     // 1. Set up the listener
